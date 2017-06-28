@@ -78,6 +78,8 @@ module.exports = function(app, db, passport) {
       })
     })
 
+
+  // test commtin for git integrarion
   app
     .route("/api/payorder/:id")
     .get ((req,res) => {
