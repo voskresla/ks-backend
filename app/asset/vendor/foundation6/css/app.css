@@ -1,0 +1,280 @@
+body {
+  background-color: rgba(37, 143, 175, 0.19)
+}
+
+.vertical-100vh {
+  margin-top: 1em;
+}
+
+.buttons {
+  padding-top: 1em;
+}
+
+.coupon {
+  /*padding: 25px;*/
+  border: 1px solid rgba(22, 83, 102, 0.3);
+  border-radius: 6px;
+  background-color: rgba(37, 143, 175, 0.19);
+  -webkit-box-shadow: 0 5px 15px 0 #dedede;
+  box-shadow: 0 5px 15px 0 #dedede;
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+.price {
+  font-size: 24px;
+  color: red;
+}
+
+.line {
+    background-color: rgba(128, 128, 128, 0.32);
+    border-radius: 10px;
+    height: 10px;
+    margin-top: 10px;
+}
+
+.productname {
+  padding-top: 15px;
+  font-weight: 600;
+  padding-left: 0px;
+}
+
+.bottomprice {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.pricebckg {
+  background: no-repeat 87% 92% url('/asset/svg/stamp.svg');
+  box-shadow: rgba(128, 128, 128, 0.2) 5px 5px 10px -1px;
+    padding: 28px;
+    background-color: white;
+
+}
+
+select {
+    border-radius: 5px;
+    border: 0;
+    height: 3.5em;
+    padding-left: 20px;
+    background-color: rgba(22, 83, 102, 0.1);
+}
+
+[type='text'] {
+  border-radius: 5px;
+    border: 0;
+    height: 3.5em;
+    padding-left: 20px;
+    background-color: rgba(22, 83, 102, 0.1);
+}
+
+textarea {
+  border-radius: 5px;
+    border: 0;
+    height: 3.5em;
+    padding-left: 20px;
+    background-color: rgba(22, 83, 102, 0.1);
+}
+
+.fullname {
+  padding-left: 0px;
+    padding-top: 11px;
+    text-transform: uppercase;
+
+}
+
+.data {
+  padding-left: 0px;
+}
+
+.tel {
+  padding-left: 0px;
+  text-transform: uppercase;
+
+}
+
+.lastline {
+  padding-top: 10px;
+}
+
+.barcode {
+  background: url(http://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png);
+    background-size: cover;
+}
+
+.is-invalid-input:not(:focus) {
+    color: #c60f13; }
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.4) }
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: rgba(0,0,0,0.4) }
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: rgba(0,0,0,0.4) }
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(0,0,0,0.4) }
+
+
+  
+
+  [type='text']:focus, [type='password']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='week']:focus, [type='email']:focus, [type='number']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='url']:focus, [type='color']:focus,
+  textarea:focus {
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.29);
+    background-color: rgba(22, 83, 102, 0.04);
+    box-shadow: 0 0 10px 1px rgba(22, 83, 102, 0.15);
+    transition: box-shadow 0.2s, border-color 0.0s ease-in-out;
+    }
+
+    select:focus {
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.29);
+    background-color: rgba(22, 83, 102, 0.04);
+    box-shadow: 0 0 10px 1px rgba(22, 83, 102, 0.15);
+    transition: box-shadow 0.2s, border-color 0.0s ease-in-out;
+    }
+select:invalid {
+    color: rgba(0,0,0,0.4);
+}
+
+.userinfo {
+  font-weight: 400;
+  font-size: small;
+  padding-top: 10px;
+}
+
+.logo {
+  padding-top: 10px;
+}
+
+.textarea {
+  margin-bottom: 0;
+}
+
+.additional {
+ padding-bottom: 40px; 
+}
+
+.switch {
+  height: 2rem;
+  position: relative;
+  /*margin-bottom: 1rem;*/
+  outline: 0;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #fefefe;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+.switch-input {
+  position: absolute;
+  margin-bottom: 0;
+  opacity: 0; }
+
+.switch-paddle {
+  position: relative;
+  display: block;
+  width: 4rem;
+  height: 2rem;
+  border-radius: 3px;
+  background: rgba(22, 83, 102, 0.1);
+  transition: all 0.25s ease-out;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer; }
+  input + .switch-paddle {
+    margin: 0; }
+  .switch-paddle::after {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    transform: translate3d(0, 0, 0);
+    border-radius: 3px;
+    background: #fefefe;
+    transition: all 0.25s ease-out;
+    content: ''; }
+  input:checked ~ .switch-paddle {
+    background: #2ba6cb; }
+    input:checked ~ .switch-paddle::after {
+      left: 2.25rem; }
+  [data-whatinput='mouse'] input:focus ~ .switch-paddle {
+    outline: 0; }
+
+.switch-active, .switch-inactive {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+      transform: translateY(-50%); }
+
+.switch-active {
+  left: 8%;
+  display: none; }
+  input:checked + label > .switch-active {
+    display: block; }
+
+.switch-inactive {
+  right: 15%; }
+  input:checked + label > .switch-inactive {
+    display: none; }
+
+.switch.tiny {
+  height: 1.5rem; }
+  .switch.tiny .switch-paddle {
+    width: 3rem;
+    height: 1.5rem;
+    font-size: 0.625rem; }
+  .switch.tiny .switch-paddle::after {
+    top: 0.25rem;
+    left: 0.25rem;
+    width: 1rem;
+    height: 1rem; }
+  .switch.tiny input:checked ~ .switch-paddle::after {
+    left: 1.75rem; }
+
+.switch.small {
+  height: 1.75rem; }
+  .switch.small .switch-paddle {
+    width: 3.5rem;
+    height: 1.75rem;
+    font-size: 0.75rem; }
+  .switch.small .switch-paddle::after {
+    top: 0.25rem;
+    left: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem; }
+  .switch.small input:checked ~ .switch-paddle::after {
+    left: 2rem; }
+
+.switch.large {
+  height: 2.5rem; }
+  .switch.large .switch-paddle {
+    width: 5rem;
+    height: 2.5rem;
+    font-size: 1rem; }
+  .switch.large .switch-paddle::after {
+    top: 0.25rem;
+    left: 0.25rem;
+    width: 2rem;
+    height: 2rem; }
+  .switch.large input:checked ~ .switch-paddle::after {
+    left: 2.75rem; }
+
+
+.additional-text {
+  font-size: small;
+  padding-left: 2px;
+}

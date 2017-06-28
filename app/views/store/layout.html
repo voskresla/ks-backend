@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Foundation 6 -->
+  <link rel="stylesheet" href="/asset/vendor/foundation6/css/foundation.css">
+  <link rel="stylesheet" href="/asset/vendor/foundation6/css/app.css">
+  <script src="/asset/vendor/foundation6/js/vendor/jquery.js"></script>
+  <script src="/asset/vendor/foundation6/js/vendor/foundation.js"></script>
+
+
+  <title>Store layout</title>
+</head>
+
+<body>
+
+  <div class="row">
+    <div class="large-12 columns text-right userinfo">
+      <div>KINETIC SERVICE OPERATION</div>
+      <div>Нью-Трейд. Скворцов Андрей. Консультант.</div>
+      <div><a href="">Выйти</a></div>
+    </div>
+  </div>
+
+  <div class="row align-middle vertical-100vh">
+    <div class="large-12 column">
+      <div class="">
+        <div class="row align-middle padding-10">
+          <!-- FORM PLACE -->
+          <div class="large-8 small-12 column">
+            <form data-abide novalidate action="/api/makeorder/:order">
+              <!-- GRUOP SELECT -->
+              <div class="row">
+                <div class="large-12 small-12 column">
+                  <select name="group" id="group" required>
+                    <option value disabled selected hidden>БТ / Кондиционер / ТВ / Спутниковое ТВ / ЦТ </option>
+                    <option value="BT">Бытовая техника</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- TYPE & PROPERTY SELECT -->
+              <div class="row">
+                <div class="large-6 small-12 column">
+                  <select name="type" id="type" required>
+                    <option value disabled selected hidden>А именно</option>
+                    <option value="WM">Стиральная машина</option>
+                  </select>
+                </div>
+                <div class="large-6 small-12 column">
+                  <select name="property" id="property" required>
+                    <option value disabled selected hidden>Встраиваемая/Соло</option>
+                    <option value="B">Встраиваемая</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- ADDITIONAL SELECT -->
+              <div class="row additional">
+                <div class="large-4 columns text-left">
+                  <div class="row align-middle">
+                    <div class="large-3 columns">
+                      <div class="switch tiny">
+                        <input class="switch-input" id="exampleSwitch" type="checkbox" name="exampleSwitch">
+                        <label class="switch-paddle" for="exampleSwitch">
+                        <span class="show-for-sr">Download Kittens</span>
+                      </label>
+                      </div>
+                    </div>
+                    <div class="columns additional-text">
+                      Доработка электросети
+                    </div>
+                  </div>    
+                </div>
+                <div class="large-4 columns text-left">
+                  <div class="row align-middle">
+                    <div class="large-3 columns">
+                      <div class="switch tiny">
+                        <input class="switch-input" id="exampleSwitch1" type="checkbox" name="exampleSwitch">
+                        <label class="switch-paddle" for="exampleSwitch1">
+                        <span class="show-for-sr">Download Kittens</span>
+                      </label>
+                      </div>
+                    </div>
+                    <div class="columns additional-text">
+                      Доработка водоснабжения
+                    </div>
+                  </div>    
+                </div>
+                <div class="large-4 columns text-left">
+                  <div class="row align-middle">
+                    <div class="large-3 columns">
+                      <div class="switch tiny">
+                        <input class="switch-input" id="exampleSwitch2" type="checkbox" name="exampleSwitch">
+                        <label class="switch-paddle" for="exampleSwitch2">
+                        <span class="show-for-sr">Download Kittens</span>
+                      </label>
+                      </div>
+                    </div>
+                    <div class="columns additional-text">
+                      Доработка слива
+                    </div>
+                  </div>    
+                </div>
+              </div>
+
+
+              <!-- CUSTOMER INFO -->
+              <div class="row">
+                <div class="large-6 columns">
+                  <input type="text" value="" placeholder="Иванов Иван Иванович" required/>
+                </div>
+                <div class="large-6 columns">
+                  <input type="text" value="" placeholder="+7 (999) 945 94 93" required/>
+                </div>
+              </div>
+              <div class="row">
+
+              </div>
+              <div class="row">
+                <div class="large-12 columns">
+                  <input type="text" value="" placeholder="Йошкра-Ола, Садовая 11-14" required/>
+                </div>
+              </div>
+
+              <!--<div class="row">
+                <div class="large-12 columns">
+                  <input type="date" value="" placeholder="Желаемая дата установки" required/>
+                </div>
+              </div>-->
+              <div class="row">
+                <div class="large-12 column ">
+                  <textarea name="" id="" cols="30" rows="4" class="textarea"></textarea>
+                </div>
+              </div>
+
+
+          </div>
+
+
+
+          <!--COUPON PLACE -->
+          <div class="large-4 small-12 column pricebckg">
+            <div class="row">
+              <div class="large-7 columns line">
+
+              </div>
+              <div class="large-5 columns">
+                №: НТ1201001050617
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="large-10 columns line">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="large-10 columns productname">
+                <h6 class=""><strong>Установка встроенной стиральной машины</strong></h6>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="large-4 columns line"></div>
+              <div class="large-1 columns"></div>
+              <div class="large-6 columns line"></div>
+            </div>
+            <div class="row">
+              <div class="large-8 columns line"></div>
+            </div>
+
+            <div class="row">
+              <div class="large-4 columns data">20 апреля 2017</div>
+              <div class="large-5 columns line"></div>
+
+            </div>
+
+            <div class="row">
+              <div class="large-10 columns line"></div>
+
+            </div>
+
+            <div class="row">
+              <div class="large-10 columns text-left fullname">
+                Васильев Андрей Карпович
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="large-10 columns text-left tel">
+                +7 (999) 356 89 76
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="large-10 columns text-left tel">
+                Йошкар-Ола, Садовая 11-14
+              </div>
+
+            </div>
+
+            <div class="row lastline">
+              <div class="large-1 columns line"></div>
+              <div class="large-1 columns"></div>
+              <div class="large-9 columns line"></div>
+
+            </div>
+
+            <div class="row">
+              <div class="large-3 columns line"></div>
+              <div class="large-1 columns"></div>
+              <div class="large-6 columns line"></div>
+
+            </div>
+
+            <div class="row bottomprice">
+              <div class="large-5 columns barcode">
+
+              </div>
+              <div class="columns text-right">
+                <span class="price">&#8381 2450.00</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--BUTTONS SECTION -->
+  <div class="row">
+    <div class="large-8 columns text-center buttons">
+      <button class="button" type="submit" value="Submit">Новая заявка</button>
+    </div>
+    <div class="large-4 columns text-center buttons">
+      <button class="button" type="submit" value="Submit">Отправить заявку на кассу</button>
+    </div>
+    </form>
+  </div>
+
+  <script src="store.js"></script>
+</body>
+
+</html>
