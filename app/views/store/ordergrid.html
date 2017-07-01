@@ -7,6 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   
+  <!-- Foundation 6 -->
+  <link rel="stylesheet" href="/asset/vendor/foundation6/css/foundation.css">
+  <link rel="stylesheet" href="/asset/vendor/foundation6/css/app.css">
+  <script src="/asset/vendor/foundation6/js/vendor/jquery.js"></script>
+  <script src="/asset/vendor/foundation6/js/vendor/foundation.js"></script>
+
   <!-- Axios CDN -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- Lodash CDN -->
@@ -18,15 +24,38 @@
 <body>
 
   <div id="myapp">
-    {{a}}
-    <ul v-for="order in orders" :key="order._id">
-      <li>
-        {{order}} 
-        <div>
-          <input type="button" v-on:click="payThis(order._id)">
-        </div>
-      </li>
-    </ul>
+    
+    <div class="row" style="font-size: 14px;" v-for="order in orders" :key="order._id">
+      <div class="columns">
+        {{order.productId}}
+      </div>
+      <div class="columns">
+        {{order.productFullName}}
+      </div>
+      <div class="columns">
+        {{order.couponDate}}
+      </div>
+      <div class="columns">
+        {{order.fullname}}
+      </div>
+      <div class="columns">
+        {{order.phone}}
+      </div>
+      <div class="columns">
+        {{order.address}}
+      </div>
+      <div class="columns">
+        {{order.productPrice}}
+      </div>
+      <div class="columns">
+        {{order.payed = '' ? 'not payed' : order.payed }}
+      </div>
+      <div class="columns">
+        <button v-on:click="payThis(order._id)" class="button">PAY</button>
+        <button v-on:click="deleteThis(order._id)" class="button">DELETE</button>
+
+      </div>
+    </div>
   </div>
 
   <script src="ordergridtest.js"></script>

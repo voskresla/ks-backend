@@ -1,10 +1,9 @@
 <template>
-  <div id="userInfo">
-    <div class="">
-      Usernname: {{username}}
-    </div>
-    <div class="">
-      Role: {{role}}
+  <div id="userinfo" class="row">
+    <div class="large-12 columns text-right userinfo">
+      <div>KINETIC SERVICE OPERATION</div>
+      <div>Нью-Трейд. {{username}}. {{role}}.</div>
+      <div><a href="">Выйти</a></div>
     </div>
   </div>
 </template>

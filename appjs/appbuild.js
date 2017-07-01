@@ -487,110 +487,6 @@ let myVue = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 });
 
 
-
-// Vue.component("user", {
-//   template: "<p>Имя: {{username}} Роль: {{role}}</p>",
-//
-//   data: function() {
-//     return {
-//       username: "not loggin in",
-//       role: "not loggin in"
-//     };
-//   },
-//
-//   beforeMount: function () {
-//     let _this = this;
-//     axios
-//       .get(getUserUrl)
-//       .then( function (response) {
-//         _this.username = response.data.user || 'Auth plz.';
-//         _this.role = response.data.role || 'Auth plz.';
-//       })
-//       .catch(function (err) {
-//         console.log('ошибка')
-//       });
-//   }
-// });
-
-// let tmpOrders = [{order_id: 1, order_name: 'new order name'}];
-//
-//
-//
-// let myTmpVue = Vue.component('orders', {
-//   template: '<div><ul><li>{{order_id}} + {{order_name}}</li></ul></div>',
-//
-//   props: ['order_id','order_name']
-// })
-//
-// let myApp = new Vue({
-//   el: "#myApp",
-//   data: {
-//     orders: tmpOrders
-//   }
-// });
-//
-// let myOrders = new Vue({
-//   el: '#orderitems',
-//   data: {
-//     orders: tmpOrders
-//   },
-//   beforeMount: function () {
-//     this.orders.push({order_id: 1, order_name: 'new order name'})
-//   }
-// })
-//
-// new Vue ({
-//   el: "#testDiv",
-//   data: {
-//     text: 'testDiv text'
-//   }
-// })
-//
-// let dbString = new Vue({
-//   el: "#dbString",
-//   data: {
-//     strings: [
-//       {
-//         id: "1",
-//         filed1: "sss",
-//         filed2: "aaaa",
-//         filed3: "sdsdsd",
-//         filed4: "sdsdsd"
-//       },
-//       {
-//         id: "1",
-//         filed1: "sss",
-//         filed2: "aaaa",
-//         filed3: "sdsdsd",
-//         filed4: "sdsdsd"
-//       },
-//       {
-//         id: "1",
-//         filed1: "sss",
-//         filed2: "aaaa",
-//         filed3: "sdsdsd",
-//         filed4: "sdsdsd"
-//       },
-//       {
-//         id: "1",
-//         filed1: "sss",
-//         filed2: "aaaa",
-//         filed3: "sdsdsd",
-//         filed4: "sdsdsd"
-//       },
-//       {
-//         id: "1",
-//         filed1: "sss",
-//         filed2: "aaaa",
-//         filed3: "sdsdsd",
-//         filed4: "sdsdsd"
-//       }
-//     ]
-//   }
-// });
-//
-
-
 /***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -10584,7 +10480,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -10628,7 +10524,6 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -10690,11 +10585,20 @@ const getUserUrl = '/api/getuser';
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "row",
     attrs: {
-      "id": "userInfo"
+      "id": "userinfo"
     }
-  }, [_c('div', {}, [_vm._v("\n    Usernname: " + _vm._s(_vm.username) + "\n  ")]), _vm._v(" "), _c('div', {}, [_vm._v("\n    Role: " + _vm._s(_vm.role) + "\n  ")])])
-},staticRenderFns: []}
+  }, [_c('div', {
+    staticClass: "large-12 columns text-right userinfo"
+  }, [_c('div', [_vm._v("KINETIC SERVICE OPERATION")]), _vm._v(" "), _c('div', [_vm._v("Нью-Трейд. " + _vm._s(_vm.username) + ". " + _vm._s(_vm.role) + ".")]), _vm._v(" "), _vm._m(0)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('a', {
+    attrs: {
+      "href": ""
+    }
+  }, [_vm._v("Выйти")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -10947,7 +10851,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -10999,193 +10903,463 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 let productPriceUrl = '/api/getproductprice/'; // param1 = db.prices.priceid = 'BTWMWMB'
 let coupon = __webpack_require__(22);
 
 let typesOptions = {
-    BT: [
-        { text: 'Стиральная машина', value: 'WM' },
-        { text: 'Посудомоечная машина', value: 'DM' },
-        { text: 'Холодильник', value: 'H' },
-        { text: 'Электрическая плита', value: 'E' },
-        { text: 'Электрическая панель', value: 'EP' },
-        { text: 'Духовой Шкаф (независимый)', value: 'O' },
-        { text: 'Духовой шкаф и Электрическая панель (зависимые)', value: 'OEPA' },
-        { text: 'Вытяжка', value: 'V' },
-        { text: 'Водонагреватель', value: 'W' }
-    ],
-    COND: [
-        { text: 'Установка', value: 'COND_SETUP' },
-        { text: 'Демонтаж', value: 'COND_REMOVE' },
-        { text: 'Обслуживание', value: 'COND_SERVICE' }
-    ],
-    TV: [
-        { text: 'Установка ТВ на тумбу', value: 'TV_SETUP' },
-        { text: 'Установка ТВ на подвес', value: 'TV_WALL' },
-        { text: 'Установка домашенго кинотеатра на тумбу', value: 'TV_HOME_SETUP' },
-        { text: 'Установка домашенго кинотеатра на подвес', value: 'TV_HOME_WALL' },
-        { text: 'Доработка SMART+', value: 'SMART' }
-    ],
-    SAT: [
-        { text: 'Тестирование спутникового сигнала', value: 'SAT_TEST' },
-        { text: 'Подключение спутниковой тарелки', value: 'SAT_SETUP' }
-    ],
-    C: [
-        { text: 'Подключение роутера', value: 'C_ROUTE' },
-        { text: 'Подключение переферийного устройства', value: 'C_HARDWARE' },
-        { text: 'Настройка и оптимизация', value: 'С_SERVICE' },
-        { text: 'Установка операционной системы', value: 'С_OS' }
-    ]
+  BT: [
+    { text: 'Стиральная машина', value: 'WM' },
+    { text: 'Посудомоечная машина', value: 'DM' },
+    { text: 'Холодильник', value: 'H' },
+    { text: 'Электрическая плита', value: 'E' },
+    { text: 'Электрическая панель', value: 'EP' },
+    { text: 'Духовой Шкаф (независимый)', value: 'O' },
+    { text: 'Духовой шкаф и Электрическая панель (зависимые)', value: 'OEPA' },
+    { text: 'Вытяжка', value: 'V' },
+    { text: 'Водонагреватель', value: 'W' }
+  ],
+  COND: [
+    { text: 'Установка', value: 'COND_SETUP' },
+    { text: 'Демонтаж', value: 'COND_REMOVE' },
+    { text: 'Обслуживание', value: 'COND_SERVICE' }
+  ],
+  TV: [
+    { text: 'Установка ТВ на тумбу', value: 'TV_SETUP' },
+    { text: 'Установка ТВ на подвес', value: 'TV_WALL' },
+    { text: 'Установка домашенго кинотеатра на тумбу', value: 'TV_HOME_SETUP' },
+    { text: 'Установка домашенго кинотеатра на подвес', value: 'TV_HOME_WALL' },
+    { text: 'Доработка SMART+', value: 'SMART' }
+  ],
+  SAT: [
+    { text: 'Тестирование спутникового сигнала', value: 'SAT_TEST' },
+    { text: 'Подключение спутниковой тарелки', value: 'SAT_SETUP' }
+  ],
+  C: [
+    { text: 'Подключение роутера', value: 'C_ROUTE' },
+    { text: 'Подключение переферийного устройства', value: 'C_HARDWARE' },
+    { text: 'Настройка и оптимизация', value: 'С_SERVICE' },
+    { text: 'Установка операционной системы', value: 'С_OS' }
+  ]
+}
+
+let premiumOptions = {
+  WM: [
+    { text: 'Стандарт', value: 'WM_BASIC' },
+    { text: 'Премиум', value: 'WM_VIP' },
+    { text: 'Доработки', value: 'WMB_BASIC' },
+  ],
+  DM: [
+    { text: 'Стандарт', value: 'DM_BASIC' },
+    { text: 'Премиум', value: 'DM_VIP' },
+    { text: 'Доработки', value: 'DM_ADD' },
+  ]
 }
 
 let propertyOptions = {
-    WM: [
-        { text: 'Встроенная', value: 'WMB' },
-        { text: 'Соло', value: 'WMS' }
-    ],
-    DM: [
-        { text: 'Встроенная', value: 'ВMB' },
-        { text: 'Соло', value: 'ВMS' }
-    ],
-    H: [
-        { text: 'Встроенный', value: 'HB' },
-        { text: 'Соло', value: 'HS' },
-        { text: 'Side-by-Side', value: 'HSS' },
-    ],
-    E: [],
-    EP: [],
-    O: [],
-    OEPA: [],
-    V: [
-        { text: 'Купольная', value: 'VK' },
-        { text: 'Плоская', value: 'VP' },
-        { text: 'Встраеваемая', value: 'VB' },
-    ],
-    W: [
-        { text: 'Проточный', value: 'WP' },
-        { text: 'Накопительный до 50 л.', value: 'W50' },
-        { text: 'Накопительный от 50 л.', value: 'W00' },
-    ],
-    COND_SETUP: [
-        { text: '7000', value: '7000' },
-        { text: '9000', value: '9000' },
-        { text: '12000', value: '12000' }
-    ],
-    COND_REMOVE: [
-        { text: '7000', value: '7000' },
-        { text: '9000', value: '9000' },
-        { text: '12000', value: '12000' }
-    ],
-    COND_SERVICE: [],
-    TV_SETUP: [
-        { text: 'Диагональ до 32"', value: 'TV_SETUP_32' },
-        { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
-        { text: 'Диагональ свыше 46"', value: 'TV_SETUP_00' }
-    ],
-    TV_WALL: [
-        { text: 'Диагональ до 32"', value: 'TV_SETUP_32' },
-        { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
-        { text: 'Диагональ свыше 46"', value: 'TV_SETUP_00' }
-    ],
-    TV_HOME_SETUP: [],
-    TV_HOME_WALL: [],
-    SMART: [],
-    SAT_TEST: [],
-    SAT_SETUP: [
-        { text: 'Диаметр до 0.79', value: 'SAT_SETUP_79' },
-        { text: 'Диаметр свыше 0.8', value: 'SAT_SETUP_00' }
-    ],
-    C_ROUTE: [],
-    C_HARDWARE: [],
-    С_SERVICE: [],
-    C_OS: []
+  WM_BASIC: [
+    { text: 'Встроенная', value: 'WMB_BASIC' },
+    { text: 'Соло', value: 'WMS_BASIC' }
+  ],
+  WM_VIP: [
+    { text: 'Встроенная', value: 'WMB' },
+    { text: 'Соло', value: 'WMS' }
+  ],
+  DM_BASIC: [
+    { text: 'Встроенная', value: 'ВMB' },
+    { text: 'Соло', value: 'ВMS' }
+  ],
+  H: [
+    { text: 'Встроенный', value: 'HB' },
+    { text: 'Соло', value: 'HS' },
+    { text: 'Side-by-Side', value: 'HSS' },
+  ],
+  E: [],
+  EP: [],
+  O: [],
+  OEPA: [],
+  V: [
+    { text: 'Купольная', value: 'VK' },
+    { text: 'Плоская', value: 'VP' },
+    { text: 'Встраеваемая', value: 'VB' },
+  ],
+  W: [
+    { text: 'Проточный', value: 'WP' },
+    { text: 'Накопительный до 50 л.', value: 'W50' },
+    { text: 'Накопительный от 50 л.', value: 'W00' },
+  ],
+  COND_SETUP: [
+    { text: '7000', value: '7000' },
+    { text: '9000', value: '9000' },
+    { text: '12000', value: '12000' }
+  ],
+  COND_REMOVE: [
+    { text: '7000', value: '7000' },
+    { text: '9000', value: '9000' },
+    { text: '12000', value: '12000' }
+  ],
+  COND_SERVICE: [],
+  TV_SETUP: [
+    { text: 'Диагональ до 32"', value: 'TV_SETUP_32' },
+    { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
+    { text: 'Диагональ свыше 46"', value: 'TV_SETUP_00' }
+  ],
+  TV_WALL: [
+    { text: 'Диагональ до 32"', value: 'TV_SETUP_32' },
+    { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
+    { text: 'Диагональ свыше 46"', value: 'TV_SETUP_00' }
+  ],
+  TV_HOME_SETUP: [],
+  TV_HOME_WALL: [],
+  SMART: [],
+  SAT_TEST: [],
+  SAT_SETUP: [
+    { text: 'Диаметр до 0.79', value: 'SAT_SETUP_79' },
+    { text: 'Диаметр свыше 0.8', value: 'SAT_SETUP_00' }
+  ],
+  C_ROUTE: [],
+  C_HARDWARE: [],
+  С_SERVICE: [],
+  C_OS: []
 
 }
 
+let additionalOptions = {
+  WMB_BASIC: [
+    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
+    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
+    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
+  ]
+}
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'storeComponent',
-    data: function () {
-        return {
-            groupSelect: '',
-            groupOptions: [
-                { text: 'Бытовая техника', value: 'BT' },
-                { text: 'Кондиционер', value: 'COND' },
-                { text: 'ТВ', value: 'TV' },
-                { text: 'Спутниковое телевидение', value: 'SAT' },
-                { text: 'Цифровая техника', value: 'C' },
-            ],
+  name: 'storeComponent',
+  data: function () {
+    return {
+      groupSelect: '',
+      groupOptions: [
+        { text: 'Бытовая техника', value: 'BT' },
+        { text: 'Кондиционер', value: 'COND' },
+        { text: 'ТВ', value: 'TV' },
+        { text: 'Спутниковое телевидение', value: 'SAT' },
+        { text: 'Цифровая техника', value: 'C' },
+      ],
 
-            typeSelect: '',
-            typeOptions: [],
+      typeSelect: { text: '', value: ''},
+      typeOptions: [],
 
-            propertySelect: '',
-            propertyOptions: [],
+      propertySelect: { text: '', value: ''},
+      propertyOptions: [],
 
-            lastSelect: '',
-            lastOptions: [],
+      premiumSelect: { text: '', value: ''},
+      premiumOptions: [],
 
-            // Данные для купона
-            couponNumber: 'def number',
-            productFullName: 'def name',
-            productPrice: 0
+      additionalOptions: [],
+      showAdditionalOptions: false,
+      chekedAdditionalOptions: [],
+
+      // данные пользователя
+      fullname: '',
+      phone: '',
+      address: '',
+      comment: '',
+
+      // Данные для купона
+      couponNumber: '',
+      productFullName: '',
+      couponDate: '',
+      productPrice: 0,
+
+    }
+  },
+  components: {
+    coupon: coupon
+  },
+  computed: {
+    typeText: function () {
+      if (this.typeSelect) { return this.typeSelect.text }
+    },
+    propertyText: function () {
+      if (this.propertySelect) { return this.propertySelect.text }
+    },
+    isSendButton: function () {
+      return !!this.productPrice && !!this.fullname && !!this.phone && !!this.address;
+    },
+    selectPropertyClass: function () {
+      if (this.propertyOptions.length && this.premiumOptions.length) {
+        return 'large-4'
+      }
+      if (this.propertyOptions.length || this.premiumOptions.length) {
+        return 'large-6'
+      }
+
+      return 'large-12'
+
+    }
+  },
+  methods: {
+    getResult: function () {
+
+      let priceId = this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value; 
+      this.productFullName = this.groupSelect.text + this.typeSelect.text + this.premiumSelect.text + this.propertySelect.text; 
+      
+      // написать через промисы получение даты с сервера а не с клиента
+      this.couponNumber = this.groupSelect.vale + '/' + this.typeSelect + ' - ' + '001 '+ new Date().getDay() + new Date().getMonth() + new Date().getFullYear();
+      console.log('%s : %s', priceId, this.productFullName);
+        
+        axios
+          .get(productPriceUrl + priceId)
+          .then(r => this.productPrice = parseInt(r.data.price))
+          .catch(err => console.log(err))
+    
+    },
+    onChangeSwitch: function (elem, price) {
+      elem.target.checked ?
+        this.productPrice += parseInt(price)
+        : this.productPrice -= parseInt(price);
+    },
+    onChangeGroup: function () {
+      if (!!this.groupSelect) {
+        this.initChoise('group');
+        let typeId = this.groupSelect.value;
+        this.typeOptions = typesOptions[typeId];
+      }
+    },
+    onChangeType: function () {
+      if (!!this.typeSelect) {
+        this.initChoise('type');
+
+        let premiumId = this.typeSelect.value;
+        let propertyId = this.typeSelect.value;
+
+        if (premiumOptions[premiumId]) {
+          this.premiumOptions = premiumOptions[premiumId];
         }
-    },
-    components: {
-        coupon: coupon
-    },
-    computed: {
-        typeText: function () {
-            if (this.typeSelect) { return this.typeSelect.text }
-        },
-        propertyText: function () {
-            if (this.propertySelect) { return this.propertySelect.text }
-        },
-    },
-    methods: {
-        onChangeGroup: function () {
-            let groupId = this.groupSelect.value;
-            this.typeOptions = typesOptions[groupId];
-
-            this.typeSelect = '';
-            this.propertySelect = '';
-            this.propertyOptions = [];
-        },
-        onChangeType: function () {
-            if (!!this.typeSelect) {
-                let typeId = this.typeSelect.value;
-                this.propertyOptions = propertyOptions[typeId];
-                this.propertySelect = '';
-
-                if (!this.propertyOptions.length) {
-                    console.log(this.groupSelect.text + ' ' + this.typeSelect.text);
-                    this.couponNumber = '092034092093';
-
-                    let priceid = this.groupSelect.value + this.typeSelect.value;
-
-                    axios
-                        .get(productPriceUrl + priceid)
-                        .then(r => this.productPrice = r.data.price)
-                        .catch(err => console.log(err))
-                }
-
-            }
-        },
-        onChangeProperty: function () {
-            if (!!this.propertySelect) {
-                console.log(this.groupSelect.text + ' ' + this.typeSelect.text + ' ' + this.propertySelect.text);
-                this.couponNumber = '092034092093';
-
-                let priceid = this.groupSelect.value + this.typeSelect.value + this.propertySelect.value;
-
-                axios
-                    .get(productPriceUrl + priceid)
-                    .then(r => this.productPrice = r.data.price)
-                    .catch(err => console.log(err))
-            }
+        if (!premiumOptions[premiumId]) {
+          this.propertyOptions = propertyOptions[propertyId];
         }
+
+        if (!premiumOptions[premiumId] && !propertyOptions[propertyId]) {
+          this.getResult();
+        }
+
+      }
     },
+    onChangePremium: function () {
+      if (!!this.premiumSelect) {
+        this.initChoise('premium');
+
+        let propertyId = this.premiumSelect.value;
+        let additionalId = this.premiumSelect.value;
+        
+        if (propertyOptions[propertyId]) {
+          this.propertyOptions = propertyOptions[propertyId]
+        }
+        if (additionalOptions[additionalId]) {
+          this.additionalOptions = additionalOptions[additionalId];
+        }
+      }
+    },
+
+    onChangeProperty: function () {
+      if (!!this.propertySelect) {
+        this.initChoise('property')
+        let additionalId = this.propertySelect.value;
+
+        if (additionalOptions[additionalId]) {
+          this.additionalOptions = additionalOptions[additionalId];
+        }
+        this.getResult();
+      }
+    },
+    initChoise: function (stage) {
+
+      switch (stage) {
+        case 'new':
+          
+          this.groupSelect = '';
+
+          this.typeSelect = '';
+          this.typeOptions = '';
+
+          this.premiumSelect = '';
+          this.premiumOptions = [];
+
+          this.propertySelect = '';
+          this.propertyOptions = [];
+
+          this.additionalOptions = [];
+          this.chekedAdditionalOptions = [];
+
+          this.productPrice = 0;
+          break;
+        case 'group':
+
+          this.typeSelect = '';
+
+          this.premiumSelect = '';
+          this.premiumOptions = [];
+
+          this.propertySelect = '';
+          this.propertyOptions = [];
+
+          this.additionalOptions = [];
+          this.chekedAdditionalOptions = [];
+
+          this.productPrice = 0;
+          break;
+        case 'type':
+
+
+          this.premiumSelect = '';
+          this.premiumOptions = [];
+
+          this.propertySelect = '';
+          this.propertyOptions = [];
+
+          this.additionalOptions = [];
+          this.chekedAdditionalOptions = [];
+
+          this.productPrice = 0;
+          break;
+        case 'premium':
+
+          this.propertySelect = '';
+          this.propertyOptions = [];
+
+          this.additionalOptions = [];
+          this.chekedAdditionalOptions = [];
+
+          this.productPrice = 0;
+          break;
+        case 'property':
+
+          this.additionalOptions = [];
+          this.chekedAdditionalOptions = [];
+
+          this.productPrice = 0;
+          break;
+        default:
+          console.log('initChoise default handle');
+          break;
+      }
+
+    },
+    newOrder:function () {
+      this.initChoise('new')
+    },
+    sendOrder:function () {
+      
+      let order = {
+        productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
+        productFullName: this.productFullName,
+        couponDate: this.couponDate,
+        fullname: this.fullname,
+        phone: this.phone,
+        address: this.address,
+        productPrice: this.productPrice,
+        payed: ''
+
+      }
+      
+      axios
+        .post('/api/postorder/', order)
+        .then(r => {
+          console.log('then 1' + r.data);
+          return r.data;
+        })
+        .then(data => console.log('then 2: '+data))
+        .catch(err => console.log(err))
+    }
+  },
 
 
 
@@ -11271,7 +11445,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -11290,20 +11464,106 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'storelayout',
-    props: [
-        'couponNumber',
-        'productFullName',
-        'productPrice'
-    ],
-    data: function () {
-        return {
-            
-        }
-    },
-    methods: {}
+  name: 'storelayout',
+  props: [
+    'couponNumber',
+    'productFullName',
+    'couponDate',
+    'fullname',
+    'phone',
+    'address',
+    'productPrice'
+  ],
+  data: function () {
+    return {
+
+    }
+  },
+  methods: {}
 });
 
 
@@ -11312,8 +11572,94 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', [_vm._v(_vm._s(_vm.couponNumber))]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm.productFullName))]), _vm._v(" "), _c('div', [_vm._v("Цена продукта: " + _vm._s(_vm.productPrice))])])
-},staticRenderFns: []}
+  return _c('div', {
+    staticClass: "large-4 small-12 column pricebckg"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-7 columns line"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "large-5 columns"
+  }, [_vm._v("\n      №: " + _vm._s(_vm.couponNumber) + "\n    ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-10 columns productname"
+  }, [_c('h6', {}, [_c('strong', [_vm._v(_vm._s(_vm.productFullName))])])])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-4 columns data"
+  }, [_vm._v(_vm._s(_vm.couponDate))]), _vm._v(" "), _c('div', {
+    staticClass: "large-5 columns line"
+  })]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-10 columns text-left fullname"
+  }, [_vm._v("\n      " + _vm._s(_vm.fullname) + "\n    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-10 columns text-left tel"
+  }, [_vm._v("\n      " + _vm._s(_vm.phone) + "\n    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-10 columns text-left tel"
+  }, [_vm._v("\n      " + _vm._s(_vm.address) + "\n    ")])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('div', {
+    staticClass: "row bottomprice"
+  }, [_c('div', {
+    staticClass: "large-5 columns barcode"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "columns text-right"
+  }, [_c('span', {
+    staticClass: "price"
+  }, [_vm._v("₽ " + _vm._s(_vm.productPrice))])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-10 columns line"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-4 columns line"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "large-1 columns"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "large-6 columns line"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-8 columns line"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-10 columns line"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row lastline"
+  }, [_c('div', {
+    staticClass: "large-1 columns line"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "large-1 columns"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "large-9 columns line"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-3 columns line"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "large-1 columns"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "large-6 columns line"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -11327,11 +11673,28 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return _c('form', {
+    attrs: {
+      "data-abide": "",
+      "novalidate": "",
+      "action": '/api/makeorder/' + _vm.couponNumber
+    }
+  }, [_c('div', {
+    staticClass: "row align-middle vertical-100vh",
     attrs: {
       "id": "storeComponent"
     }
-  }, [_c('div', [_c('select', {
+  }, [_c('div', {
+    staticClass: "large-12 column"
+  }, [_c('div', {
+    staticClass: "row align-middle padding-10"
+  }, [_c('div', {
+    staticClass: "large-8 small-12 column"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-12 small-12 column"
+  }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11357,7 +11720,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.onChangeGroup($event)
       }]
     }
-  }, _vm._l((_vm.groupOptions), function(option) {
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "disabled": "",
+      "selected": "",
+      "hidden": ""
+    }
+  }, [_vm._v("БТ / Кондиционер / ТВ / Спутниковое ТВ / ЦТ ")]), _vm._v(" "), _vm._l((_vm.groupOptions), function(option) {
     return _c('option', {
       key: option.value,
       domProps: {
@@ -11366,8 +11736,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           value: option.value
         }
       }
-    }, [_vm._v("\n                " + _vm._s(option.text) + "\n            ")])
-  })), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.groupSelect.text))])]), _vm._v(" "), (_vm.typeOptions && _vm.typeOptions.length) ? _c('div', [_c('select', {
+    }, [_vm._v("\n                  " + _vm._s(option.text) + "\n                ")])
+  })], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [(_vm.typeOptions && _vm.typeOptions.length) ? _c('div', {
+    class: _vm.selectPropertyClass + ' small-12 column'
+  }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11393,7 +11767,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.onChangeType($event)
       }]
     }
-  }, _vm._l((_vm.typeOptions), function(option) {
+  }, [_c('option', {
+    staticClass: "option-gray",
+    attrs: {
+      "value": "",
+      "disabled": "",
+      "selected": "",
+      "hidden": ""
+    }
+  }, [_vm._v("А именно")]), _vm._v(" "), _vm._l((_vm.typeOptions), function(option) {
     return _c('option', {
       key: option.value,
       domProps: {
@@ -11402,8 +11784,56 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           value: option.value
         }
       }
-    }, [_vm._v("\n                " + _vm._s(option.text) + "\n            ")])
-  })), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.typeText))])]) : _vm._e(), _vm._v(" "), (_vm.propertyOptions && _vm.propertyOptions.length) ? _c('div', [_c('select', {
+    }, [_vm._v("\n                  " + _vm._s(option.text) + "\n                ")])
+  })], 2)]) : _vm._e(), _vm._v(" "), (_vm.premiumOptions && _vm.premiumOptions.length) ? _c('div', {
+    class: _vm.selectPropertyClass + ' small-12 column'
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.premiumSelect),
+      expression: "premiumSelect"
+    }],
+    attrs: {
+      "name": "applianceType",
+      "id": "applianceType"
+    },
+    on: {
+      "change": [function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.premiumSelect = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }, function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        _vm.onChangePremium($event)
+      }]
+    }
+  }, [_c('option', {
+    staticClass: "option-gray",
+    attrs: {
+      "value": "",
+      "disabled": "",
+      "selected": "",
+      "hidden": ""
+    }
+  }, [_vm._v("Стандарт / Премиум")]), _vm._v(" "), _vm._l((_vm.premiumOptions), function(option) {
+    return _c('option', {
+      key: option.value,
+      domProps: {
+        "value": {
+          text: option.text,
+          value: option.value
+        }
+      }
+    }, [_vm._v("\n                  " + _vm._s(option.text) + "\n                ")])
+  })], 2)]) : _vm._e(), _vm._v(" "), (_vm.propertyOptions && _vm.propertyOptions.length) ? _c('div', {
+    class: _vm.selectPropertyClass + ' small-12 column'
+  }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11411,8 +11841,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "propertySelect"
     }],
     attrs: {
-      "name": "applianceAdditional",
-      "id": "applianceAdditional"
+      "name": "propertyOption",
+      "id": "propertyOption"
     },
     on: {
       "change": [function($event) {
@@ -11429,7 +11859,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.onChangeProperty($event)
       }]
     }
-  }, _vm._l((_vm.propertyOptions), function(option) {
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "disabled": "",
+      "selected": "",
+      "hidden": ""
+    }
+  }, [_vm._v("Встраиваемая/Соло")]), _vm._v(" "), _vm._l((_vm.propertyOptions), function(option) {
     return _c('option', {
       key: option.value,
       domProps: {
@@ -11438,14 +11875,228 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           value: option.value
         }
       }
-    }, [_vm._v("\n                " + _vm._s(option.text) + "\n            ")])
-  })), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.propertyText))])]) : _vm._e(), _vm._v(" "), _c('div', [_c('h1', [_vm._v("Это будущий купон")]), _vm._v(" "), _c('div', [_vm._v("Номер купона (генерируется только в конце): " + _vm._s(_vm.couponNumber))]), _vm._v(" "), _c('coupon', {
+    }, [_vm._v("\n                  " + _vm._s(option.text) + "\n                ")])
+  })], 2)]) : _vm._e()]), _vm._v(" "), (_vm.additionalOptions && _vm.additionalOptions.length) ? _c('div', {
+    staticClass: "row"
+  }, _vm._l((_vm.additionalOptions), function(option, index) {
+    return _c('div', {
+      key: option.value,
+      staticClass: "large-4 columns text-left"
+    }, [_c('div', {
+      staticClass: "row align-middle"
+    }, [_c('div', {
+      staticClass: "large-3 columns"
+    }, [_c('div', {
+      staticClass: "switch tiny"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.chekedAdditionalOptions),
+        expression: "chekedAdditionalOptions"
+      }],
+      staticClass: "switch-input",
+      attrs: {
+        "id": 'exampleSwitch' + index,
+        "type": "checkbox",
+        "name": 'exampleSwitch' + index
+      },
+      domProps: {
+        "value": {
+          text: option.text,
+          value: option.value,
+          price: option.price
+        },
+        "checked": Array.isArray(_vm.chekedAdditionalOptions) ? _vm._i(_vm.chekedAdditionalOptions, {
+          text: option.text,
+          value: option.value,
+          price: option.price
+        }) > -1 : (_vm.chekedAdditionalOptions)
+      },
+      on: {
+        "change": function($event) {
+          $event.preventDefault();
+          $event.stopPropagation();
+          (function(e) {
+            _vm.onChangeSwitch(e, option.price)
+          })($event)
+        },
+        "__c": function($event) {
+          var $$a = _vm.chekedAdditionalOptions,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = {
+                text: option.text,
+                value: option.value,
+                price: option.price
+              },
+              $$i = _vm._i($$a, $$v);
+            if ($$c) {
+              $$i < 0 && (_vm.chekedAdditionalOptions = $$a.concat($$v))
+            } else {
+              $$i > -1 && (_vm.chekedAdditionalOptions = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            _vm.chekedAdditionalOptions = $$c
+          }
+        }
+      }
+    }), _vm._v(" "), _c('label', {
+      staticClass: "switch-paddle",
+      attrs: {
+        "for": 'exampleSwitch' + index
+      }
+    }, [_c('span', {
+      staticClass: "show-for-sr"
+    }, [_vm._v("option.text")])])])]), _vm._v(" "), _c('div', {
+      staticClass: "columns additional-text"
+    }, [_vm._v("\n                  " + _vm._s(option.text) + " +" + _vm._s(option.price) + "\n                ")])])])
+  })) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row additional"
+  }, [_c('div', {
+    staticClass: "large-6 columns"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.fullname),
+      expression: "fullname"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "Иванов Иван Иванович",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.fullname)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.fullname = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "large-6 columns"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.phone),
+      expression: "phone"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "+7 (999) 945 94 93",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.phone)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.phone = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-12 columns"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.address),
+      expression: "address"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "Йошкра-Ола, Садовая 11-14",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.address)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.address = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-12 column "
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.comment),
+      expression: "comment"
+    }],
+    staticClass: "textarea",
+    attrs: {
+      "name": "",
+      "id": "",
+      "cols": "30",
+      "rows": "4"
+    },
+    domProps: {
+      "value": (_vm.comment)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.comment = $event.target.value
+      }
+    }
+  })])])]), _vm._v(" "), _c('coupon', {
     attrs: {
       "couponNumber": _vm.couponNumber,
       "productFullName": _vm.productFullName,
+      "couponDate": _vm.couponDate,
+      "fullname": _vm.fullname,
+      "phone": _vm.phone,
+      "address": _vm.address,
       "productPrice": _vm.productPrice
     }
-  })], 1)])
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "large-8 columns text-center buttons"
+  }, [_c('button', {
+    staticClass: "button",
+    attrs: {
+      "type": "submit",
+      "value": "Submit"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        _vm.newOrder($event)
+      }
+    }
+  }, [_vm._v("Новая заявка")])]), _vm._v(" "), _c('div', {
+    staticClass: "large-4 columns text-center buttons"
+  }, [_c('button', {
+    staticClass: "button",
+    attrs: {
+      "type": "submit",
+      "value": "Submit",
+      "disabled": !_vm.isSendButton
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.sendOrder($event)
+      }
+    }
+  }, [_vm._v("Отправить заявку на кассу")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

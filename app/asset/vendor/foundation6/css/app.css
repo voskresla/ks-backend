@@ -161,7 +161,7 @@ select:invalid {
 }
 
 .additional {
- padding-bottom: 40px; 
+ padding-top: 40px; 
 }
 
 .switch {
@@ -277,4 +277,8 @@ select:invalid {
 .additional-text {
   font-size: small;
   padding-left: 2px;
+}
+
+.option-gray {
+  color: rgba(0,0,0,0.4);
 }

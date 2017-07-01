@@ -19,6 +19,18 @@ let myapp = new Vue({
         .catch(err => console.log(err));
 
     },
+    deleteThis: function (id) {
+      axios
+        .delete("/api/deleteorder/"+id)
+        .then(r => console.log ('delete order'))
+        .then(() => {
+          axios
+      .get('/api/getallorders')
+      .then(r => {this.orders = r.data})
+      .catch(err => {console.log(err)})}
+        )
+        .catch(err => console.log(err))
+    },
     startGetData: function () {
 
       // кароче варианты
@@ -32,8 +44,58 @@ let myapp = new Vue({
           .then(r => {
 
             let newArr = r.data;
+            console.log(newArr);
+            
             let oldArr = this.orders;
+            console.log(oldArr);
 
+            // проверчем есть ли новые если есть добаляем
+
+            if (newArr.length > oldArr.length) {
+              for (var i = 0; i < newArr.length; i++) {
+                var _id = newArr[i]._id;
+                let isPush = true;
+                
+                for (var j = 0; j < oldArr.length; j++) {
+                  
+                  if (_id === oldArr[j]._id) {
+                    isPush = false;
+                    j = oldArr.length;
+                  }  
+
+                }
+
+                if (isPush) {
+                  this.orders.push(newArr[i]);
+                }
+                
+              }
+            }
+
+            // если старые были удалены
+
+            if (newArr.length < oldArr.length) {
+              for (var i = 0; i < oldArr.length; i++) {
+                var _id = oldArr[i]._id;
+                let isDelete = true;
+                
+                for (var j = 0; j < newArr.length; j++) {
+                  
+                  if (_id === newArr[j]._id) {
+                    isDelete = false;
+                    j = newArr.length;
+                  }  
+
+                }
+
+                if (isDelete) {
+                  this.orders.splice(i,1);
+                }
+                
+              }
+            }
+
+            // проверяем все изменения позначениям 
             for (var i = 0; i < newArr.length; i++) {
               for (var j = 0; j < oldArr.length; j++) {
                 if (newArr[i]._id === oldArr[j]._id) {
@@ -46,6 +108,8 @@ let myapp = new Vue({
                       console.log('in newArr ' + newArr[i]['_id'] + ' key: ' + key + ' newvalue: ' + newArr[i][key])
                     }
                   }
+                } else {
+                  console.log('diff');
                 }
               }
             }
