@@ -12,6 +12,7 @@ import axios from 'axios';
 export default {
   data: function () {
     return {
+      ishq: false,
       searchInput: '',
       columns: [
         {
@@ -90,6 +91,7 @@ export default {
                 },
                 style: {
                   marginRight: '5px',
+                  display: this.ishq ? 'block' : 'none'
                   
                 },
                 on: {
@@ -151,11 +153,28 @@ export default {
       alert('TODO выбор Мастера.')
     }
   },
+  beforeMount: function beforeMount() {
+    const getUserUrl = '/api/getuser';
+    let _this = this;
+      axios
+        .get(getUserUrl)
+        .then( function (response) {
+            if (response.data.role === 'hq') {
+            _this.ishq = true;
+            }
+            
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+  },
   created: function () {
     axios
       .get('/api/getallorders')
       .then(r => { this.orders = r.data })
       .catch(err => { console.log(err) });
+  
   },
   computed: {
     computedData: function () {

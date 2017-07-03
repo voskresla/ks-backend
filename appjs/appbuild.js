@@ -41314,7 +41314,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -42069,6 +42069,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function () {
     return {
+      ishq: false,
       searchInput: '',
       columns: [
         {
@@ -42147,6 +42148,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 },
                 style: {
                   marginRight: '5px',
+                  display: this.ishq ? 'block' : 'none'
                   
                 },
                 on: {
@@ -42208,11 +42210,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       alert('TODO выбор Мастера.')
     }
   },
+  beforeMount: function beforeMount() {
+    const getUserUrl = '/api/getuser';
+    let _this = this;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a
+        .get(getUserUrl)
+        .then( function (response) {
+            if (response.data.role === 'hq') {
+            _this.ishq = true;
+            }
+            
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+  },
   created: function () {
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a
       .get('/api/getallorders')
       .then(r => { this.orders = r.data })
       .catch(err => { console.log(err) });
+  
   },
   computed: {
     computedData: function () {
