@@ -1,8 +1,9 @@
 <template>
+  
   <div id="userinfo" class="row">
     <div class="large-6 columns">
-      <Button><router-link to='/store'>Создать заявку</router-link></Button>
-      <Button><router-link to='/data'>Все заявки</router-link></Button>
+      <Button><router-link to='/makeorder'>Создать заявку</router-link></Button>
+      <Button><router-link to='/orders'>Все заявки</router-link></Button>
 
     </div>
     <div class="large-6 columns text-right userinfo">
@@ -15,10 +16,10 @@
 
 <script>
 const getUserUrl = '/api/getuser';
-
+import axios from 'axios';
 
 export default {
-  name: 'userInfo',
+  
   data: function data() {
     return {
       username: 'default username',
@@ -41,7 +42,7 @@ export default {
   mounted: function mounted() {
     //do something after mounting vue instance
 
-    this.$root.$on('pushThis', this.onPushThis);
+    // this.$root.$on('pushThis', this.onPushThis);
 
     // this.$root.$on('pushThis', function(obj) {
     //
@@ -50,13 +51,13 @@ export default {
     // });
   },
   methods: {
-    onPushThis: function onPushThis(obj, obj2) {
-      this.username = obj.name;
-      this.role = obj2.name;
-    }
+    // onPushThis: function onPushThis(obj, obj2) {
+    //   this.username = obj.name;
+    //   this.role = obj2.name;
+    // }
   }
 };
 </script>
 
-<style>
+<style >
 </style>
