@@ -325,11 +325,10 @@ export default {
     getResult: function () {
 
       let priceId = this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value; 
-      this.productFullName = this.groupSelect.text + this.typeSelect.text + this.premiumSelect.text + this.propertySelect.text; 
+      this.productFullName = this.groupSelect.text + ' ' + this.typeSelect.text + ' ' + this.premiumSelect.text + ' ' + this.propertySelect.text; 
       
       // написать через промисы получение даты с сервера а не с клиента
-      this.couponNumber = this.groupSelect.vale + '/' + this.typeSelect + ' - ' + '001 '+ new Date().getDay() + new Date().getMonth() + new Date().getFullYear();
-      console.log('%s : %s', priceId, this.productFullName);
+      this.couponNumber = this.groupSelect.value + '/' + this.typeSelect.value + ' - ' + '001 '+ new Date().getDay() + new Date().getMonth() + new Date().getFullYear();      
         
         axios
           .get(productPriceUrl + priceId)
@@ -478,6 +477,7 @@ export default {
         productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
         productFullName: this.productFullName,
         couponDate: this.couponDate,
+        couponNumber: this.couponNumber,
         fullname: this.fullname,
         phone: this.phone,
         address: this.address,

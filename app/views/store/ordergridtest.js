@@ -1,11 +1,90 @@
 
 let myapp = new Vue({
   el: "#myapp",
-  data: {
+  data: {    
+    columns1: [
+      {
+        title: '_ID',
+        key: '_id'
+      },
+      {
+        title: 'ID',
+        key: 'productId'
+      },
+      {
+        title: 'Наименование',
+        key: 'productFullName'
+      },
+      {
+        title: 'Дата установки',
+        key: 'couponDate'
+      },
+      {
+        title: 'Оплата',
+        key: 'payed'
+      },
+      {
+                        title: '操作',
+                        key: 'action',
+                        width: 150,
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                        
+                                        
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.payThis(params.row._id)
+                                        }
+                                    }
+                                }, 'pay'),
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small',
+                                        _this: this
+                                    },
+                                    on: {
+                                        click: () => {
+                                            _this.remove(params.index)
+                                        }
+                                    }
+                                }, '删除')
+                            ]);
+                        }
+                        
+                    }
+    ],
     orders: [],
-    a: 'ping'
+    a: 'ping',
+    isEditing: false,
+    orderToEdit: {}
   },
   methods: {
+    show (index) {
+                this.$Modal.info({
+                    title: '用户信息',
+                    content: `姓名：${this.data6[index].name}<br>年龄：${this.data6[index].age}<br>地址：${this.data6[index].address}`
+                })
+            },
+    editThis: function(id) {
+      this.isEditing = true;
+      this.orderToEdit = {
+        test: 'asasas'
+      }
+    }, 
+    closeEditing: function () {
+      this.isEditing = false;
+      this.orderToEdit = {};
+    },
     payThis: function (id) {
       axios
         .put('/api/payorder/'+id)
@@ -130,5 +209,45 @@ let myapp = new Vue({
       .get('/api/getallorders')
       .then(r => {this.orders = r.data})
       .catch(err => {console.log(err)});
+  }
+})
+
+let myapp2 = new Vue({
+  data: {
+    columns1: [
+      {
+        title: '_ID',
+        key: '_id'
+      },
+      {
+        title: 'buttons',
+        key: 'action',
+        render: (h, params) => {
+          return h('div',
+            [
+              h('Button', 
+              {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                on: {
+                  click: () => {
+                    this.payThis(params.row._id)
+                  }
+                }
+              }, 'pay')
+            ])
+        }
+      }
+    ],
+    data1: [
+      {
+        _id: '0001'
+      },
+      {
+        _id: '0002'
+      }
+    ]
   }
 })

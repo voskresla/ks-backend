@@ -1,6 +1,11 @@
 <template>
   <div id="userinfo" class="row">
-    <div class="large-12 columns text-right userinfo">
+    <div class="large-6 columns">
+      <Button><router-link to='/store'>Создать заявку</router-link></Button>
+      <Button><router-link to='/data'>Все заявки</router-link></Button>
+
+    </div>
+    <div class="large-6 columns text-right userinfo">
       <div>KINETIC SERVICE OPERATION</div>
       <div>Нью-Трейд. {{username}}. {{role}}.</div>
       <div><a href="">Выйти</a></div>

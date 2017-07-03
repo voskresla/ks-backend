@@ -14,12 +14,17 @@
   
   <!-- Axios CDN -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- iviewui -->
+  <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+
 </head>
 <body>
   
   <div id='myApp'>    
     <user></user>
-    <store></store>
+    <router-view></router-view>
+    <!--<store></store>-->
   </div>
 
   <script src='/app/appbuild.js'></script>

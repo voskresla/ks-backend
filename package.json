@@ -9,7 +9,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "iview": "^2.0.0-rc.17"
+  },
   "devDependencies": {
     "body-parser": "^1.17.2",
     "connect-ensure-login": "^0.1.1",

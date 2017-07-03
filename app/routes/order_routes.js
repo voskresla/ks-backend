@@ -111,6 +111,7 @@ module.exports = function (app, db, passport) {
 
       // TODO допиши проверки и ответы от сервера
       db.collection('orders').insert(req.body);
+      
 
       res.send('ok order post');
     })
