@@ -115,7 +115,21 @@ export default {
                     this.deleteThis(params.row._id)
                   }
                 }
-              }, 'удалить')
+              }, 'удалить'),
+              h ('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  narginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.printThis(params.row._id);
+                  }
+                }
+              }, 'напечатать')
             ])
           }
         }
@@ -124,6 +138,9 @@ export default {
     }
   },
   methods: {
+    printThis: function (id) {
+      alert('TODO print this with pdf maker')
+    },
     payThis: function (id) {
       axios
         .put('/api/payorder/'+id)
