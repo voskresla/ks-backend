@@ -17,7 +17,8 @@ export default {
       columns: [
         {
           title: '№',
-          key: 'couponNumber'
+          key: 'couponNumber',
+          width: '100px'
         },
         {
           title: 'Услуга',
@@ -46,11 +47,15 @@ export default {
         },
         {
           title: 'Цена',
-          key: 'productPrice'
+          key: 'productPrice',
+          width: '130px',
+          className: 'priceformat'
+          // TODO вставать свой classname для формата :after :before
         },
         {
           title: 'Состояние',
           key: 'action',
+          
           render: (h,params) => {
             return h('div',
             [

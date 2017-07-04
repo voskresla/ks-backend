@@ -292,3 +292,11 @@ select:invalid {
   height: 100vh;
 
 }
+
+td.priceformat span::after {
+  content: ' .00'
+}
+
+td.priceformat span::before {
+  
+}
