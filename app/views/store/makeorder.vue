@@ -103,6 +103,15 @@
               </div>
             </div>
   
+            <div v-f="change">
+              вошли в change
+              <div>
+                <ul>
+                  <li v-for="(comment,index) in commentsArr" :key="comment">{{comment}}</li>
+                </ul>
+              </div>
+            </div>
+
             <div class="row">
               <div class="large-12 column ">
                 <textarea name="" id="" cols="30" rows="4" class="textarea" v-model="comment"></textarea>
@@ -110,8 +119,10 @@
             </div>
           </div>
           <!--COUPON SIDE -->
+
           <coupon :couponNumber='couponNumber' :productFullName='productFullName' :couponDate='couponDate' :fullname='fullname' :phone='phone' :address='address' :productPrice='productPrice'>
           </coupon>
+          
         </div>
       </div>
   
@@ -130,9 +141,6 @@
 </template>
 
 <script>
-
-// TODO
-// Вопрос - кто именно можетм енять заявку. Какие поля могут быть изменены. 
 
 import axios from 'axios';
 
@@ -271,12 +279,13 @@ let additionalOptions = {
 }
 
 export default {
-  name: 'storeComponent',
+  name: 'makeorderComponent',
   props: ['change','id'],
   data: function () {
     return {
       
-       
+      ishq: false,
+      username: '',
 
       groupSelect: '',
       groupOptions: [
@@ -305,6 +314,7 @@ export default {
       phone: '',
       address: '',
       comment: '',
+      commentsArr: [],
 
       // Данные для купона
       couponNumber: '',
@@ -424,10 +434,16 @@ export default {
         
         case 'change':
           
-          console.log(initObject);
-          this.groupSelect = initObject.groupSelect;
-          this.onChangeGroup();
-           break; 
+          // TODO функция которая берет value-name и делает маппинг на this.[value-name] = initObject.valueName
+          
+          for (let keyName in initObject) {
+            this[keyName] = initObject[keyName];
+          }
+
+          
+          
+
+          break; 
 
         case 'new':
           
@@ -516,18 +532,46 @@ export default {
     },
     sendOrder:function () {
       
+      if (this.comment) { this.commentsArr.push(this.comment)};
+
       let order = {
-        productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
-        productFullName: this.productFullName,
-        couponDate: this.couponDate,
-        couponNumber: this.couponNumber,
+        
+        groupSelect: this.groupSelect,
+        groupOptions: this.groupOptions,
+        typeSelect: this.typeSelect,
+        typeOptions: this.typeOptions,
+        propertySelect: this.propertySelect,
+        propertyOptions: this.propertyOptions,
+        premiumSelect: this.premiumSelect,
+        premiumOptions: this.premiumOptions,
+        additionalOptions: this.additionalOptions,
+        showAdditionalOptions: this.showAdditionalOptions,
+        chekedAdditionalOptions: this.chekedAdditionalOptions,
         fullname: this.fullname,
         phone: this.phone,
         address: this.address,
+        comments: this.commentsArr,
+        
+        productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
+        couponNumber: this.couponNumber,
+        productFullName: this.productFullName,
+        couponDate: this.couponDate,
         productPrice: this.productPrice,
-        payed: '',
-        artasian: '',
-        comments: '',
+        
+        creationUser: this.username,
+        creationDate: new Date(),
+
+        modifyDates: [],
+        modifyUsers: [],
+        deleted: false, 
+
+        reservationTime: false,
+
+        artasians: [],
+        payed: false,
+        logHistory: [],
+        
+        
         addOption1: this.chekedAdditionalOptions.length > 0 ? this.chekedAdditionalOptions[0].value : '',
         addOption2: this.chekedAdditionalOptions.length > 1 ? this.chekedAdditionalOptions[1].value : '',
         addOption3: this.chekedAdditionalOptions.length > 2 ? this.chekedAdditionalOptions[2].value : '',
@@ -546,6 +590,22 @@ export default {
     }
   },
   beforeMount: function () {
+    
+    const getUserUrl = '/api/getuser';
+    let _this = this;
+      axios
+        .get(getUserUrl)
+        .then( function (response) {
+            if (response.data.role === 'hq') {
+            _this.ishq = true;
+            }
+            _this.username = response.data.username;
+            
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
     if (this.change) {
       let initObject = '';
       let id = this.id; // TODO берем ID из параметров router после нажатия кнопки 'Изменить'
@@ -553,6 +613,7 @@ export default {
         .get('/api/getorder/'+id)
         .then ( r => {
             initObject = r.data[0];
+            console.log(initObject)
             this.initChoise('change', initObject);
         })
         .catch(err => console.log(err));

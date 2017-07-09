@@ -3,9 +3,9 @@ let usersRecords = [
   { id: 1, username: "hqmanager", password: "hqmanager", role: "hq" },
   { id: 2, username: "hqmanager1", password: "hqmanager1", role: "hq" },
   { id: 3, username: "hqmanager2", password: "hqmanager2", role: "hq" },
-  { id: 4, username: "storemanager", password: "storemanager", role: "store" },
-  { id: 5, username: "storemanager1", password: "storemanager1", role: "store" },
-  { id: 6, username: "storemanager2", password: "storemanager2", role: "store" }
+  { id: 4, username: "NT-1", password: "NT-1", role: "store" },
+  { id: 5, username: "NT-2", password: "NT-2", role: "store" },
+  { id: 6, username: "NT-3", password: "NT-3", role: "store" }
 ]
 
 exports.findById = function(id, callback) {

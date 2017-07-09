@@ -1,6 +1,6 @@
 <template>
   
-  <div id="userinfo" class="row">
+  <div id="userinfo" class="row align-middle">
     <div class="large-6 columns">
       <Button><router-link to='/makeorder'>Создать заявку</router-link></Button>
       <Button><router-link to='/orders'>Все заявки</router-link></Button>
@@ -59,5 +59,6 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
+
 </style>

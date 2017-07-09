@@ -1,17 +1,31 @@
 <template>
   <div>
-    <input v-model="searchInput">
+    <comments></comments>
+    <div class="row align-middle align-center">
+      <div class="small-4 columns text-center">
+        <input type="text" v-model="searchInput" placeholder="номер купона / фио" class='searchinput'>
+      </div>
+    </div>
+    
+    
     <Table stripe :columns="columns" :data="computedData"></Table>
   </div>
 </template>
 
 <script>
 
+
+import comments from './comments.vue';
 import axios from 'axios';
 
 export default {
+  components: {
+    comments
+  },
+  name: 'ordersgrid',
   data: function () {
     return {
+      
       ishq: false,
       searchInput: '',
       columns: [
@@ -67,6 +81,65 @@ export default {
           }
         },
         {
+          title: '#',
+          key: 'action',
+          
+          render: (h,params) => {
+
+            let myComments = (function () {
+              return h('div',
+                Array.apply(null, params.row.comments).map(function (item) {
+                  return h('p', item.id + ' | ' + item.text + ' | ' + item.user)
+                  })
+                )
+            })();
+
+            return h('Poptip', {
+              props: {
+                trigger: 'hover',
+                
+              }
+            },
+            [
+              h('div',{
+                slot: 'content'
+                  
+                
+              },[
+                myComments
+              ]),
+              h('Badge', {
+                props: {
+                  count: params.row.comments.length
+                },
+                style: {
+                  display: params.row.comments.length > 0 ? '' : 'none'
+                }
+              }, [
+                h('Icon', {
+                  // 'class': {
+                  //   'demo-badge': true
+                  // },
+                  // style: {
+                  //   width: '30px',
+                  //   height: '30px',
+                  //   background: '#eee',
+                  //   'border-radius': '6px',
+                  //   display: 'inline-block'
+                  // }
+                  props: {
+                    type: 'chatbox',
+                    size: '32px'
+                  }
+                })
+              ]),
+              // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+              // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
+              
+            ])
+          }
+        },
+        {
           title: '',
           key: 'action',
           render: (h, params) => {
@@ -74,9 +147,10 @@ export default {
             [
               h('Button', {
                 props: {
-                  type: 'primary',
-                  size: 'small',
-                  disabled: params.row.payed ? true : false
+                  type: 'success',
+                  size: 'large',
+                  disabled: params.row.payed ? true : false,
+                  icon: 'social-usd'
                 },
                 style: {
                   marginRight: '5px',
@@ -87,11 +161,27 @@ export default {
                     this.payThis(params.row._id)
                   }
                 }
-              }, 'оплатить'),
+              }),
+              h ('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'large',
+                  icon: 'printer'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.printThis(params.row._id);
+                  }
+                }
+              }),
+
               h('Button', {
                 props: {
                   type: 'primary',
-                  size: 'small',
+                  size: 'large',
                   disabled: params.row.artasian ? true : false
                 },
                 style: {
@@ -107,9 +197,10 @@ export default {
               }, 'назначить'),
               h('Button', {
                 props: {
-                  type: 'primary',
-                  size: 'small',
-                  disabled: params.row.payed ? true : false
+                  type: 'error',
+                  size: 'large',
+                  disabled: params.row.payed ? true : false,
+                  icon: 'trash-a'
                 },
                 style: {
                   marginRight: '5px',
@@ -120,35 +211,25 @@ export default {
                     this.deleteThis(params.row._id)
                   }
                 }
-              }, 'удалить'),
+              }),
+              
               h ('Button', {
                 props: {
                   type: 'primary',
-                  size: 'small'
+                  size: 'large',
+                  icon: 'edit',
+                  
                 },
                 style: {
-                  narginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.printThis(params.row._id);
-                  }
-                }
-              }, 'напечатать'),
-              h ('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
+                  marginRight: '5px',
+                  display: this.ishq ? 'block' : 'none'
                 },
                 on: {
                   click: () => {
                     this.changeThis(params.row._id);
                   }
                 }
-              }, 'изменить')
+              })
             ])
           }
         }
@@ -224,7 +305,8 @@ export default {
         let matchCouponNUmber = order.couponNumber.toLowerCase().includes(this.searchInput.toLowerCase());
         return matchFullname || matchCouponNUmber;
       })
-    }
+    },
+
   }
 
 }

@@ -1602,7 +1602,7 @@ html.is-reveal-open body {
 
 table {
   width: 100%;
-  margin-bottom: 1rem;
+  /*margin-bottom: 1rem;*/
   border-radius: 3px; }
   table thead,
   table tbody,
