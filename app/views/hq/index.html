@@ -4,21 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>HQ Layout</title>
 
-  <!-- Axios CDN -->
-  <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
-
+  <!-- Foundation 6 -->
+  <link rel="stylesheet" href="/asset/vendor/foundation6/css/foundation.css">
+  <link rel="stylesheet" href="/asset/vendor/foundation6/css/app.css">
+  <script src="/asset/vendor/foundation6/js/vendor/jquery.js"></script>
+  <script src="/asset/vendor/foundation6/js/vendor/foundation.js"></script>
+  
+  <!-- iviewui -->
+  <link rel="stylesheet" href="/asset/vendor/iview/iview.css">
+  
+  
 </head>
 <body>
 
-  Это для пользователя c ролью HQ. <a href="/logout">Выйти</a>
   <div id='myApp'>
 
     <user></user>
-    <datatable></datatable>
+    <router-view></router-view>
   </div>
+  
   <script src='/app/appbuild.js'></script>
-</head>
+</body>
 
 </html>

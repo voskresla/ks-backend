@@ -1,6 +1,9 @@
 
 <template>
   <form data-abide novalidate :action="'/api/makeorder/'+couponNumber">
+    
+    
+
     <div id='storeComponent' class="row align-middle vertical-100vh">
   
       <div class="large-12 column">
@@ -127,6 +130,9 @@
 </template>
 
 <script>
+
+// TODO
+// Вопрос - кто именно можетм енять заявку. Какие поля могут быть изменены. 
 
 import axios from 'axios';
 
@@ -266,8 +272,12 @@ let additionalOptions = {
 
 export default {
   name: 'storeComponent',
+  props: ['change','id'],
   data: function () {
     return {
+      
+       
+
       groupSelect: '',
       groupOptions: [
         { text: 'Бытовая техника', value: 'BT' },
@@ -308,6 +318,7 @@ export default {
     coupon: coupon
   },
   computed: {
+    
     typeText: function () {
       if (this.typeSelect) { return this.typeSelect.text }
     },
@@ -405,9 +416,19 @@ export default {
         this.getResult();
       }
     },
-    initChoise: function (stage) {
+    initChoise: function (stage,initObject) {
+
+      
 
       switch (stage) {
+        
+        case 'change':
+          
+          console.log(initObject);
+          this.groupSelect = initObject.groupSelect;
+          this.onChangeGroup();
+           break; 
+
         case 'new':
           
           this.groupSelect = '';
@@ -524,6 +545,22 @@ export default {
         .catch(err => console.log(err))
     }
   },
+  beforeMount: function () {
+    if (this.change) {
+      let initObject = '';
+      let id = this.id; // TODO берем ID из параметров router после нажатия кнопки 'Изменить'
+      axios
+        .get('/api/getorder/'+id)
+        .then ( r => {
+            initObject = r.data[0];
+            this.initChoise('change', initObject);
+        })
+        .catch(err => console.log(err));
+
+      
+      
+    }
+  }
 
 
 

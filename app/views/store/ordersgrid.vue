@@ -134,7 +134,21 @@ export default {
                     this.printThis(params.row._id);
                   }
                 }
-              }, 'напечатать')
+              }, 'напечатать'),
+              h ('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.changeThis(params.row._id);
+                  }
+                }
+              }, 'изменить')
             ])
           }
         }
@@ -143,6 +157,11 @@ export default {
     }
   },
   methods: {
+    changeThis: function (id) {
+      // TODO  router.push /makeorder
+      this.$router.push({name: 'makeorder', params: { change: true, id: id}})
+
+    },
     printThis: function (id) {
       alert('TODO print this with pdf maker')
     },

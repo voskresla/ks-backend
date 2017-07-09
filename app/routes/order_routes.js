@@ -82,6 +82,20 @@ module.exports = function (app, db, passport) {
     })
 
   app
+    .route("/api/getorder/:id")
+    .get((req, res) => {
+      const orderID = req.params.id;
+      const selector = { _id: new ObjectID(orderID) };
+      db.collection("orders").find(selector).toArray((err, item) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(item);
+        }
+      })
+    })
+
+  app
     .route("/api/payorder/:id")
     .get((req, res) => {
       const orderID = req.params.id;
