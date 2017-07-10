@@ -11,7 +11,7 @@ Vue.use(iView);
 let user = require('../app/views/user.vue');
 let makeorder = require('../app/views/store/makeorder.vue');
 let ordersgrid = require('../app/views/store/ordersgrid.vue');
-let comments = require('../app/views/store/comments.vue');
+
 
 
 
@@ -39,7 +39,7 @@ let myVue = new Vue({
     user: user,
     makeorder: makeorder,
     ordersgrid: ordersgrid,
-    comments: comments
+    
     
   }
 });

@@ -1,5 +1,6 @@
 
 <template>
+  <div>
   <form data-abide novalidate :action="'/api/makeorder/'+couponNumber">
     
     
@@ -103,14 +104,7 @@
               </div>
             </div>
   
-            <div v-f="change">
-              вошли в change
-              <div>
-                <ul>
-                  <li v-for="(comment,index) in commentsArr" :key="comment">{{comment}}</li>
-                </ul>
-              </div>
-            </div>
+            
 
             <div class="row">
               <div class="large-12 column ">
@@ -138,9 +132,28 @@
   
     </div>
   </form>
+  
+  <template v-if="change">
+    <Tabs value="tabs">
+      <Tab-pane label="Комментарии">
+        <comments :orderId="id" :commentsArr="commentsArr"></comments>
+      </Tab-pane>
+      <Tab-pane label="Претензии">
+        Claims Component
+        <!--<claims></claims>-->
+      </Tab-pane>
+      <Tab-pane label="История">
+        History Component
+        <!--<history></history>-->
+      </Tab-pane>
+    </Tabs>
+  </template>
+
+  </div>
 </template>
 
 <script>
+
 
 import axios from 'axios';
 
@@ -152,6 +165,7 @@ function getRandomInt(min, max) {
 
 let productPriceUrl = '/api/getproductprice/'; // param1 = db.prices.priceid = 'BTWMWMB'
 let coupon = require('./coupon.vue');
+let comments = require('./comments.vue');
 
 let typesOptions = {
   BT: [
@@ -279,6 +293,7 @@ let additionalOptions = {
 }
 
 export default {
+  
   name: 'makeorderComponent',
   props: ['change','id'],
   data: function () {
@@ -325,7 +340,9 @@ export default {
     }
   },
   components: {
-    coupon: coupon
+    coupon: coupon,
+    comments: comments
+    
   },
   computed: {
     
@@ -532,7 +549,15 @@ export default {
     },
     sendOrder:function () {
       
-      if (this.comment) { this.commentsArr.push(this.comment)};
+      console.log(this.comment);
+
+      if (this.comment) { this.commentsArr.push(
+        {
+          text : this.comment,
+          user : this.username
+        })};
+
+        console.log(this.commentsArr)
 
       let order = {
         
@@ -550,7 +575,7 @@ export default {
         fullname: this.fullname,
         phone: this.phone,
         address: this.address,
-        comments: this.commentsArr,
+        commentsArr: this.commentsArr,
         
         productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
         couponNumber: this.couponNumber,

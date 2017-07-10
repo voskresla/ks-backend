@@ -1,6 +1,6 @@
 <template>
   <div>
-    <comments></comments>
+    
     <div class="row align-middle align-center">
       <div class="small-4 columns text-center">
         <input type="text" v-model="searchInput" placeholder="номер купона / фио" class='searchinput'>
@@ -19,9 +19,7 @@ import comments from './comments.vue';
 import axios from 'axios';
 
 export default {
-  components: {
-    comments
-  },
+  
   name: 'ordersgrid',
   data: function () {
     return {
@@ -83,12 +81,13 @@ export default {
         {
           title: '#',
           key: 'action',
+          width: '120px',
           
           render: (h,params) => {
 
             let myComments = (function () {
               return h('div',
-                Array.apply(null, params.row.comments).map(function (item) {
+                Array.apply(null, params.row.commentsArr).map(function (item) {
                   return h('p', item.id + ' | ' + item.text + ' | ' + item.user)
                   })
                 )
@@ -110,10 +109,10 @@ export default {
               ]),
               h('Badge', {
                 props: {
-                  count: params.row.comments.length
+                  count: params.row.commentsArr.length
                 },
                 style: {
-                  display: params.row.comments.length > 0 ? '' : 'none'
+                  display: params.row.commentsArr.length > 0 ? '' : 'none'
                 }
               }, [
                 h('Icon', {
@@ -142,6 +141,7 @@ export default {
         {
           title: '',
           key: 'action',
+          width: '320px',
           render: (h, params) => {
             return h('div',
             [
@@ -182,11 +182,12 @@ export default {
                 props: {
                   type: 'primary',
                   size: 'large',
-                  disabled: params.row.artasian ? true : false
+                  disabled: params.row.artasian ? true : false,
+                  icon: 'person-add'
                 },
                 style: {
                   marginRight: '5px',
-                  display: this.ishq ? 'block' : 'none'
+                  display: this.ishq ? '' : 'none'
                   
                 },
                 on: {
@@ -194,7 +195,7 @@ export default {
                     this.artasianThis(params.row._id)
                   }
                 }
-              }, 'назначить'),
+              }),
               h('Button', {
                 props: {
                   type: 'error',
@@ -222,7 +223,7 @@ export default {
                 },
                 style: {
                   marginRight: '5px',
-                  display: this.ishq ? 'block' : 'none'
+                  display: this.ishq ? '' : 'none'
                 },
                 on: {
                   click: () => {
