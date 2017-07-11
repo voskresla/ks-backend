@@ -21,7 +21,7 @@ let claimlayout = require('../app/views/store/claimlayout.vue')
 const routes = [
   { path: '/makeorder/', component: makeorder},
   { path: '/makeorder/:change/:id', name: 'makeorder', component: makeorder, props: true },
-  { path: '/claim/:orderid', name: 'claim', component: claimlayout, props: true },
+  { path: '/claim/:claimid', name: 'claim', component: claimlayout, props: true },
   { path: '/orders', component: ordersgrid },
   { path: '/orders/id', component: makeorder }
 ]

@@ -138,9 +138,9 @@ module.exports = function (app, db, passport) {
     })  
   
   app
-    .route('/api/getclaimsbyid/:id')
+    .route('/api/getclaimsbyid/:orderid') // get all claims for order
     .get((req,res) => {
-      let selector = { orderId: req.params.id } 
+      let selector = { orderId: req.params.orderid } 
 
       db.collection('claims').find(selector).toArray((err,item) => {
         if (err) { 
@@ -164,6 +164,21 @@ module.exports = function (app, db, passport) {
         }
       })
     })
+
+  app
+    .route('/api/getclaim/:id')
+    .get((req,res) => {
+      const claimID = req.params.id;
+      const selector = { _id: new ObjectID(claimID) };
+
+      db.collection('claims').find(selector).toArray((err,item) => {
+        if (err) { 
+          res.send(err)
+        } else {
+          res.send(item)
+        }
+      })
+    })  
 
   app
     .route('/api/updateorder/:id')

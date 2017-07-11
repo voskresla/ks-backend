@@ -55,17 +55,12 @@ export default {
   },
   methods: {
     sendNewClaim: function () {
-      // TODO обрати внимание что потом этот массив будет браться из пропсов
-      let commentsArr = [];
-      commentsArr.push({
-        id: new Date(),
-        text: this.claimText,
-        user: this.username
-      })
+      
 
       let claimObject = {
         orderId: this.orderId,
-        commentsArr: commentsArr,
+        text: this.claimText,
+        commentsArr: [],
         status: 'open',
         creationUser: this.username,
         creationDate: new Date(),

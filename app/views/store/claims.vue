@@ -29,9 +29,9 @@ export default {
           render: (h,params) => {
             return h('router-link',{
               attrs: {
-                to: '/claim/'+params.row.orderId
+                to: '/claim/'+params.row._id
               }
-            }, params.row.orderId)
+            }, params.row._id)
           }
         },
         {

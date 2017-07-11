@@ -40499,7 +40499,7 @@ let claimlayout = __webpack_require__(15)
 const routes = [
   { path: '/makeorder/', component: makeorder},
   { path: '/makeorder/:change/:id', name: 'makeorder', component: makeorder, props: true },
-  { path: '/claim/:orderid', name: 'claim', component: claimlayout, props: true },
+  { path: '/claim/:claimid', name: 'claim', component: claimlayout, props: true },
   { path: '/orders', component: ordersgrid },
   { path: '/orders/id', component: makeorder }
 ]
@@ -41460,7 +41460,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -41704,16 +41704,16 @@ let claimCategoryList = [
   methods: {
     sendNewClaim: function () {
       // TODO обрати внимание что потом этот массив будет браться из пропсов
-      let commentsArr = [];
-      commentsArr.push({
-        id: new Date(),
-        text: this.claimText,
-        user: this.username
-      })
+      // let commentsArr = [];
+      // commentsArr.push({
+      //   id: new Date(),
+      //   text: this.claimText,
+      //   user: this.username
+      // })
 
       let claimObject = {
         orderId: this.orderId,
-        commentsArr: commentsArr,
+        text: this.claimText,
         status: 'open',
         creationUser: this.username,
         creationDate: new Date(),
@@ -41771,6 +41771,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -41778,10 +41786,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'claimLayout',
-  props: ['orderid'],
+  props: ['claimid'],
   data: function() {	
     return {
-      claimCommentText: ''
+      claimCommentText: '',
+      claim: {},
+      order: {}
+
     }
 
   },
@@ -41789,6 +41800,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     sendClaimComment: function () {
       alert ('send claim comment handler')
     }
+  },
+  created: function () {
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a
+      .get('/api/getclaim/'+this.claimid)
+      .then(r => {
+        this.claim = r.data[0];
+        return r.data[0].orderId;
+      })
+      .then( (orderId) => {
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a
+          .get('/api/getorder/'+orderId)
+          .then(r => {
+            this.order = r.data[0]
+          })
+          }
+
+      ).catch(err => console.log(err))
+
+      
   }
 });
 
@@ -41832,9 +41862,9 @@ let claimMakeNew = __webpack_require__ (47);
           render: (h,params) => {
             return h('router-link',{
               attrs: {
-                to: '/claim/'+params.row.orderId
+                to: '/claim/'+params.row._id
               }
-            }, params.row.orderId)
+            }, params.row._id)
           }
         },
         {
@@ -43975,15 +44005,31 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Card', [_c('p', {
+  return _c('Row', [_c('Row', {
+    attrs: {
+      "gutter": 10
+    }
+  }, [_c('Col', {
+    attrs: {
+      "span": "14"
+    }
+  }, [_c('Card', [_c('p', {
     slot: "title"
-  }, [_vm._v("\n       Претензия\n    ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("\n        Претензия № " + _vm._s(_vm.claim._id) + "\n      ")]), _vm._v(" "), _c('p', {
     slot: "extra"
-  }, [_vm._v("\n       юзер / категория / дата и время\n    ")]), _vm._v("\n    Текст претензии\n  ")]), _vm._v(" "), _c('Card', [_c('p', {
+  }, [_vm._v("\n        " + _vm._s(_vm.claim.creationUser) + " / " + _vm._s(_vm.claim.claimCategory) + " / " + _vm._s(_vm.claim.creationDate) + " / " + _vm._s(_vm.claim.status) + "\n      ")]), _vm._v("\n      " + _vm._s(_vm.claim.text) + "\n    ")])], 1), _vm._v(" "), _c('Col', {
+    attrs: {
+      "span": "10"
+    }
+  }, [_c('Card', [_c('p', {
     slot: "title"
-  }, [_vm._v("\n       Заявка " + _vm._s(_vm.orderid) + "\n    ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("\n        Заявка " + _vm._s(_vm.order.couponNumber) + "\n      ")]), _vm._v(" "), _c('p', {
     slot: "extra"
-  }, [_vm._v("\n       action buttons\n    ")]), _vm._v("\n    Краткая инфа по заявке\n  ")]), _vm._v("\n\n  + Table для комментариев\n\n  "), _c('Input', {
+  }, [_vm._v("\n        action buttons\n      ")]), _vm._v(" "), _vm._l((_vm.order), function(value, key, index) {
+    return _c('p', {
+      key: value
+    }, [_vm._v("\n        " + _vm._s(key) + " - " + _vm._s(value) + "\n      ")])
+  })], 2)], 1)], 1), _vm._v(" "), _c('Row', [_vm._v("   \n  + Table для комментариев\n\n  "), _c('Input', {
     attrs: {
       "placeholder": "Пиши Ебко! Плизки, фастиком!"
     },
@@ -44001,7 +44047,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.sendClaimComment
     }
-  }, [_vm._v("Отправить")])], 1)
+  }, [_vm._v("Отправить")])], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
