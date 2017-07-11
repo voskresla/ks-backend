@@ -122,20 +122,72 @@ module.exports = function (app, db, passport) {
   app
     .route('/api/postorder/')
     .post((req, res) => {
-
-      // TODO допиши проверки и ответы от сервера
       db.collection('orders').insert(req.body);
-      
-
       res.send('ok order post');
     })
 
-    app
-      .route('/api/deleteorder/:id')
-      .delete((req,res) => {
-        
+  // CLAIMS
+  //  /api/postclaim/
+  //  /api/getallclaims/:id
+
+  app
+    .route('/api/postclaim/')
+    .post((req,res) => {
+      db.collection('claims').insert(req.body);
+      res.send('ok claim post');
+    })  
+  
+  app
+    .route('/api/getclaimsbyid/:id')
+    .get((req,res) => {
+      let selector = { orderId: req.params.id } 
+
+      db.collection('claims').find(selector).toArray((err,item) => {
+        if (err) { 
+          res.send(err)
+        } else {
+          res.send(item)
+        }
+      })
+    })
+
+  app
+    .route('/api/getallclaims/')
+    .get((req,res) => {
+      let selector = {} 
+
+      db.collection('claims').find(selector).toArray((err,item) => {
+        if (err) { 
+          res.send(err)
+        } else {
+          res.send(item)
+        }
+      })
+    })
+
+  app
+    .route('/api/updateorder/:id')
+    .put((req,res) => {
         const orderID = req.params.id;
         const selector = { _id: new ObjectID(orderID) };
+
+        db
+          .collection("orders")
+          .update(selector, { $set: { commentsArr: req.body } }, (err, item) => {
+            if (err) {
+              res.send(err);
+            } else {
+              res.send('ok we update commentsArr');
+            }
+          })
+      })
+
+  app
+    .route('/api/deleteorder/:id')
+    .delete((req, res) => {
+
+      const orderID = req.params.id;
+      const selector = { _id: new ObjectID(orderID) };
 
       db
         .collection("orders")
@@ -147,7 +199,7 @@ module.exports = function (app, db, passport) {
             res.send("We remove item. ID: " + item);
           }
         });
-      })
+    })
 
   // app
   //   .route("/hqTest/hq")

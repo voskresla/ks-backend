@@ -780,7 +780,8 @@ samp {
 }
 
 .ivu-icon-android-notifications:before {
-    content: "\f39b"
+    content: "\f39b";
+    font-size: 24px
 }
 
 .ivu-icon-android-notifications-none:before {

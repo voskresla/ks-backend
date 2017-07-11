@@ -11,6 +11,7 @@ Vue.use(iView);
 let user = require('../app/views/user.vue');
 let makeorder = require('../app/views/store/makeorder.vue');
 let ordersgrid = require('../app/views/store/ordersgrid.vue');
+let claimlayout = require('../app/views/store/claimlayout.vue')
 
 
 
@@ -20,6 +21,7 @@ let ordersgrid = require('../app/views/store/ordersgrid.vue');
 const routes = [
   { path: '/makeorder/', component: makeorder},
   { path: '/makeorder/:change/:id', name: 'makeorder', component: makeorder, props: true },
+  { path: '/claim/:orderid', name: 'claim', component: claimlayout, props: true },
   { path: '/orders', component: ordersgrid },
   { path: '/orders/id', component: makeorder }
 ]
@@ -39,6 +41,7 @@ let myVue = new Vue({
     user: user,
     makeorder: makeorder,
     ordersgrid: ordersgrid,
+    claimlayout: claimlayout
     
     
   }

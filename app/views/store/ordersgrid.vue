@@ -34,7 +34,7 @@ export default {
         },
         {
           title: 'Услуга',
-          key: 'actionse',
+          key: 'actions',
           render: (h, params) => {
             return h('div',
               [
@@ -83,7 +83,11 @@ export default {
           key: 'action',
           width: '120px',
           
-          render: (h,params) => {
+          render: (h,params) => {        
+
+            let claimsArr = Array.apply(null,this.claims).filter(function (item) {
+                    return item.orderId === params.row._id;
+                  })
 
             let myComments = (function () {
               return h('div',
@@ -93,7 +97,18 @@ export default {
                 )
             })();
 
-            return h('Poptip', {
+            let myClaims = (function () {
+              return h('div',
+                Array.apply(null, claimsArr).map(function (item) {
+                  return h('p', item.claimCategory + ' | ' + item.creationDate + ' | ' + item.creationUser)
+                  })
+                )
+            })();
+
+            return h('div',[
+            
+            
+            h('Poptip', {
               props: {
                 trigger: 'hover',
                 
@@ -135,8 +150,56 @@ export default {
               // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
               // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
               
+            ]),
+
+            h('Poptip', {
+              props: {
+                trigger: 'hover',
+                
+              }
+            },
+            [
+              h('div',{
+                slot: 'content'
+                  
+                
+              },[
+                myClaims
+              ]),
+              h('Badge', {
+                props: {
+                  count: claimsArr.length
+                },
+                style: {
+                  display: claimsArr.length > 0 ? '' : 'none'
+                }
+              }, [
+                h('Icon', {
+                  // 'class': {
+                  //   'demo-badge': true
+                  // },
+                  // style: {
+                  //   width: '30px',
+                  //   height: '30px',
+                  //   background: '#eee',
+                  //   'border-radius': '6px',
+                  //   display: 'inline-block'
+                  // }
+                  props: {
+                    type: 'android-notifications',
+                    
+                  },
+                  style: {
+                    marginLeft: '20px'
+                  }
+                })
+              ]),
+              // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+              // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
+              
             ])
-          }
+
+          ])}
         },
         {
           title: '',
@@ -235,7 +298,8 @@ export default {
           }
         }
       ],
-      orders: []
+      orders: [],
+      claims: []
     }
   },
   methods: {
@@ -296,8 +360,17 @@ export default {
     axios
       .get('/api/getallorders')
       .then(r => { this.orders = r.data })
+      .then(() => {
+        axios
+          .get('/api/getallclaims')
+          .then(r => { 
+            this.claims=r.data
+          })
+          .catch(err => {console.log(err)})
+      })
       .catch(err => { console.log(err) });
-  
+    
+
   },
   computed: {
     computedData: function () {

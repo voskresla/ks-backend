@@ -106,7 +106,7 @@
   
             
 
-            <div class="row">
+            <div v-if="!change" class="row">
               <div class="large-12 column ">
                 <textarea name="" id="" cols="30" rows="4" class="textarea" v-model="comment"></textarea>
               </div>
@@ -123,11 +123,12 @@
     </div>
     <!--BUTTONS SECTION -->
     <div class="row">
-      <div class="large-8 columns text-center buttons">
+      <div v-if="!change" class="columns text-center buttons">
         <button class="button" type="submit" value="Submit" @click.prevent.stop="newOrder">Новая заявка</button>
       </div>
-      <div class="large-4 columns text-center buttons">
-        <button class="button" type="submit" value="Submit" :disabled="!isSendButton" @click.prevent="sendOrder">Отправить заявку на кассу</button>
+      <div class="columns text-center buttons">
+        <button v-if="!change" class="button" type="submit" value="Submit" :disabled="!isSendButton" @click.prevent="sendOrder">Отправить заявку на кассу</button>
+        <button v-if="change" class="button" type="submit" value="Submit" :disabled="!isSendButton" @click.prevent="changeOrder">Принять изменения</button>
       </div>
   
     </div>
@@ -136,10 +137,10 @@
   <template v-if="change">
     <Tabs value="tabs">
       <Tab-pane label="Комментарии">
-        <comments :orderId="id" :commentsArr="commentsArr"></comments>
+        <comments :orderId="id" :commentsArr="commentsArr" :username="username"></comments>
       </Tab-pane>
       <Tab-pane label="Претензии">
-        Claims Component
+        <claims :orderId="id" :username="username"></claims>
         <!--<claims></claims>-->
       </Tab-pane>
       <Tab-pane label="История">
@@ -166,6 +167,7 @@ function getRandomInt(min, max) {
 let productPriceUrl = '/api/getproductprice/'; // param1 = db.prices.priceid = 'BTWMWMB'
 let coupon = require('./coupon.vue');
 let comments = require('./comments.vue');
+let claims = require('./claims.vue');
 
 let typesOptions = {
   BT: [
@@ -341,7 +343,8 @@ export default {
   },
   components: {
     coupon: coupon,
-    comments: comments
+    comments: comments,
+    claims: claims
     
   },
   computed: {
@@ -547,6 +550,9 @@ export default {
     newOrder:function () {
       this.initChoise('new')
     },
+    changeOrder: function () {
+      alert('changeOrder handler call')
+    },
     sendOrder:function () {
       
       console.log(this.comment);
@@ -624,7 +630,7 @@ export default {
             if (response.data.role === 'hq') {
             _this.ishq = true;
             }
-            _this.username = response.data.username;
+            _this.username = response.data.user;
             
         })
         .catch(function (err) {

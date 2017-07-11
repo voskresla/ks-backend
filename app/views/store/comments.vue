@@ -1,44 +1,61 @@
 <template>
   <div>
-    {{tableColumns}}<!--<Table></Table>-->
+    <Table :columns="columns" :data="commentsArr"></Table>
+    <Input v-model="comment" type="textarea" placeholder="Старайтесь писать лкончиный комментарий. Пишите ебко!" :rows="10"></Input>
+    <Button type="primary" @click="sendComment">Отправить</Button>
   </div>
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
   name: 'comments',
-  props: ['orderId','commentsArr'],
+  props: ['orderId', 'commentsArr', 'username'],
   data: function () {
     return {
-      
+      comment: '',
+      columns: [
+        {
+          title: 'id',
+          key: 'id'
+        },
+        {
+          title: 'text',
+          key: 'text'
+        },
+        {
+          title: 'user',
+          key: 'user'
+        }
+      ]
     }
   },
   computed: {
-    tableColumns: function () {
-      
-      let object = [];
+    // TODO Дописать сортировку массива по будущему полю времени комментария чтобы выводить их с последнего по первый
+  },
+  methods: {
+    sendComment: function () {
 
+      if (!this.comment) {
 
-      for (var index = 0; index < this.commentsArr.length; index++) {
-        var element = this.commentsArr[index];
-        var tmpArr = {};
-        for (var keyName in element) {
-             
-             tmpArr[keyName] = element[keyName];
-        }
-        console.log(tmpArr)
-        object.push(tmpArr);
+        this.$Message.error('Нахуй нам твой пустой комментарий не нужен.');
+
+      } else {
+
+        let tmpArr = this.commentsArr.slice();
+        let pushComment = { id: new Date(), text: this.comment, user: this.username };
+        tmpArr.push(pushComment);
+
+        axios
+          .put('/api/updateorder/' + this.orderId, tmpArr)
+          .then(() => {
+            this.commentsArr.push(pushComment);
+            this.comment = '';
+          })
+          .catch(err => console.log(err));
       }
-
-      return object;
-
-      // return Array.apply(null, commentsArr).map(function (item,index) {
-      //     let object;
-      //     for (keyName in item) {
-      //       object[keyName] = item[keyName];
-      //     }
-      //     return object;
-      // })
     }
   }
 }
