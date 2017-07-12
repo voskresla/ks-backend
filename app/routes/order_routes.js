@@ -216,9 +216,15 @@ module.exports = function (app, db, passport) {
         const claimID = req.params.id;
         const selector = { _id: new ObjectID(claimID) };
 
+        let updateObject = {};
+
+        for (keyName in req.body) {
+          updateObject[keyName] = req.body[keyName]
+        };  
+
         db
           .collection("claims")
-          .update(selector, { $set: { commentsArr: req.body } }, (err, item) => {
+          .update(selector, { $set: updateObject }, (err, item) => {
             if (err) {
               res.send(err);
             } else {

@@ -41432,7 +41432,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -41897,6 +41897,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         {
           title: '#',
           key: 'user'
+        },
+        {
+          title: '#',
+          key: 'status'
         }
       ]
 
@@ -41925,7 +41929,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         tmpArr.push(pushComment);
 
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a
-          .put('/api/updateclaim/' + this.claim._id, tmpArr)
+          .put('/api/updateclaim/' + this.claim._id, { commentsArr: tmpArr })
           .then(() => {
             this.claim.commentsArr.push(pushComment);
             this.claimCommentText = '';
@@ -41935,7 +41939,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     },
     sendClaimStatusClosed: function () {
-      alert('Сменить статус претензии на "закрыто"')
+      
+      let updateObject = {
+        status: 'closed'
+      }
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a
+        .put('/api/updateclaim/'+this.claim._id, updateObject)
+        .then(() => {
+          this.claim.status = 'closed'
+        })
     }
   },
   created: function () {
@@ -44271,7 +44284,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "info"
     },
     on: {
-      "click": _vm.sendClaimStatusClosed
+      "click": function($event) {
+        _vm.sendClaimStatusClosed()
+      }
     }
   }, [_vm._v("Закрыть претензию")])], 1)], 1)
 },staticRenderFns: []}

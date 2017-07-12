@@ -38,7 +38,7 @@
     <Row>
       <Input v-model="claimCommentText" placeholder="Пиши Ебко! Плизки, фастиком!"></Input>
       <Button type="primary" @click="sendClaimComment">Отправить</Button>
-      <Button type="info" @click="sendClaimStatusClosed">Закрыть претензию</Button>
+      <Button type="info" @click="sendClaimStatusClosed()">Закрыть претензию</Button>
     </Row>
   </Row>
 </template>
@@ -69,6 +69,10 @@ export default {
         {
           title: '#',
           key: 'user'
+        },
+        {
+          title: '#',
+          key: 'status'
         }
       ]
 
@@ -97,7 +101,7 @@ export default {
         tmpArr.push(pushComment);
 
         axios
-          .put('/api/updateclaim/' + this.claim._id, tmpArr)
+          .put('/api/updateclaim/' + this.claim._id, { commentsArr: tmpArr })
           .then(() => {
             this.claim.commentsArr.push(pushComment);
             this.claimCommentText = '';
@@ -107,7 +111,16 @@ export default {
 
     },
     sendClaimStatusClosed: function () {
-      alert('Сменить статус претензии на "закрыто"')
+      
+      let updateObject = {
+        status: 'closed'
+      }
+
+      axios
+        .put('/api/updateclaim/'+this.claim._id, updateObject)
+        .then(() => {
+          this.claim.status = 'closed'
+        })
     }
   },
   created: function () {
