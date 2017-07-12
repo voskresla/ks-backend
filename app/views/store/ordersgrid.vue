@@ -8,22 +8,57 @@
     </div>
     
     
+    
     <Table stripe :columns="columns" :data="computedData"></Table>
+
+    <!--
+      Мы ебашим сюда модалку только потому что не можем вставить компонент в h() внутри columns
+      Не забудь написать вот сюда issue https://github.com/iview/iview/issues/775#issuecomment-314061077
+      -->
+
+    <Modal v-model="openNewArtasianModal" :closable="false" :mask-closable="false">
+      
+      <Card>
+        <p slot="title">Доступные мастера</p>
+        <p slot="extra"><Icon type="ios-loop-strong"></Icon></p>
+        
+        <p>
+          <Radio-group v-model="choosenArtasian">
+            <Radio v-for="(item,index) in artasians" :key="item" :label="item._id">
+              {{item.fullname}} | {{item.orderGetToday}}/4 | <Icon type="ios-star" v-if="item.rating >= 1"></Icon><Icon type="ios-star" v-if="item.rating >= 2"></Icon><Icon type="ios-star" v-if="item.rating >= 3"></Icon><Icon type="ios-star" v-if="item.rating >= 4"></Icon><Icon type="ios-star" v-if="item.rating >= 5"></Icon>
+            </Radio>
+          </Radio-group>
+        </p>
+      </Card>
+      
+      <p slot="footer">
+        <Button type="primary" @click="closeModal">Закрыть</Button>
+        <Button type="primary" @click="sendNewArtasian(orderIdForArtasianModal, choosenArtasian)">Назначить</Button>
+      </p>
+    </Modal>
+
   </div>
 </template>
 
 <script>
 
 
-import comments from './comments.vue';
+
+import artasian from './artasian.vue';
 import axios from 'axios';
 
 export default {
   
   name: 'ordersgrid',
+  components: {
+    'artasian': artasian
+  },
   data: function () {
     return {
-      
+      openNewArtasianModal: false,
+      orderIdForArtasianModal: '',
+      artasianModalProps: {},
+      choosenArtasian: '',
       ishq: false,
       searchInput: '',
       columns: [
@@ -74,7 +109,7 @@ export default {
               h('p', {}, params.row.payed ? 'оплачено' : 'не оплачено' ),
               // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
               // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
-              h('p', {}, params.row.artasian ? 'мастер назначен' : 'мастер НЕ назначен' )
+              h('p', {}, params.row.actualArtasian ? params.row.actualArtasian.fullname : 'мастер НЕ назначен' )
             ])
           }
         },
@@ -86,7 +121,7 @@ export default {
           render: (h,params) => {        
 
             let claimsArr = Array.apply(null,this.claims).filter(function (item) {
-                    return item.orderId === params.row._id;
+                    return item.orderId === params.row._id && item.status === 'open';
                   })
 
             let myComments = (function () {
@@ -175,16 +210,7 @@ export default {
                 }
               }, [
                 h('Icon', {
-                  // 'class': {
-                  //   'demo-badge': true
-                  // },
-                  // style: {
-                  //   width: '30px',
-                  //   height: '30px',
-                  //   background: '#eee',
-                  //   'border-radius': '6px',
-                  //   display: 'inline-block'
-                  // }
+                  
                   props: {
                     type: 'android-notifications',
                     
@@ -293,16 +319,35 @@ export default {
                     this.changeThis(params.row._id);
                   }
                 }
-              })
+              }),
+              
             ])
           }
         }
       ],
       orders: [],
-      claims: []
+      claims: [],
+      artasians: []
     }
   },
   methods: {
+    sendNewArtasian: function(orderId, artasianId) {
+      this.openNewArtasianModal = false;
+      
+      let artasianObject = this.artasians.filter(function (item) {
+        return artasianId === item._id
+      })
+
+      axios 
+        .put('/api/updateorder/'+orderId, { actualArtasian: artasianObject[0] })
+        .then(() => {
+          axios
+            .get('/api/getallorders')
+            .then(r => { this.orders = r.data })
+            
+        })
+        .catch(err => { console.log(err) })
+    },
     changeThis: function (id) {
       // TODO  router.push /makeorder
       this.$router.push({name: 'makeorder', params: { change: true, id: id}})
@@ -313,13 +358,14 @@ export default {
     },
     payThis: function (id) {
       axios
-        .put('/api/payorder/'+id)
+        .put('/api/payorder/' + id)
         .then(r => console.log(r.data))
         .then(() => {
           axios
-      .get('/api/getallorders')
-      .then(r => {this.orders = r.data})
-      .catch(err => {console.log(err)})}
+            .get('/api/getallorders')
+            .then(r => { this.orders = r.data })
+            .catch(err => { console.log(err) })
+        }
         )
         .catch(err => console.log(err));
 
@@ -337,7 +383,13 @@ export default {
         .catch(err => console.log(err))
     },
     artasianThis: function (id) {
-      alert('TODO выбор Мастера.')
+      this.openNewArtasianModal = true;
+      this.orderIdForArtasianModal = id;
+    },
+    closeModal: function () {
+      this.orderIdForArtasianModal = '';
+      this.choosenArtasian = '';
+      this.openNewArtasianModal = false;
     }
   },
   beforeMount: function beforeMount() {
@@ -370,6 +422,12 @@ export default {
       })
       .catch(err => { console.log(err) });
     
+    axios
+      .get('/api/getallartasians/')
+      .then(r => {
+        this.artasians = r.data
+      })
+      .catch(err => console.log(err))
 
   },
   computed: {
@@ -386,6 +444,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.ivu-icon {
+  color:brown;
+}
 
 </style>

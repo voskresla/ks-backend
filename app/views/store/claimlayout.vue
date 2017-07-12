@@ -20,15 +20,19 @@
         <p slot="extra">
           action buttons
         </p>
-        <p v-for="(value, key, index) in order" :key="value">
-          {{key}} - {{value}}
-        </p>
+        <p>{{order.productFullName}}</p>
+        <p>{{order.fullname}}</p>
+        <p>{{order.phone}}</p>
+        <p>{{order.address}}</p>
+        <p>{{order.payed}}</p>
+        <p></p>
+        <p></p>
       </Card>
       </Col>
     </Row>
     <Row>
   
-      <!-- <Table :columns="columnClaimComments" :data="dataClaimComments"></Table> -->
+       <Table :columns="columnClaimComments" :data="claim.commentsArr"></Table> 
   
     </Row>
     <Row>
@@ -53,6 +57,20 @@ export default {
       claim: {},
       order: {},
       username: '',
+      columnClaimComments: [
+        {
+          title: '#',
+          key: 'text'
+        },
+        {
+          title: '#',
+          key: 'id'
+        },
+        {
+          title: '#',
+          key: 'user'
+        }
+      ]
 
 
     }
@@ -67,22 +85,22 @@ export default {
 
       } else {
 
-        let commentsArr = [];
-        commentsArr.push({
-          id: new Date(),
-          text: this.claimCommentText,
-          user: this.username
-        })
+        // let commentsArr = [];
+        // commentsArr.push({
+        //   id: new Date(),
+        //   text: this.claimCommentText,
+        //   user: this.username
+        // })
 
         let tmpArr = this.claim.commentsArr.slice();
-        let pushComment = { id: new Date(), text: this.comment, user: this.username };
+        let pushComment = { id: new Date(), text: this.claimCommentText, user: this.username };
         tmpArr.push(pushComment);
 
         axios
-          .put('/api/updateorder/' + this.orderId, tmpArr)
+          .put('/api/updateclaim/' + this.claim._id, tmpArr)
           .then(() => {
-            this.commentsArr.push(pushComment);
-            this.comment = '';
+            this.claim.commentsArr.push(pushComment);
+            this.claimCommentText = '';
           })
           .catch(err => console.log(err));
       }
@@ -112,7 +130,7 @@ export default {
     axios
       .get('/api/getuser')
       .then(r => {
-        this.username = response.data.user || 'Auth plz.';
+        this.username = r.data.user || 'Auth plz.';
       })
       .catch(function (err) {
         console.log(err);

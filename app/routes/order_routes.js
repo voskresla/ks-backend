@@ -120,6 +120,36 @@ module.exports = function (app, db, passport) {
     })
 
   app
+    .route("/api/updateorder/:id")
+    .put((req, res) => {
+
+      
+      
+      const orderID = req.params.id;
+      const selector = { _id: new ObjectID(orderID) };
+
+      let updateObject = {};
+
+      for (keyName in req.body) {
+        updateObject[keyName] = req.body[keyName]
+      };
+
+      
+
+      
+      db
+        .collection("orders")
+        .update(selector, { $set: updateObject }, (err, item) => {
+          if (err) {
+            res.send(err);
+          } else {
+            res.send('ok we update it');
+          }
+        })
+
+    })  
+
+  app
     .route('/api/postorder/')
     .post((req, res) => {
       db.collection('orders').insert(req.body);
@@ -180,22 +210,40 @@ module.exports = function (app, db, passport) {
       })
     })  
 
-  app
-    .route('/api/updateorder/:id')
+   app
+    .route('/api/updateclaim/:id')
     .put((req,res) => {
-        const orderID = req.params.id;
-        const selector = { _id: new ObjectID(orderID) };
+        const claimID = req.params.id;
+        const selector = { _id: new ObjectID(claimID) };
 
         db
-          .collection("orders")
+          .collection("claims")
           .update(selector, { $set: { commentsArr: req.body } }, (err, item) => {
             if (err) {
               res.send(err);
             } else {
-              res.send('ok we update commentsArr');
+              res.send('ok we update commentsArr in Claims');
             }
           })
       })
+ 
+  // ARTASIANS
+  //  
+  //  
+
+   app
+     .route('/api/getallartasians/')
+     .get((req, res) => {
+       let selector = {}
+
+       db.collection('artasians').find(selector).toArray((err, item) => {
+         if (err) {
+           res.send(err)
+         } else {
+           res.send(item)
+         }
+       })
+     })
 
   app
     .route('/api/deleteorder/:id')
