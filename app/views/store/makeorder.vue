@@ -103,6 +103,17 @@
                 <input type="text" placeholder="Йошкра-Ола, Садовая 11-14" required v-model="address">
               </div>
             </div>
+            <div class="row">
+              <div class="large-12 columns">
+                <Select 
+                v-model="suggestions"
+                filterable
+                remote
+                :remote-method="suggestionRemote">
+                  <Option v-for="option in options1" :value="option.value" :key="option.value">{{option.value}}</Option>
+                </Select>
+              </div>
+            </div>
   
             
 
@@ -231,15 +242,19 @@ let propertyOptions = {
     { text: 'Встроенная', value: 'ВMB' },
     { text: 'Соло', value: 'ВMS' }
   ],
+  DM_VIP: [
+    { text: 'Встроенная', value: 'DMB' },
+    { text: 'Соло', value: 'DMS' }
+  ],
   H: [
     { text: 'Встроенный', value: 'HB' },
     { text: 'Соло', value: 'HS' },
     { text: 'Side-by-Side', value: 'HSS' },
   ],
-  E: [],
-  EP: [],
-  O: [],
-  OEPA: [],
+  // 'Подключ. Эл.плиты(стандарт)': [],
+  // EP: [],
+  // O: [],
+  // OEPA: [],
   V: [
     { text: 'Купольная', value: 'VK' },
     { text: 'Плоская', value: 'VP' },
@@ -251,16 +266,16 @@ let propertyOptions = {
     { text: 'Накопительный от 50 л.', value: 'W00' },
   ],
   COND_SETUP: [
-    { text: '7000', value: '7000' },
-    { text: '9000', value: '9000' },
-    { text: '12000', value: '12000' }
+    { text: '7000-9000', value: '7000' },
+    { text: '12000', value: '12000' },
+    { text: '16000-24000', value: '16000' }
   ],
   COND_REMOVE: [
-    { text: '7000', value: '7000' },
-    { text: '9000', value: '9000' },
-    { text: '12000', value: '12000' }
+    { text: '7000-9000', value: '7000' },
+    { text: '12000', value: '12000' },
+    { text: '16000-24000', value: '16000' }
   ],
-  COND_SERVICE: [],
+  // COND_SERVICE: [],
   TV_SETUP: [
     { text: 'Диагональ до 32"', value: 'TV_SETUP_32' },
     { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
@@ -271,18 +286,18 @@ let propertyOptions = {
     { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
     { text: 'Диагональ свыше 46"', value: 'TV_SETUP_00' }
   ],
-  TV_HOME_SETUP: [],
-  TV_HOME_WALL: [],
-  SMART: [],
-  SAT_TEST: [],
+  // TV_HOME_SETUP: [],
+  // TV_HOME_WALL: [],
+  // SMART: [],
+  // SAT_TEST: [],
   SAT_SETUP: [
     { text: 'Диаметр до 0.79', value: 'SAT_SETUP_79' },
     { text: 'Диаметр свыше 0.8', value: 'SAT_SETUP_00' }
   ],
-  C_ROUTE: [],
-  C_HARDWARE: [],
-  С_SERVICE: [],
-  C_OS: []
+  // C_ROUTE: [],
+  // C_HARDWARE: [],
+  // С_SERVICE: [],
+  // C_OS: []
 
 }
 
@@ -301,6 +316,9 @@ export default {
   data: function () {
     return {
       
+      suggestions: '',
+      options1: [],
+
       ishq: false,
       username: '',
 
@@ -359,6 +377,7 @@ export default {
       return !!this.productPrice && !!this.fullname && !!this.phone && !!this.address;
     },
     selectPropertyClass: function () {
+      
       if (this.propertyOptions.length && this.premiumOptions.length) {
         return 'large-4'
       }
@@ -371,19 +390,44 @@ export default {
     }
   },
   methods: {
-    getResult: function () {
+    suggestionRemote: function (value) {
+      axios
+        .post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
 
-      let priceId = this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value; 
+          "query": value,
+          "count": 3,
+          "locations": [{
+            "region": "Марий Эл"
+          }],
+          "restrict_value": true
+            
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Token daa7df9d3d75b308e28317375c6c0587d5c17c06',
+          }
+        })
+        .then(r => {
+          this.options1 = r.data.suggestions
+
+          })
+    }
+    ,
+    getResult: function (priceId) {
+
+      let city = "Йошкар-Ола";
+
       console.log(priceId);
       
-      this.productFullName = this.groupSelect.text + ' ' + this.typeSelect.text + ' ' + this.premiumSelect.text + ' ' + this.propertySelect.text; 
+      this.productFullName = this.groupSelect.text + ' ' + this.typeSelect.text + ' ' + (this.premiumSelect.text || '') + ' ' + (this.propertySelect.text || ''); 
       
       // написать через промисы получение даты с сервера а не с клиента
       this.couponNumber = this.groupSelect.value + '/' + this.typeSelect.value + ' - ' + getRandomInt(100,0) + ' - ' + new Date().getDay() + new Date().getMonth() + new Date().getFullYear();      
         
         axios
           .get(productPriceUrl + priceId)
-          .then(r => this.productPrice = parseInt(r.data.price))
+          .then(r => this.productPrice = parseInt(r.data[city]))
           .catch(err => console.log(err))
     
     },
@@ -406,15 +450,17 @@ export default {
         let premiumId = this.typeSelect.value;
         let propertyId = this.typeSelect.value;
 
+        
+        
         if (premiumOptions[premiumId]) {
           this.premiumOptions = premiumOptions[premiumId];
         }
-        if (!premiumOptions[premiumId]) {
+        if (!premiumOptions[premiumId] && propertyOptions[propertyId]) {
           this.propertyOptions = propertyOptions[propertyId];
         }
 
         if (!premiumOptions[premiumId] && !propertyOptions[propertyId]) {
-          this.getResult();
+          this.getResult(this.groupSelect.value + this.typeSelect.value);
         }
 
       }
@@ -443,7 +489,7 @@ export default {
         if (additionalOptions[additionalId]) {
           this.additionalOptions = additionalOptions[additionalId];
         }
-        this.getResult();
+        this.getResult(this.groupSelect.value + this.typeSelect.value + (this.premiumSelect.value || '') + this.propertySelect.value);
       }
     },
     initChoise: function (stage,initObject) {
@@ -555,7 +601,7 @@ export default {
     },
     sendOrder:function () {
       
-      console.log(this.comment);
+      
 
       if (this.comment) { this.commentsArr.push(
         {
@@ -563,7 +609,7 @@ export default {
           user : this.username
         })};
 
-        console.log(this.commentsArr)
+        
 
       let order = {
         
@@ -609,6 +655,8 @@ export default {
 
       }
       
+      console.log(order.productId);
+
       axios
         .post('/api/postorder/', order)
         .then(r => {
@@ -651,6 +699,31 @@ export default {
 
       
       
+    }
+  },
+  watch: {
+    address: function (value) {
+      axios
+        .post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
+
+          "query": value,
+          "count": 3,
+          "locations": [{
+            "region": "Марий Эл"
+          }],
+          "restrict_value": true
+            
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Token daa7df9d3d75b308e28317375c6c0587d5c17c06',
+          }
+        })
+        .then(r => {
+          console.log(r.data)
+
+          })
     }
   }
 

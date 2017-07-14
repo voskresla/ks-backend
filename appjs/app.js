@@ -13,6 +13,9 @@ let makeorder = require('../app/views/store/makeorder.vue');
 let ordersgrid = require('../app/views/store/ordersgrid.vue');
 let claimlayout = require('../app/views/store/claimlayout.vue')
 
+let pdfMake = require('pdfmake/build/pdfmake.js');
+let pdfFonts = require('pdfmake/build/vfs_fonts.js');
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 

@@ -57,12 +57,12 @@ module.exports = function (app, db, passport) {
       console.log(req.params.priceid);
       let selector = { priceid: req.params.priceid };
 
-      db.collection("prices").findOne(selector, (err, item) => {
+      db.collection("prices").findOne({}, (err, item) => {
         if (err) {
           res.send(err);
         } else {
-          console.log(item);
-          res.send(item);
+          console.log(item[req.params.priceid]);
+          res.send(item[req.params.priceid]);
         }
       });
     });

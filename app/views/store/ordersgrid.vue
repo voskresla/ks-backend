@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     
     <div class="row align-middle align-center">
       <div class="small-4 columns text-center">
@@ -37,24 +37,36 @@
       </p>
     </Modal>
 
+    <!-- <Modal v-model='openPrintCouponComponent' id='printcontent'>
+      
+      <printCouponComponent></printCouponComponent>
+      <p slot="footer"></p>
+    </Modal> -->
+
+     
+
   </div>
 </template>
 
 <script>
 
 
-
+import { couponDocDefinition } from './couponDocDefinition';
 import artasian from './artasian.vue';
+import printCouponComponent from './printCouponComponent.vue'
 import axios from 'axios';
 
 export default {
   
   name: 'ordersgrid',
   components: {
-    'artasian': artasian
+    'artasian': artasian,
+    'printCouponComponent':printCouponComponent
   },
   data: function () {
     return {
+      openPrintCouponComponent:false,
+
       openNewArtasianModal: false,
       orderIdForArtasianModal: '',
       artasianModalProps: {},
@@ -354,7 +366,9 @@ export default {
 
     },
     printThis: function (id) {
-      alert('TODO print this with pdf maker')
+      var docDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+      pdfMake.createPdf(couponDocDefinition).open();
+      // this.openPrintCouponComponent = true;
     },
     payThis: function (id) {
       axios
