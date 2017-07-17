@@ -1,21 +1,30 @@
 <template>
   
-  
-   
-      
 </template>
 
 <script>
 export default {
-  name: 'artasian',
-  data: function() {	
+  data() {
     return {
 
-    }
-  },
-  methods: {
-    openModal: function () {
-      alert('openModal')
+      data1: [
+        { id: '001' },
+        { id: '002' },
+        { id: '003' }
+      ],
+      columns: [
+        {
+          title: '#',
+          key: 'id'
+        },
+        {
+          title: 'custom',
+          key: 'action',
+          render: (h, params) => {
+            return h('div', 'sdsd')
+          }
+        }
+      ]
     }
   }
 }

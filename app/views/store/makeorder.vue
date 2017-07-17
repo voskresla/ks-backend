@@ -169,6 +169,11 @@
 
 import axios from 'axios';
 
+function getProductFullName (priceId) {
+  let fullname = fullNamesArr[priceId]
+  return fullname;
+}
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -179,6 +184,70 @@ let productPriceUrl = '/api/getproductprice/'; // param1 = db.prices.priceid = '
 let coupon = require('./coupon.vue');
 let comments = require('./comments.vue');
 let claims = require('./claims.vue');
+
+let fullNamesArr = {
+  "BTE": "Подключ. Эл.плиты(стандарт)",
+  "BTDMDM_BASIC_MS": "Подключ. DW (стандарт)",
+  "BTWMWM_BASICWMS_BASIC": "Подключ. WM (стандарт)",
+  "BTDMDM_VIPDMS": "Подключ. DW (Премиум)",
+  "BTWMWM_VIPWMS": "Подключ. WM (Премиум)",
+  "ADD_WM_G": "Подключ. дораб.слива ",
+  "ADD_WM_W": "Подключ. дораб.водоснабжения",
+  "ADD_WM_E": "Подключ. дораб.электросети",
+  "CONDCOND_SETUP7000": "Подключ.кондиц. (7000-9000)",
+  "CONDCOND_SETUP12000": "Подключ.кондиц. (12000)",
+  "CONDCOND_SETUP16000": "Подключ.кондиц. (16000-24000)",
+  "BTEP": "Подключ.В\Эл.панель (незав)",
+  "BTO": "Подключ.В\Эл.шкаф (незав)",
+  "BTOEPA": "Подключ.В\Эл.пан. и шкаф(зав)",
+  "BTDMDM_BASIC_MB": "Подключ.В\ DW (стандарт)",
+  "BTWMWM_BASICWMB_BASIC": "Подключ.В\ WM (стандарт)",
+  "BTVVB": "Подключ.В\Вытяжки",
+  "BTHHB": "Подключ.В\RF",
+  "BTWWP": "Подключ. WH проточн. элек.",
+  "BTWW50": "Подключ. WH накопит.эл , до 50 л",
+  "BTWW00": "Подключ. WH накопит.эл, от 51 л",
+  "": "Подкл.дор.RFпер.дв.без эл.дисп",
+  "BTHHSS": "Подключ.RF Side-by-Side(станд)",
+  "BTVVP": "Подключ.вытяжки (плоской)",
+  "BTVVK": "Подключ.вытяжки (купольной)",
+  "TVTV_HOME_SETUP": "Подкл. Дом.кинот.1 кор.(уст.)",
+  "TVTV_HOME_WALL": "Подкл. Дом.кинот.1 кор.(подв.)",
+  "SATSAT_TEST": "Подкл. тестиров. спутн. сигн.",
+  "SATSAT_SETUPSAT_SETUP_79": "Подкл. спутн.тел.(d до 0.79м)",
+  "SATSAT_SETUPSAT_SETUP_00": "Подкл. спутн.тел.(d от 0.8м)",
+  "BTHHS": "Подключ.RF /стандарт/",
+  "": "Подк.дор.RF пер.дв. с эл. дисп",
+  "": "Дораб. сбор.мебели",
+  "": "Подкл. игр.консоль",
+  "TVTV_SETUPTV_SETUP_46": "Подкл. ТВ до 46",
+  "TVTV_SETUPTV_SETUP_00": "Подкл. ТВ свыше 46",
+  "TVTV_WALLTV_SETUP_46": "Подкл. ТВ до 46",
+  "TVTV_WALLTV_SETUP_00": "Подкл. ТВ свыше 46",
+  "TVSMART": "Дораб. SMART +",
+  "": "Подкл.фильтра воды(3степени)",
+  "": "Подкл.выезд мастера /по городу",
+  "CONDCOND_SERVICE": "Подкл. Обслуж.кондиц.(станд)",
+  "": "Подкл.демонтаж WM/DW(станд)",
+  "": "Подкл.демонтаж В\WM/DW(станд)",
+  "CONDCOND_REMOVE7000": "Подкл.демонтаж AC(7000-9000)",
+  "CONDCOND_REMOVE12000": "Подкл.демонтаж AC(12000)",
+  "CONDCOND_REMOVE16000": "Подкл.демонтаж AC(16000-24000)",
+  "TVTV_SETUPTV_SETUP_32": "Подкл. ТВ до 32",
+  "TVTV_WALLTV_SETUP_32": "Подкл. ТВ до 32",
+  "": "Подкл. ТВ свыше 65",
+  "": "Подкл. ТВ свыше 65",
+  "": "Дораб. Маршрутизатор Wi-Fi",
+  "": "Дораб.NAS(сетевое хранилище)",
+  "": "Дораб. Пульт ДУ универсальный",
+  "": "Дораб. CAM-модуль",
+  "": "Дораб. Саундбар     ",
+  "": "Дораб. Саундбар (Подвес)",
+  "CC_ROUTE": "Настройка интернет подключения (подключение роутера)",
+  "CC_HARDWARE": "Подключение периферийного устройства",
+  "C__SERVICE": "Настройка и оптимизация",
+  "C__OS": "Операционная система (установка ОС)"
+}
 
 let typesOptions = {
   BT: [
@@ -420,7 +489,7 @@ export default {
 
       console.log(priceId);
       
-      this.productFullName = this.groupSelect.text + ' ' + this.typeSelect.text + ' ' + (this.premiumSelect.text || '') + ' ' + (this.propertySelect.text || ''); 
+      this.productFullName = getProductFullName(priceId); 
       
       // написать через промисы получение даты с сервера а не с клиента
       this.couponNumber = this.groupSelect.value + '/' + this.typeSelect.value + ' - ' + getRandomInt(100,0) + ' - ' + new Date().getDay() + new Date().getMonth() + new Date().getFullYear();      
@@ -599,7 +668,7 @@ export default {
     changeOrder: function () {
       alert('changeOrder handler call')
     },
-    sendOrder:function () {
+    sendOrder: function () {
       
       
 

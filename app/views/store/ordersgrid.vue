@@ -51,10 +51,12 @@
 <script>
 
 
-import { couponDocDefinition } from './couponDocDefinition';
+import { getNewDefinition } from './couponDocDefinition';
 import artasian from './artasian.vue';
 import printCouponComponent from './printCouponComponent.vue'
 import axios from 'axios';
+
+
 
 export default {
   
@@ -274,7 +276,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.printThis(params.row._id);
+                    this.printThis(params);
                   }
                 }
               }),
@@ -365,8 +367,8 @@ export default {
       this.$router.push({name: 'makeorder', params: { change: true, id: id}})
 
     },
-    printThis: function (id) {
-      var docDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+    printThis: function (orderObject) {
+      let couponDocDefinition = getNewDefinition(orderObject);
       pdfMake.createPdf(couponDocDefinition).open();
       // this.openPrintCouponComponent = true;
     },
