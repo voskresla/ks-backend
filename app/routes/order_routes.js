@@ -54,14 +54,14 @@ module.exports = function (app, db, passport) {
     .get(
     require("connect-ensure-login").ensureLoggedIn(),
     (req, res) => {
-      console.log(req.params.priceid);
-      let selector = { priceid: req.params.priceid };
+      
+      //let selector = { priceid: req.params.priceid };
 
       db.collection("prices").findOne({}, (err, item) => {
         if (err) {
           res.send(err);
         } else {
-          console.log(item[req.params.priceid]);
+          
           res.send(item[req.params.priceid]);
         }
       });
@@ -106,10 +106,11 @@ module.exports = function (app, db, passport) {
 
       const orderID = req.params.id;
       const selector = { _id: new ObjectID(orderID) };
+      
 
       db
         .collection("orders")
-        .update(selector, { $set: { payed: "PAYED" } }, (err, item) => {
+        .update(selector, { $set: { payed: "PAYED", payDate: Date() } }, (err, item) => {
           if (err) {
             res.send(err);
           } else {

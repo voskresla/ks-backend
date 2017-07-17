@@ -62,6 +62,13 @@
       </div>
   
     </div>
+
+    <div class="row">
+      <div class="large-10 columns text-left tel">
+        {{dateValue}}
+      </div>
+  
+    </div>
   
     <div class="row lastline">
       <div class="large-1 columns line"></div>
@@ -98,7 +105,8 @@ export default {
     'fullname',
     'phone',
     'address',
-    'productPrice'
+    'productPrice',
+    'dateValue'
   ],
   data: function () {
     return {

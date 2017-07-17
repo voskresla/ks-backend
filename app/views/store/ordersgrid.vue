@@ -107,10 +107,10 @@ export default {
           }
         },
         {
-          title: 'Цена',
-          key: 'productPrice',
+          title: 'Дата установки',
+          key: 'dateValue',
           width: '130px',
-          className: 'priceformat'
+          // className: 'priceformat'
           // TODO вставать свой classname для формата :after :before
         },
         {

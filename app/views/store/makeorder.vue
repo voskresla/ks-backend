@@ -88,11 +88,14 @@
   
             <!-- CUSTOMER INFO -->
             <div class="row additional">
-              <div class="large-6 columns">
+              <div class="large-4 columns">
                 <input type="text" placeholder="Иванов Иван Иванович" required v-model="fullname">
               </div>
-              <div class="large-6 columns">
+              <div class="large-4 columns">
                 <input type="text" placeholder="+7 (999) 945 94 93" required v-model="phone">
+              </div>
+              <div class="large-4 columns">
+                <Date-picker :value="dateValue" @on-change="handleDateChange" type="date" placeholder="Выберите дату установки" :options="dateOptions"></Date-picker>
               </div>
             </div>
             <div class="row">
@@ -125,7 +128,7 @@
           </div>
           <!--COUPON SIDE -->
 
-          <coupon :couponNumber='couponNumber' :productFullName='productFullName' :couponDate='couponDate' :fullname='fullname' :phone='phone' :address='address' :productPrice='productPrice'>
+          <coupon :dateValue='dateValue' :couponNumber='couponNumber' :productFullName='productFullName' :couponDate='couponDate' :fullname='fullname' :phone='phone' :address='address' :productPrice='productPrice'>
           </coupon>
           
         </div>
@@ -197,13 +200,13 @@ let fullNamesArr = {
   "CONDCOND_SETUP7000": "Подключ.кондиц. (7000-9000)",
   "CONDCOND_SETUP12000": "Подключ.кондиц. (12000)",
   "CONDCOND_SETUP16000": "Подключ.кондиц. (16000-24000)",
-  "BTEP": "Подключ.В\Эл.панель (незав)",
-  "BTO": "Подключ.В\Эл.шкаф (незав)",
-  "BTOEPA": "Подключ.В\Эл.пан. и шкаф(зав)",
-  "BTDMDM_BASIC_MB": "Подключ.В\ DW (стандарт)",
-  "BTWMWM_BASICWMB_BASIC": "Подключ.В\ WM (стандарт)",
-  "BTVVB": "Подключ.В\Вытяжки",
-  "BTHHB": "Подключ.В\RF",
+  "BTEP": "Подключ.В\\Эл.панель (незав)",
+  "BTO": "Подключ.В\\Эл.шкаф (незав)",
+  "BTOEPA": "Подключ.В\\Эл.пан. и шкаф(зав)",
+  "BTDMDM_BASIC_MB": "Подключ.В\\ DW (стандарт)",
+  "BTWMWM_BASICWMB_BASIC": "Подключ.В\\ WM (стандарт)",
+  "BTVVB": "Подключ.В\\Вытяжки",
+  "BTHHB": "Подключ.В\\RF",
   "BTWWP": "Подключ. WH проточн. элек.",
   "BTWW50": "Подключ. WH накопит.эл , до 50 л",
   "BTWW00": "Подключ. WH накопит.эл, от 51 л",
@@ -229,7 +232,7 @@ let fullNamesArr = {
   "": "Подкл.выезд мастера /по городу",
   "CONDCOND_SERVICE": "Подкл. Обслуж.кондиц.(станд)",
   "": "Подкл.демонтаж WM/DW(станд)",
-  "": "Подкл.демонтаж В\WM/DW(станд)",
+  "": "Подкл.демонтаж В\\WM/DW(станд)",
   "CONDCOND_REMOVE7000": "Подкл.демонтаж AC(7000-9000)",
   "CONDCOND_REMOVE12000": "Подкл.демонтаж AC(12000)",
   "CONDCOND_REMOVE16000": "Подкл.демонтаж AC(16000-24000)",
@@ -294,7 +297,7 @@ let premiumOptions = {
   DM: [
     { text: 'Стандарт', value: 'DM_BASIC' },
     { text: 'Премиум', value: 'DM_VIP' },
-    { text: 'Доработки', value: 'DM_ADD' },
+    { text: 'Доработки', value: 'ВMB' },
   ]
 }
 
@@ -304,7 +307,7 @@ let propertyOptions = {
     { text: 'Соло', value: 'WMS_BASIC' }
   ],
   WM_VIP: [
-    { text: 'Встроенная', value: 'WMB' },
+    // { text: 'Встроенная', value: 'WMB' },
     { text: 'Соло', value: 'WMS' }
   ],
   DM_BASIC: [
@@ -312,13 +315,14 @@ let propertyOptions = {
     { text: 'Соло', value: 'ВMS' }
   ],
   DM_VIP: [
-    { text: 'Встроенная', value: 'DMB' },
+    // { text: 'Встроенная', value: 'DMB' },
     { text: 'Соло', value: 'DMS' }
   ],
   H: [
     { text: 'Встроенный', value: 'HB' },
     { text: 'Соло', value: 'HS' },
     { text: 'Side-by-Side', value: 'HSS' },
+    { text: 'Доработки', value: 'HB' },
   ],
   // 'Подключ. Эл.плиты(стандарт)': [],
   // EP: [],
@@ -337,7 +341,7 @@ let propertyOptions = {
   COND_SETUP: [
     { text: '7000-9000', value: '7000' },
     { text: '12000', value: '12000' },
-    { text: '16000-24000', value: '16000' }
+    { text: '16000-24000', value: '18000' }
   ],
   COND_REMOVE: [
     { text: '7000-9000', value: '7000' },
@@ -371,10 +375,33 @@ let propertyOptions = {
 }
 
 let additionalOptions = {
+  WMS_BASIC: [
+    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
+    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
+    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
+  ],
   WMB_BASIC: [
     { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
     { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
     { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
+  ],
+  ВMS: [
+    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
+    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
+    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
+  ],
+  ВMB: [
+    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
+    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
+    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
+  ],
+  HS: [
+    { text: 'Перенавес дверей холодильника с электронным табло', value: 'ADD_HE', price: '100' },
+    { text: 'Перенавес дверей холодильника без электронным табло', value: 'ADD_H', price: '100' }, 
+  ],
+  HB: [
+    { text: 'Перенавес дверей холодильника с электронным табло', value: 'ADD_HE', price: '100' },
+    { text: 'Перенавес дверей холодильника без электронным табло', value: 'ADD_H', price: '100' }, 
   ]
 }
 
@@ -384,7 +411,26 @@ export default {
   props: ['change','id'],
   data: function () {
     return {
-      
+      dateValue: '',
+      dateOptions: {
+        disabledDate(date) {
+          return date && date.valueOf() < Date.now() - 86400000;
+        },
+        shortcuts: [
+          {
+            text: 'Стандартная',
+            value() {
+              const date = new Date();
+              date.setTime(date.getTime() + 3600 * 1000 * 24 * 2)
+              return date;
+            },
+            onClick: (picker) => {
+              // this.$Message.info('');
+            }
+          }
+        ]
+      },
+
       suggestions: '',
       options1: [],
 
@@ -459,6 +505,9 @@ export default {
     }
   },
   methods: {
+    handleDateChange (data) {
+      this.dateValue = data;
+    },
     suggestionRemote: function (value) {
       axios
         .post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
@@ -489,14 +538,17 @@ export default {
 
       console.log(priceId);
       
-      this.productFullName = getProductFullName(priceId); 
+      //this.productFullName = getProductFullName(priceId); 
       
       // написать через промисы получение даты с сервера а не с клиента
       this.couponNumber = this.groupSelect.value + '/' + this.typeSelect.value + ' - ' + getRandomInt(100,0) + ' - ' + new Date().getDay() + new Date().getMonth() + new Date().getFullYear();      
         
         axios
           .get(productPriceUrl + priceId)
-          .then(r => this.productPrice = parseInt(r.data[city]))
+          .then(r => {
+            this.productPrice = parseInt(r.data[city]);
+            this.productFullName = r.data['Наименование услуги']
+          })
           .catch(err => console.log(err))
     
     },
@@ -601,6 +653,7 @@ export default {
           this.fullname = '';
           this.phone = '';
           this.address = '';
+          this.dateValue = '';
           this.comment = '';
         
           
@@ -696,6 +749,7 @@ export default {
         fullname: this.fullname,
         phone: this.phone,
         address: this.address,
+        dateValue: this.dateValue,
         commentsArr: this.commentsArr,
         
         productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
@@ -715,6 +769,7 @@ export default {
 
         artasians: [],
         payed: false,
+        payDate: '',
         logHistory: [],
         
         
