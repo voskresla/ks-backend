@@ -1,7 +1,7 @@
 
 <template>
   <div>
-  <form data-abide novalidate :action="'/api/makeorder/'+couponNumber">
+  <form data-abide novalidate>
     
     
 
@@ -73,7 +73,7 @@
                 <div class="row align-middle">
                   <div class="large-3 columns">
                     <div class="switch tiny">
-                      <input class="switch-input" :value="{ text: option.text, value: option.value, price: option.price }" :id="'exampleSwitch'+index" type="checkbox" :name="'exampleSwitch'+index" v-model="chekedAdditionalOptions" @change.prevent.stop="function(e) { onChangeSwitch(e, option.price) }">
+                      <input class="switch-input" :value="{ text: option.text, value: option.value, price: option.price }" :id="'exampleSwitch'+index" type="checkbox" :name="'exampleSwitch'+index" v-model="chekedAdditionalOptions" @change.prevent.stop="function(e) { onChangeSwitch(e, option) }">
                       <label class="switch-paddle" :for="'exampleSwitch'+index">
                         <span class="show-for-sr">option.text</span>
                       </label>
@@ -128,7 +128,7 @@
           </div>
           <!--COUPON SIDE -->
 
-          <coupon :dateValue='dateValue' :couponNumber='couponNumber' :productFullName='productFullName' :couponDate='couponDate' :fullname='fullname' :phone='phone' :address='address' :productPrice='productPrice'>
+          <coupon :dateValue='dateValue' :couponNumber='couponNumber' :productFullName='productFullName' :chekedAdditionalOptions='chekedAdditionalOptions' :couponDate='couponDate' :fullname='fullname' :phone='phone' :address='address' :productPrice='productPrice'>
           </coupon>
           
         </div>
@@ -169,13 +169,9 @@
 
 <script>
 
-
+import moment from 'moment';
 import axios from 'axios';
-
-function getProductFullName (priceId) {
-  let fullname = fullNamesArr[priceId]
-  return fullname;
-}
+import { typesOptions, premiumOptions, propertyOptions, additionalOptions } from './products'
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -188,222 +184,7 @@ let coupon = require('./coupon.vue');
 let comments = require('./comments.vue');
 let claims = require('./claims.vue');
 
-let fullNamesArr = {
-  "BTE": "Подключ. Эл.плиты(стандарт)",
-  "BTDMDM_BASIC_MS": "Подключ. DW (стандарт)",
-  "BTWMWM_BASICWMS_BASIC": "Подключ. WM (стандарт)",
-  "BTDMDM_VIPDMS": "Подключ. DW (Премиум)",
-  "BTWMWM_VIPWMS": "Подключ. WM (Премиум)",
-  "ADD_WM_G": "Подключ. дораб.слива ",
-  "ADD_WM_W": "Подключ. дораб.водоснабжения",
-  "ADD_WM_E": "Подключ. дораб.электросети",
-  "CONDCOND_SETUP7000": "Подключ.кондиц. (7000-9000)",
-  "CONDCOND_SETUP12000": "Подключ.кондиц. (12000)",
-  "CONDCOND_SETUP16000": "Подключ.кондиц. (16000-24000)",
-  "BTEP": "Подключ.В\\Эл.панель (незав)",
-  "BTO": "Подключ.В\\Эл.шкаф (незав)",
-  "BTOEPA": "Подключ.В\\Эл.пан. и шкаф(зав)",
-  "BTDMDM_BASIC_MB": "Подключ.В\\ DW (стандарт)",
-  "BTWMWM_BASICWMB_BASIC": "Подключ.В\\ WM (стандарт)",
-  "BTVVB": "Подключ.В\\Вытяжки",
-  "BTHHB": "Подключ.В\\RF",
-  "BTWWP": "Подключ. WH проточн. элек.",
-  "BTWW50": "Подключ. WH накопит.эл , до 50 л",
-  "BTWW00": "Подключ. WH накопит.эл, от 51 л",
-  "": "Подкл.дор.RFпер.дв.без эл.дисп",
-  "BTHHSS": "Подключ.RF Side-by-Side(станд)",
-  "BTVVP": "Подключ.вытяжки (плоской)",
-  "BTVVK": "Подключ.вытяжки (купольной)",
-  "TVTV_HOME_SETUP": "Подкл. Дом.кинот.1 кор.(уст.)",
-  "TVTV_HOME_WALL": "Подкл. Дом.кинот.1 кор.(подв.)",
-  "SATSAT_TEST": "Подкл. тестиров. спутн. сигн.",
-  "SATSAT_SETUPSAT_SETUP_79": "Подкл. спутн.тел.(d до 0.79м)",
-  "SATSAT_SETUPSAT_SETUP_00": "Подкл. спутн.тел.(d от 0.8м)",
-  "BTHHS": "Подключ.RF /стандарт/",
-  "": "Подк.дор.RF пер.дв. с эл. дисп",
-  "": "Дораб. сбор.мебели",
-  "": "Подкл. игр.консоль",
-  "TVTV_SETUPTV_SETUP_46": "Подкл. ТВ до 46",
-  "TVTV_SETUPTV_SETUP_00": "Подкл. ТВ свыше 46",
-  "TVTV_WALLTV_SETUP_46": "Подкл. ТВ до 46",
-  "TVTV_WALLTV_SETUP_00": "Подкл. ТВ свыше 46",
-  "TVSMART": "Дораб. SMART +",
-  "": "Подкл.фильтра воды(3степени)",
-  "": "Подкл.выезд мастера /по городу",
-  "CONDCOND_SERVICE": "Подкл. Обслуж.кондиц.(станд)",
-  "": "Подкл.демонтаж WM/DW(станд)",
-  "": "Подкл.демонтаж В\\WM/DW(станд)",
-  "CONDCOND_REMOVE7000": "Подкл.демонтаж AC(7000-9000)",
-  "CONDCOND_REMOVE12000": "Подкл.демонтаж AC(12000)",
-  "CONDCOND_REMOVE16000": "Подкл.демонтаж AC(16000-24000)",
-  "TVTV_SETUPTV_SETUP_32": "Подкл. ТВ до 32",
-  "TVTV_WALLTV_SETUP_32": "Подкл. ТВ до 32",
-  "": "Подкл. ТВ свыше 65",
-  "": "Подкл. ТВ свыше 65",
-  "": "Дораб. Маршрутизатор Wi-Fi",
-  "": "Дораб.NAS(сетевое хранилище)",
-  "": "Дораб. Пульт ДУ универсальный",
-  "": "Дораб. CAM-модуль",
-  "": "Дораб. Саундбар     ",
-  "": "Дораб. Саундбар (Подвес)",
-  "CC_ROUTE": "Настройка интернет подключения (подключение роутера)",
-  "CC_HARDWARE": "Подключение периферийного устройства",
-  "C__SERVICE": "Настройка и оптимизация",
-  "C__OS": "Операционная система (установка ОС)"
-}
 
-let typesOptions = {
-  BT: [
-    { text: 'Стиральная машина', value: 'WM' },
-    { text: 'Посудомоечная машина', value: 'DM' },
-    { text: 'Холодильник', value: 'H' },
-    { text: 'Электрическая плита', value: 'E' },
-    { text: 'Электрическая панель', value: 'EP' },
-    { text: 'Духовой Шкаф (независимый)', value: 'O' },
-    { text: 'Духовой шкаф и Электрическая панель (зависимые)', value: 'OEPA' },
-    { text: 'Вытяжка', value: 'V' },
-    { text: 'Водонагреватель', value: 'W' }
-  ],
-  COND: [
-    { text: 'Установка', value: 'COND_SETUP' },
-    { text: 'Демонтаж', value: 'COND_REMOVE' },
-    { text: 'Обслуживание', value: 'COND_SERVICE' }
-  ],
-  TV: [
-    { text: 'Установка ТВ на тумбу', value: 'TV_SETUP' },
-    { text: 'Установка ТВ на подвес', value: 'TV_WALL' },
-    { text: 'Установка домашенго кинотеатра на тумбу', value: 'TV_HOME_SETUP' },
-    { text: 'Установка домашенго кинотеатра на подвес', value: 'TV_HOME_WALL' },
-    { text: 'Доработка SMART+', value: 'SMART' }
-  ],
-  SAT: [
-    { text: 'Тестирование спутникового сигнала', value: 'SAT_TEST' },
-    { text: 'Подключение спутниковой тарелки', value: 'SAT_SETUP' }
-  ],
-  C: [
-    { text: 'Подключение роутера', value: 'C_ROUTE' },
-    { text: 'Подключение переферийного устройства', value: 'C_HARDWARE' },
-    { text: 'Настройка и оптимизация', value: 'С_SERVICE' },
-    { text: 'Установка операционной системы', value: 'С_OS' }
-  ]
-}
-
-let premiumOptions = {
-  WM: [
-    { text: 'Стандарт', value: 'WM_BASIC' },
-    { text: 'Премиум', value: 'WM_VIP' },
-    { text: 'Доработки', value: 'WMB_BASIC' },
-  ],
-  DM: [
-    { text: 'Стандарт', value: 'DM_BASIC' },
-    { text: 'Премиум', value: 'DM_VIP' },
-    { text: 'Доработки', value: 'ВMB' },
-  ]
-}
-
-let propertyOptions = {
-  WM_BASIC: [
-    { text: 'Встроенная', value: 'WMB_BASIC' },
-    { text: 'Соло', value: 'WMS_BASIC' }
-  ],
-  WM_VIP: [
-    // { text: 'Встроенная', value: 'WMB' },
-    { text: 'Соло', value: 'WMS' }
-  ],
-  DM_BASIC: [
-    { text: 'Встроенная', value: 'ВMB' },
-    { text: 'Соло', value: 'ВMS' }
-  ],
-  DM_VIP: [
-    // { text: 'Встроенная', value: 'DMB' },
-    { text: 'Соло', value: 'DMS' }
-  ],
-  H: [
-    { text: 'Встроенный', value: 'HB' },
-    { text: 'Соло', value: 'HS' },
-    { text: 'Side-by-Side', value: 'HSS' },
-    { text: 'Доработки', value: 'HB' },
-  ],
-  // 'Подключ. Эл.плиты(стандарт)': [],
-  // EP: [],
-  // O: [],
-  // OEPA: [],
-  V: [
-    { text: 'Купольная', value: 'VK' },
-    { text: 'Плоская', value: 'VP' },
-    { text: 'Встраеваемая', value: 'VB' },
-  ],
-  W: [
-    { text: 'Проточный', value: 'WP' },
-    { text: 'Накопительный до 50 л.', value: 'W50' },
-    { text: 'Накопительный от 50 л.', value: 'W00' },
-  ],
-  COND_SETUP: [
-    { text: '7000-9000', value: '7000' },
-    { text: '12000', value: '12000' },
-    { text: '16000-24000', value: '18000' }
-  ],
-  COND_REMOVE: [
-    { text: '7000-9000', value: '7000' },
-    { text: '12000', value: '12000' },
-    { text: '16000-24000', value: '16000' }
-  ],
-  // COND_SERVICE: [],
-  TV_SETUP: [
-    { text: 'Диагональ до 32"', value: 'TV_SETUP_32' },
-    { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
-    { text: 'Диагональ свыше 46"', value: 'TV_SETUP_00' }
-  ],
-  TV_WALL: [
-    { text: 'Диагональ до 32"', value: 'TV_SETUP_32' },
-    { text: 'Диагональ до 46"', value: 'TV_SETUP_46' },
-    { text: 'Диагональ свыше 46"', value: 'TV_SETUP_00' }
-  ],
-  // TV_HOME_SETUP: [],
-  // TV_HOME_WALL: [],
-  // SMART: [],
-  // SAT_TEST: [],
-  SAT_SETUP: [
-    { text: 'Диаметр до 0.79', value: 'SAT_SETUP_79' },
-    { text: 'Диаметр свыше 0.8', value: 'SAT_SETUP_00' }
-  ],
-  // C_ROUTE: [],
-  // C_HARDWARE: [],
-  // С_SERVICE: [],
-  // C_OS: []
-
-}
-
-let additionalOptions = {
-  WMS_BASIC: [
-    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
-    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
-    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
-  ],
-  WMB_BASIC: [
-    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
-    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
-    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
-  ],
-  ВMS: [
-    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
-    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
-    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
-  ],
-  ВMB: [
-    { text: 'Доработка электросети', value: 'ADD_WM_E', price: '400' },
-    { text: 'Доработка водоснабжения', value: 'ADD_WM_W', price: '500' },
-    { text: 'Доработка слива', value: 'ADD_WM_G', price: '600' }
-  ],
-  HS: [
-    { text: 'Перенавес дверей холодильника с электронным табло', value: 'ADD_HE', price: '100' },
-    { text: 'Перенавес дверей холодильника без электронным табло', value: 'ADD_H', price: '100' }, 
-  ],
-  HB: [
-    { text: 'Перенавес дверей холодильника с электронным табло', value: 'ADD_HE', price: '100' },
-    { text: 'Перенавес дверей холодильника без электронным табло', value: 'ADD_H', price: '100' }, 
-  ]
-}
 
 export default {
   
@@ -411,6 +192,7 @@ export default {
   props: ['change','id'],
   data: function () {
     return {
+      additionalFullName: [],
       dateValue: '',
       dateOptions: {
         disabledDate(date) {
@@ -541,7 +323,7 @@ export default {
       //this.productFullName = getProductFullName(priceId); 
       
       // написать через промисы получение даты с сервера а не с клиента
-      this.couponNumber = this.groupSelect.value + '/' + this.typeSelect.value + ' - ' + getRandomInt(100,0) + ' - ' + new Date().getDay() + new Date().getMonth() + new Date().getFullYear();      
+      this.couponNumber = this.groupSelect.value + '/' + this.typeSelect.value + ' - ' + getRandomInt(1000,0) + ' - ' + moment().format("DDMMYYYY-HHmm");      
         
         axios
           .get(productPriceUrl + priceId)
@@ -552,10 +334,12 @@ export default {
           .catch(err => console.log(err))
     
     },
-    onChangeSwitch: function (elem, price) {
-      elem.target.checked ?
-        this.productPrice += parseInt(price)
-        : this.productPrice -= parseInt(price);
+    onChangeSwitch: function (elem, object) {
+      if (elem.target.checked) {
+        this.productPrice += parseInt(object.price);
+      } else {
+        this.productPrice -= parseInt(object.price);
+      }
     },
     onChangeGroup: function () {
       if (!!this.groupSelect) {
@@ -598,6 +382,9 @@ export default {
         }
         if (additionalOptions[additionalId]) {
           this.additionalOptions = additionalOptions[additionalId];
+          if (additionalId==='ADD_WMDM') {
+            this.couponNumber = this.groupSelect.value + '/' + 'ADD' + ' - ' + '...' + ' - ' + moment().format("DDMMYYYY-HHmm")
+          }
         }
       }
     },
@@ -605,8 +392,15 @@ export default {
     onChangeProperty: function () {
       if (!!this.propertySelect) {
         this.initChoise('property')
+        debugger;
         let additionalId = this.propertySelect.value;
-
+        
+        if (['WMS_BASIC','WMB_BASIC','ВMS','ВMB'].indexOf(this.propertySelect.value) > -1){
+          additionalId = 'ADD_WMDM'
+        };
+        if (['HS','HB'].indexOf(this.propertySelect.value) > -1) {
+          additionalId = 'ADD_H'
+        }
         if (additionalOptions[additionalId]) {
           this.additionalOptions = additionalOptions[additionalId];
         }
@@ -615,7 +409,7 @@ export default {
     },
     initChoise: function (stage,initObject) {
 
-      
+      // TODO: проверить очистку всех полей по initChoise
 
       switch (stage) {
         
@@ -732,64 +526,129 @@ export default {
         })};
 
         
-
-      let order = {
+      if (this.premiumSelect.value !== 'ADD_WMDM') {
         
-        groupSelect: this.groupSelect,
-        groupOptions: this.groupOptions,
-        typeSelect: this.typeSelect,
-        typeOptions: this.typeOptions,
-        propertySelect: this.propertySelect,
-        propertyOptions: this.propertyOptions,
-        premiumSelect: this.premiumSelect,
-        premiumOptions: this.premiumOptions,
-        additionalOptions: this.additionalOptions,
-        showAdditionalOptions: this.showAdditionalOptions,
-        chekedAdditionalOptions: this.chekedAdditionalOptions,
-        fullname: this.fullname,
-        phone: this.phone,
-        address: this.address,
-        dateValue: this.dateValue,
-        commentsArr: this.commentsArr,
-        
-        productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
-        couponNumber: this.couponNumber,
-        productFullName: this.productFullName,
-        couponDate: this.couponDate,
-        productPrice: this.productPrice,
-        
-        creationUser: this.username,
-        creationDate: new Date(),
+        console.log('создали обычную заявку')
 
-        modifyDates: [],
-        modifyUsers: [],
-        deleted: false, 
+        let order = {
+          
+          groupSelect: this.groupSelect,
+          groupOptions: this.groupOptions,
+          typeSelect: this.typeSelect,
+          typeOptions: this.typeOptions,
+          propertySelect: this.propertySelect,
+          propertyOptions: this.propertyOptions,
+          premiumSelect: this.premiumSelect,
+          premiumOptions: this.premiumOptions,
+          additionalOptions: this.additionalOptions,
+          showAdditionalOptions: this.showAdditionalOptions,
+          chekedAdditionalOptions: this.chekedAdditionalOptions,
+          fullname: this.fullname,
+          phone: this.phone,
+          address: this.address,
+          dateValue: this.dateValue,
+          commentsArr: this.commentsArr,
+          
+          productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
+          couponNumber: this.couponNumber,
+          productFullName: this.productFullName,
+          couponDate: this.couponDate,
+          // TODO: не забудь что у тебя щас цена запишеться в заявку с учетом плюсов доработок
+          productPrice: this.productPrice,
+          
+          creationUser: this.username,
+          creationDate: new Date(),
 
-        reservationTime: false,
+          modifyDates: [],
+          modifyUsers: [],
+          deleted: false, 
 
-        artasians: [],
-        payed: false,
-        payDate: '',
-        logHistory: [],
-        
-        
-        addOption1: this.chekedAdditionalOptions.length > 0 ? this.chekedAdditionalOptions[0].value : '',
-        addOption2: this.chekedAdditionalOptions.length > 1 ? this.chekedAdditionalOptions[1].value : '',
-        addOption3: this.chekedAdditionalOptions.length > 2 ? this.chekedAdditionalOptions[2].value : '',
+          reservationTime: false,
 
+          artasians: [],
+          payed: false,
+          payDate: '',
+          logHistory: [],
+          
+          
+          addOption1: this.chekedAdditionalOptions.length > 0 ? this.chekedAdditionalOptions[0].value : '',
+          addOption2: this.chekedAdditionalOptions.length > 1 ? this.chekedAdditionalOptions[1].value : '',
+          addOption3: this.chekedAdditionalOptions.length > 2 ? this.chekedAdditionalOptions[2].value : '',
+
+        }
+
+        axios
+          .post('/api/postorder/', order)
+          .then(r => {
+            console.log('then 1' + r.data);
+            return r.data;
+          })
+          .then(data => console.log('then 2: '+data))
+          .then(() => this.initChoise('new'))
+          .catch(err => console.log(err))
       }
-      
-      console.log(order.productId);
 
-      axios
-        .post('/api/postorder/', order)
-        .then(r => {
-          console.log('then 1' + r.data);
-          return r.data;
-        })
-        .then(data => console.log('then 2: '+data))
-        .then(() => this.initChoise('new'))
-        .catch(err => console.log(err))
+      if (this.chekedAdditionalOptions.length > 0) {
+        this.chekedAdditionalOptions.forEach(function(element) {
+          
+          let order = {
+            groupSelect: this.groupSelect,
+            groupOptions: this.groupOptions,
+            typeSelect: this.typeSelect,
+            typeOptions: this.typeOptions,
+            propertySelect: this.propertySelect,
+            propertyOptions: this.propertyOptions,
+            premiumSelect: this.premiumSelect,
+            premiumOptions: this.premiumOptions,
+            additionalOptions: this.additionalOptions,
+            showAdditionalOptions: this.showAdditionalOptions,
+            chekedAdditionalOptions: this.chekedAdditionalOptions,
+            fullname: this.fullname,
+            phone: this.phone,
+            address: this.address,
+            dateValue: this.dateValue,
+            commentsArr: this.commentsArr,
+            
+            productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
+            couponNumber: this.groupSelect.value + '/' + element.value + ' - ' + getRandomInt(1000,0) + ' - ' + moment().format("DDMMYYYY-HHmm"),     
+            productFullName: element.text,
+            couponDate: this.couponDate,
+            // TODO: не забудь что у тебя щас цена запишеться в заявку с учетом плюсов доработок
+            productPrice: element.price,
+            
+            creationUser: this.username,
+            creationDate: new Date(),
+
+            modifyDates: [],
+            modifyUsers: [],
+            deleted: false, 
+
+            reservationTime: false,
+
+            artasians: [],
+            payed: false,
+            payDate: '',
+            logHistory: [],
+            
+            
+            //addOption1: this.chekedAdditionalOptions.length > 0 ? this.chekedAdditionalOptions[0].value : '',
+            //addOption2: this.chekedAdditionalOptions.length > 1 ? this.chekedAdditionalOptions[1].value : '',
+            //addOption3: this.chekedAdditionalOptions.length > 2 ? this.chekedAdditionalOptions[2].value : '',
+
+          }
+
+          axios
+          .post('/api/postorder/', order)
+          .then(r => {
+            console.log('then 1' + r.data);
+            return r.data;
+          })
+          .then(data => console.log('then 2: '+data))
+          .then(() => this.initChoise('new'))
+          .catch(err => console.log(err))
+          
+        }, this);
+      }
     }
   },
   beforeMount: function () {
@@ -804,6 +663,37 @@ export default {
             }
             _this.username = response.data.user;
             
+        }).then(() => {
+          axios
+            .get(productPriceUrl + 'ADD_WMDM_E')
+            .then(r => {
+              let city = "Йошкар-Ола";
+              additionalOptions['ADD_WMDM'][0].price = r.data[city]
+            });
+          axios
+            .get(productPriceUrl + 'ADD_WMDM_W')
+            .then(r => {
+              let city = "Йошкар-Ола";
+              additionalOptions['ADD_WMDM'][1].price = r.data[city]
+            })
+          axios
+            .get(productPriceUrl + 'ADD_WMDM_G')
+            .then(r => {
+              let city = "Йошкар-Ола";
+              additionalOptions['ADD_WMDM'][2].price = r.data[city]
+            })
+          axios
+            .get(productPriceUrl + 'ADD_HE')
+            .then(r => {
+              let city = "Йошкар-Ола";
+              additionalOptions['ADD_H'][0].price = r.data[city]
+            })
+          axios
+            .get(productPriceUrl + 'ADD_H')
+            .then(r => {
+              let city = "Йошкар-Ола";
+              additionalOptions['ADD_H'][1].price = r.data[city]
+            })
         })
         .catch(function (err) {
           console.log(err);

@@ -79,11 +79,12 @@ export default {
         {
           title: '№',
           key: 'couponNumber',
-          width: '100px'
+          width: '150px'
         },
         {
           title: 'Услуга',
           key: 'actions',
+          width: '200px',
           render: (h, params) => {
             return h('div',
               [
@@ -97,6 +98,7 @@ export default {
         {
           title: 'Покупатель',
           key: 'actions',
+          width: '270px',
           render: (h, params) => {
             return h('div',
               [
@@ -359,6 +361,10 @@ export default {
             .get('/api/getallorders')
             .then(r => { this.orders = r.data })
             
+        }).
+        then(() =>{
+          this.orderIdForArtasianModal = '';
+          this.choosenArtasian = '';
         })
         .catch(err => { console.log(err) })
     },
