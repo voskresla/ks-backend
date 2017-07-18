@@ -29,6 +29,16 @@
             </Radio>
           </Radio-group>
         </p>
+
+        <Alert show-icon v-if="relatedOrdersForModal.length">
+           
+          <template slot="desc">
+            <p v-for="order in relatedOrdersForModal" :key="order._id">
+              Заявка {{order.couponNumber}}. Мастер: {{order.actualArtasian ? order.actualArtasian.fullname : 'не назначен'}}
+            </p>
+          </template>
+        </Alert>
+        
       </Card>
       
       <p slot="footer">
@@ -69,6 +79,7 @@ export default {
     return {
       openPrintCouponComponent:false,
 
+      relatedOrdersForModal: [],
       openNewArtasianModal: false,
       orderIdForArtasianModal: '',
       artasianModalProps: {},
@@ -297,7 +308,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.artasianThis(params.row._id)
+                    this.artasianThis(params.row._id, params.row.address)
                   }
                 }
               }),
@@ -404,14 +415,25 @@ export default {
         )
         .catch(err => console.log(err))
     },
-    artasianThis: function (id) {
+    artasianThis: function (id,address) {
       this.openNewArtasianModal = true;
       this.orderIdForArtasianModal = id;
+        
+      this.relatedOrdersForModal = this.orders.filter((item) => {
+        
+        
+        
+        return item.address === address && item._id !== id
+      })
+
+      console.log(this.relatedOrdersForModal)
+
     },
     closeModal: function () {
       this.orderIdForArtasianModal = '';
       this.choosenArtasian = '';
       this.openNewArtasianModal = false;
+      relatedOrdersForModal = [];
     }
   },
   beforeMount: function beforeMount() {
@@ -457,7 +479,8 @@ export default {
       return this.orders.filter((order) => {
         let matchFullname = order.fullname.toLowerCase().includes(this.searchInput.toLowerCase()); 
         let matchCouponNUmber = order.couponNumber.toLowerCase().includes(this.searchInput.toLowerCase());
-        return matchFullname || matchCouponNUmber;
+        let matchAddress = order.address.toLowerCase().includes(this.searchInput.toLowerCase());
+        return matchFullname || matchCouponNUmber || matchAddress;
       })
     },
 

@@ -120,7 +120,7 @@ function getAdditionalInfo(id) {
 
 export let getNewDefinition = function (orderObj) {
 
-  debugger
+  
 
   let infoText = getInfoText(orderObj.row.productFullName);
   let productFullName = orderObj.row.productFullName;
