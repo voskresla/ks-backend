@@ -10,10 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "iview": "^2.0.0-rc.17",
-    "pdfmake": "^0.1.31"
+    
   },
   "devDependencies": {
+    "iview": "^2.0.0-rc.17",
+    "pdfmake": "^0.1.31",
     "axios": "0.16.2",
     "body-parser": "1.17.2",
     "connect-ensure-login": "0.1.1",
