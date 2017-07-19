@@ -525,6 +525,7 @@ export default {
           user : this.username
         })};
 
+      // Обычная отправка заявки без создания заявок доработок
         
       if (this.premiumSelect.value !== 'ADD_WMDM') {
         
@@ -584,9 +585,11 @@ export default {
             return r.data;
           })
           .then(data => console.log('then 2: '+data))
-          .then(() => this.initChoise('new'))
+          .then(() => this.$router.push({ name: 'orders'}))
           .catch(err => console.log(err))
       }
+
+      // Создаем заявку + заявки на дработку отдельными заявками
 
       if (this.chekedAdditionalOptions.length > 0) {
         this.chekedAdditionalOptions.forEach(function(element) {
@@ -644,7 +647,7 @@ export default {
             return r.data;
           })
           .then(data => console.log('then 2: '+data))
-          .then(() => this.initChoise('new'))
+          .then(() => this.$router.push({ name: 'orders' }))
           .catch(err => console.log(err))
           
         }, this);

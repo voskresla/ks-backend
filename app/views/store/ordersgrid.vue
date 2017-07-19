@@ -1,27 +1,19 @@
 <template>
-  <div >
-    
+  <div > 
     <div class="row align-middle align-center">
       <div class="small-4 columns text-center">
         <input type="text" v-model="searchInput" placeholder="номер купона / фио" class='searchinput'>
       </div>
     </div>
-    
-    
-    
     <Table stripe :columns="columns" :data="computedData"></Table>
-
     <!--
       Мы ебашим сюда модалку только потому что не можем вставить компонент в h() внутри columns
       Не забудь написать вот сюда issue https://github.com/iview/iview/issues/775#issuecomment-314061077
       -->
-
     <Modal v-model="openNewArtasianModal" :closable="false" :mask-closable="false">
-      
       <Card>
         <p slot="title">Доступные мастера</p>
         <p slot="extra"><Icon type="ios-loop-strong"></Icon></p>
-        
         <p>
           <Radio-group v-model="choosenArtasian">
             <Radio v-for="(item,index) in artasians" :key="item" :label="item._id">
@@ -29,56 +21,38 @@
             </Radio>
           </Radio-group>
         </p>
-
         <Alert show-icon v-if="relatedOrdersForModal.length">
-           
           <template slot="desc">
             <p v-for="order in relatedOrdersForModal" :key="order._id">
               Заявка {{order.couponNumber}}. Мастер: {{order.actualArtasian ? order.actualArtasian.fullname : 'не назначен'}}
             </p>
           </template>
         </Alert>
-        
       </Card>
-      
       <p slot="footer">
         <Button type="primary" @click="closeModal">Закрыть</Button>
         <Button type="primary" @click="sendNewArtasian(orderIdForArtasianModal, choosenArtasian)">Назначить</Button>
       </p>
     </Modal>
-
-    <!-- <Modal v-model='openPrintCouponComponent' id='printcontent'>
-      
-      <printCouponComponent></printCouponComponent>
-      <p slot="footer"></p>
-    </Modal> -->
-
-     
-
   </div>
 </template>
 
 <script>
 
-
 import { getNewDefinition } from './couponDocDefinition';
 import artasian from './artasian.vue';
-import printCouponComponent from './printCouponComponent.vue'
 import axios from 'axios';
-
-
 
 export default {
   
   name: 'ordersgrid',
   components: {
-    'artasian': artasian,
-    'printCouponComponent':printCouponComponent
+    'artasian': artasian
   },
   data: function () {
     return {
+      
       openPrintCouponComponent:false,
-
       relatedOrdersForModal: [],
       openNewArtasianModal: false,
       orderIdForArtasianModal: '',
@@ -88,14 +62,26 @@ export default {
       searchInput: '',
       columns: [
         {
+          title: 'ЗНУ',
+          key: 'globalId',
+        },
+        {
           title: '№',
-          key: 'couponNumber',
-          width: '150px'
+          key: 'action',
+          render: (h,params) => {
+            return h('a', {
+                on: {
+                  click: () => {
+                    this.changeThis(params.row._id);
+                  }
+                }
+              }, params.row._id)
+          }
         },
         {
           title: 'Услуга',
           key: 'actions',
-          width: '200px',
+          
           render: (h, params) => {
             return h('div',
               [
@@ -109,7 +95,7 @@ export default {
         {
           title: 'Покупатель',
           key: 'actions',
-          width: '270px',
+          
           render: (h, params) => {
             return h('div',
               [
@@ -122,7 +108,7 @@ export default {
         {
           title: 'Дата установки',
           key: 'dateValue',
-          width: '130px',
+          
           // className: 'priceformat'
           // TODO вставать свой classname для формата :after :before
         },

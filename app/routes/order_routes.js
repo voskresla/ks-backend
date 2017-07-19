@@ -1,7 +1,10 @@
 // routes/order_routes.js
-
+const mongoose = require('mongoose');
 
 const ObjectID = require("mongodb").ObjectID;
+
+// получили все модели из models
+let models = require('../../config/models')(mongoose);
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) next();
@@ -12,9 +15,23 @@ function checkRole(user) {
   return user.role;
 }
 
+async function getNextSequence() {
+ 
+  let y = models.counters.findOneAndUpdate(
+    { name: 'orders' },
+    { $inc: { counter: 1 } },
+    { new: true },
+
+  ).exec()
+  
+  return await y;
+}
+
 
 
 module.exports = function (app, db, passport) {
+
+  
 
   app.route("/").get(checkAuth, (req, res) => {
     let userRole = checkRole(req.user);
@@ -144,6 +161,9 @@ module.exports = function (app, db, passport) {
           if (err) {
             res.send(err);
           } else {
+            
+            
+
             res.send('ok we update it');
           }
         })
@@ -153,8 +173,12 @@ module.exports = function (app, db, passport) {
   app
     .route('/api/postorder/')
     .post((req, res) => {
-      db.collection('orders').insert(req.body);
-      res.send('ok order post');
+      getNextSequence().then((r) => {
+        req.body.globalId = r.counter;
+        db.collection('orders').insert(req.body);
+        res.send('ok order post');
+      });
+      
     })
 
   // CLAIMS

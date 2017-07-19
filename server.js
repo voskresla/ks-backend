@@ -96,9 +96,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(configDB.url, (err) => {
+mongoose.Promise = global.Promise;
+mongoose.connect(configDB.url, configDB.options, (err) => {
   if (err) return console.log('Error from mongoose connect ' + err);
   console.log('We connected to: ' + configDB.url);
+
+  
+  
+
+
   require('./app/routes')(app, mongoose.connection, passport);
 })
 

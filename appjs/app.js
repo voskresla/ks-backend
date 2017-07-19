@@ -32,7 +32,7 @@ const routes = [
   { path: '/makeorder/', component: makeorder},
   { path: '/makeorder/:change/:id', name: 'makeorder', component: makeorder, props: true },
   { path: '/claim/:claimid', name: 'claim', component: claimlayout, props: true },
-  { path: '/orders', component: ordersgrid },
+  { path: '/orders', name: 'orders', component: ordersgrid },
   { path: '/orders/id', component: makeorder }
 ]
 
