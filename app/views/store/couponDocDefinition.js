@@ -1,6 +1,4 @@
-function name () {
-  console.log("sdsds")
-}
+
 
 
 const bigDictionary = {
@@ -54,14 +52,14 @@ const bigDictionary = {
 }
 function getWorks (id) {
   
-  console.log ('id: '+id)
-  let worksArr = [];
+  console.log ('id: '+id);
+  var worksArr = '';
 
   let begin = bigDictionary[id].indexOf('Работы входящие в стоимость:') + 1;
   let end = bigDictionary[id].indexOf('Материалы, входящие в стоимость Купона:') - 1; 
   worksArr = bigDictionary[id].slice(begin, end);
   
-  return worksArr
+  return worksArr;
 }
 
 function getMaterials (id) {

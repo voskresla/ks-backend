@@ -654,14 +654,14 @@ export default {
   beforeMount: function () {
     
     const getUserUrl = '/api/getuser';
-    let _this = this;
+    
       axios
         .get(getUserUrl)
-        .then( function (response) {
+        .then( response => {
             if (response.data.role === 'hq') {
-            _this.ishq = true;
+            this.ishq = true;
             }
-            _this.username = response.data.user;
+            this.username = response.data.user;
             
         }).then(() => {
           axios

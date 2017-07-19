@@ -1,9 +1,15 @@
+'use strict';
 // // mongodb
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import iView from 'iview';
 
+import '../app/asset/vendor/foundation6/css/foundation.css';
+import '../app/asset/vendor/foundation6/css/app.css';
+import '../app/asset/vendor/iview/iview.css';
+
 // import 'iview/dist/styles/iview.css';
+
 
 Vue.use(VueRouter);
 Vue.use(iView);
@@ -13,7 +19,7 @@ let makeorder = require('../app/views/store/makeorder.vue');
 let ordersgrid = require('../app/views/store/ordersgrid.vue');
 let claimlayout = require('../app/views/store/claimlayout.vue')
 
-let pdfMake = require('pdfmake/build/pdfmake.js');
+let pdfMake = require('pdfmake/build/pdfmake.min.js');
 let pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

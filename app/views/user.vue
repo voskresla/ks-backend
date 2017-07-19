@@ -27,12 +27,12 @@ export default {
     };
   },
   beforeMount: function beforeMount() {
-    let _this = this;
+    
       axios
         .get(getUserUrl)
-        .then( function (response) {
-            _this.username = response.data.user || 'Auth plz.';
-            _this.role = response.data.role || 'Auth plz.';
+        .then( (response) => {
+            this.username = response.data.user || 'Auth plz.';
+            this.role = response.data.role || 'Auth plz.';
         })
         .catch(function (err) {
           console.log(err);
