@@ -137,14 +137,10 @@
     </div>
     <!--BUTTONS SECTION -->
     <div class="row">
-      <div v-if="!change" class="columns text-center buttons">
-        <button class="button" type="submit" value="Submit" @click.prevent.stop="newOrder">Новая заявка</button>
-      </div>
       <div class="columns text-center buttons">
         <button v-if="!change" class="button" type="submit" value="Submit" :disabled="!isSendButton" @click.prevent="sendOrder">Отправить заявку на кассу</button>
         <button v-if="change" class="button" type="submit" value="Submit" :disabled="!isSendButton" @click.prevent="changeOrder">Принять изменения</button>
       </div>
-  
     </div>
   </form>
   
@@ -264,6 +260,10 @@ export default {
   },
   computed: {
     
+    disableSelect: function () {
+      return !this.change
+    },
+
     typeText: function () {
       if (this.typeSelect) { return this.typeSelect.text }
     },
@@ -392,7 +392,7 @@ export default {
     onChangeProperty: function () {
       if (!!this.propertySelect) {
         this.initChoise('property')
-        debugger;
+        
         let additionalId = this.propertySelect.value;
         
         if (['WMS_BASIC','WMB_BASIC','ВMS','ВMB'].indexOf(this.propertySelect.value) > -1){
@@ -592,8 +592,13 @@ export default {
       // Создаем заявку + заявки на дработку отдельными заявками
 
       if (this.chekedAdditionalOptions.length > 0) {
-        this.chekedAdditionalOptions.forEach(function(element) {
+        this.chekedAdditionalOptions.forEach(function(element,index) {
+          debugger
+          let tmpArr = [];
+          tmpArr.push(element);
           
+
+
           let order = {
             groupSelect: this.groupSelect,
             groupOptions: this.groupOptions,
@@ -605,7 +610,7 @@ export default {
             premiumOptions: this.premiumOptions,
             additionalOptions: this.additionalOptions,
             showAdditionalOptions: this.showAdditionalOptions,
-            chekedAdditionalOptions: this.chekedAdditionalOptions,
+            chekedAdditionalOptions: tmpArr,
             fullname: this.fullname,
             phone: this.phone,
             address: this.address,
@@ -654,8 +659,11 @@ export default {
       }
     }
   },
+  beforeRouteUpdate (to, from, next) {
+    console.log('before route update to $to, from $from, next $next', to, from, next);
+  },
   beforeMount: function () {
-    
+    console.log('beforeMount')
     const getUserUrl = '/api/getuser';
     
       axios
@@ -741,6 +749,9 @@ export default {
           console.log(r.data)
 
           })
+    },
+    '$route': function () {
+      console.log('ух ты')
     }
   }
 

@@ -3,7 +3,7 @@
   <div id="userinfo" class="row align-middle">
     <div class="large-6 columns">
       <Button><router-link to='/makeorder'>Создать заявку</router-link></Button>
-      <Button><router-link to='/orders'>Все заявки</router-link></Button>
+      <Button @click="openAllOrders">Все заявки</Button>
 
     </div>
     <div class="large-6 columns text-right userinfo">
@@ -51,10 +51,15 @@ export default {
     // });
   },
   methods: {
-    // onPushThis: function onPushThis(obj, obj2) {
-    //   this.username = obj.name;
-    //   this.role = obj2.name;
-    // }
+    openAllOrders () {
+      if (this.$route.path === '/orders') {
+        this.$router.go(this.$router.currentRoute)
+      } else {
+        this.$router.push({ name: 'orders', params: { change: true, id: '2111' } })
+      }
+
+      
+    }
   }
 };
 </script>

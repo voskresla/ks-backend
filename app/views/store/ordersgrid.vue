@@ -16,7 +16,7 @@
         <p slot="extra"><Icon type="ios-loop-strong"></Icon></p>
         <p>
           <Radio-group v-model="choosenArtasian">
-            <Radio v-for="(item,index) in artasians" :key="item" :label="item._id">
+            <Radio v-for="(item,index) in artasians" :key="item._id" :label="item._id">
               {{item.fullname}} | {{item.orderGetToday}}/4 | <Icon type="ios-star" v-if="item.rating >= 1"></Icon><Icon type="ios-star" v-if="item.rating >= 2"></Icon><Icon type="ios-star" v-if="item.rating >= 3"></Icon><Icon type="ios-star" v-if="item.rating >= 4"></Icon><Icon type="ios-star" v-if="item.rating >= 5"></Icon>
             </Radio>
           </Radio-group>
@@ -61,10 +61,10 @@ export default {
       ishq: false,
       searchInput: '',
       columns: [
-        {
-          title: 'ЗНУ',
-          key: 'globalId',
-        },
+        // {
+        //   title: 'ЗНУ',
+        //   key: 'globalId',
+        // },
         {
           title: '№',
           key: 'action',

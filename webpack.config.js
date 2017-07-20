@@ -5,18 +5,18 @@ var CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: './appjs/app.js',
-  //devtool: 'source-map',
+  devtool: 'source-map',
   output: {
     filename: 'appbuild.js',
     path: __dirname + '/appjs/',
     publicPath: '/app/'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     'NODE_ENV': JSON.stringify('production')
+    //   }
+    // }),
     
     // new CompressionPlugin({
     //   asset: "[path].gz[query]",
