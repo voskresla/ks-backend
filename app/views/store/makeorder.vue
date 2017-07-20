@@ -616,7 +616,7 @@ export default {
             address: this.address,
             dateValue: this.dateValue,
             commentsArr: this.commentsArr,
-            
+             
             productId: this.groupSelect.value + this.typeSelect.value + this.premiumSelect.value + this.propertySelect.value,
             couponNumber: this.groupSelect.value + '/' + element.value + ' - ' + getRandomInt(1000,0) + ' - ' + moment().format("DDMMYYYY-HHmm"),     
             productFullName: element.text,
