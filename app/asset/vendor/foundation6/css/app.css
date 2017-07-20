@@ -1,4 +1,74 @@
 body {
+    background-color: rgba(37, 143, 175, 0.19);
+    font-family: Roboto !important;
+}
+
+.category-card-wrapper {
+    background-color: #f7f7f7;
+}
+
+.category-card-wrapper h4 {
+    font-weight: 100;
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+.category-card-wrapper ul {
+    padding-left: 10px;
+}
+
+.category-card-wrapper li {
+    font-weight: 100;
+    font-size: 14px;
+}
+
+.category-card-ul {
+    margin: 10px;
+    padding: 20px;
+}
+
+.header-row {
+  height: 70px;
+  background-image: linear-gradient(143deg,rgba(32, 98, 169, 0.91) 20%,rgba(45, 140, 240, .9) 81%,rgba(45, 140, 240, .9));
+  background-color: #2b83f9;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.header-search {
+  text-align: center;
+}
+
+.header-user {
+  text-align: right;
+}
+
+.header-icon {
+  padding-right: 25px;
+}
+
+.header-button i {
+  color: #ffffff;
+  background-color: transparent;
+  
+  font-size: 20px;
+}
+
+.header-button i:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: transparent;
+  
+  font-size: 20px;
+}
+
+.header-button.ivu-btn {
+  border: 0px;
+}
+
+
+
+
+/* body {
   background-color: rgba(37, 143, 175, 0.19)
 }
 
@@ -11,7 +81,7 @@ body {
 }
 
 .coupon {
-  /*padding: 25px;*/
+  
   border: 1px solid rgba(22, 83, 102, 0.3);
   border-radius: 6px;
   background-color: rgba(37, 143, 175, 0.19);
@@ -167,7 +237,7 @@ select:invalid {
 .switch {
   height: 2rem;
   position: relative;
-  /*margin-bottom: 1rem;*/
+  
   outline: 0;
   font-size: 0.875rem;
   font-weight: bold;
@@ -310,4 +380,4 @@ td.priceformat span::before {
 }
 
 
-
+ */

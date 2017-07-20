@@ -52,10 +52,13 @@ module.exports = function (app, db, passport) {
     .route("/api/getuser")
     .get(
     require("connect-ensure-login").ensureLoggedIn(),
-    (req, res) => {
-      //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4787/')
-      res.send({ user: req.user.username, role: req.user.role, rights: ''});
-    });
+      (req, res) => {
+          res.send({ 
+            user: req.user.username, 
+            role: req.user.role, 
+            rights: ''});
+      }
+    );
 
   app
     .route("/api/getproductprice/:priceid")
