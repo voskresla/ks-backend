@@ -40,6 +40,24 @@ module.exports = function (app, db, passport) {
       })
     })
 
+  app
+    .route("/api/getproductprice/:priceid")
+    .get(
+    // require("connect-ensure-login").ensureLoggedIn(),
+    (req, res) => {
+      
+      //let selector = { priceid: req.params.priceid };
+
+      db.collection("products_price").findOne({}, (err, item) => {
+        if (err) {
+          res.send(err);
+        } else {
+          let price = item[req.params.priceid]
+          res.send(price['Йошкар-Ола'].toString());
+        }
+      });
+    });
+
   // ROUTE AUTH & CHECK_AUTH
   app.route("/").get(checkAuth, (req, res) => {
     let userRole = checkRole(req.user);

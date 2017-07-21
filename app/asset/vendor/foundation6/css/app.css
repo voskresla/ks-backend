@@ -1,13 +1,21 @@
 body {
-    background-color: rgba(37, 143, 175, 0.19);
+    /* background-color: rgba(37, 143, 175, 0.19); */
     font-family: Roboto !important;
+    font-weight: 100 !important;
+    background-color: #e4e4e4
 }
 
 .category-card-wrapper {
-    background-color: #f7f7f7;
+    background-color: #e4e4e4;
 }
 
 .category-card-wrapper h4 {
+    font-weight: 100;
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+h2 {
     font-weight: 100;
     font-size: 18px;
     padding-bottom: 15px;

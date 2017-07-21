@@ -20,7 +20,7 @@ Vue.use(iView);
 // Register Components
 
 let mainlayout = require('../app/components/mainlayout.vue');
-let newOrderLayout = require('../app/components/newOrderLayout.vue');
+let OrderLayout = require('../app/components/OrderLayout.vue');
 // let categoryList = require('../app/components/categoryList.vue');
 let user = require('../app/views/user.vue');
 let ordersgrid = require('../app/views/store/ordersgrid.vue');
@@ -44,7 +44,12 @@ const routes = [
       {
         name: 'newOrder',
         path: 'orders/new',
-        component: newOrderLayout,
+        component: OrderLayout,
+      },
+      {
+        name: 'editshowOrder',
+        path: 'orders/edit',
+        component: OrderLayout,
       }
     ]
   },
@@ -68,9 +73,33 @@ const store = new Vuex.Store({
       rights: ''
     },
     products: {},
-    order: {},
+    order: {
+      orderKsId: '',
+      orderCreateAt: '',
+      orderUpdateAt: '',
+      orderLastModify: '',
+
+      couponNumber: '',
+      couponSaleDate: '',
+      couponPrice: '',
+      couponExtraInfo: '',
+
+      customerFullName: '',
+      customerAddress: '',
+      customerPhone: '',
+      customerComment: '',
+
+      productKey: [],
+      productPrice: '',
+
+      masterKsId: '',
+      masterFullname: '',
+      masterPhone: '',
+    },
     orderLayoutState: {
       init: true,
+      new: false,
+      edit: false,
       key: false
     }
   },
@@ -82,8 +111,10 @@ const store = new Vuex.Store({
       state.orderLayoutState = {...payload}
     },
     fillProducts (state, payload) {
-      console.log(payload)
       state.products = {...payload}
+    },
+    fillOrder (state,payload) {
+      state.order.productPrice = payload;
     }
   },
   getters: {
@@ -105,7 +136,11 @@ const store = new Vuex.Store({
       })
 
       return arr
+    },
+    getOrderFromStore (state) {
+      return state.order
     }
+    
     
   },
   actions: {
@@ -122,6 +157,23 @@ const store = new Vuex.Store({
         .then((r) => { return r.data[0] })
         .catch((err) => console.log(err))
       commit('fillProducts', await payload)
+    },
+    async getOrderInfoFromServer ({commit,state}) {
+      
+      if (state.orderLayoutState.new) {
+        let productPriceId = state.orderLayoutState.key;
+        let payload = axios
+          .get('/api/getproductprice/'+productPriceId)
+          .then((r) => { return r.data })
+          .catch((err) => console.log(err))
+        commit('fillOrder', await payload)
+      }
+
+      if (state.orderLayoutState.edit) {
+        console.log('handle actions edit mode')
+      }
+
+      
     }
   }
 })
@@ -132,7 +184,7 @@ let myVue = new Vue({
   store,
   components: {
     mainlayout: mainlayout,
-    'new-order-layout': newOrderLayout,
+    'new-order-layout': OrderLayout,
     user: user,
     makeorder: makeorder,
     ordersgrid: ordersgrid,

@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     handleLinkClick (value) {
-      this.$store.commit('changeOrderLayoutState', { init: false, key: value })
+      this.$store.commit('changeOrderLayoutState', { init: false, new: true, edit: false, key: value })
     }
   },
   computed: {
