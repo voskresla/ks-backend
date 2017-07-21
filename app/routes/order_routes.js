@@ -52,10 +52,18 @@ module.exports = function (app, db, passport) {
         if (err) {
           res.send(err);
         } else {
-          let price = item[req.params.priceid]
+          let price = item[req.params.priceid];
           res.send(price['Йошкар-Ола'].toString());
         }
       });
+    });
+
+  app
+    .route("/api/getnewcouponnumber")
+    .get(
+    // require("connect-ensure-login").ensureLoggedIn(),
+    (req, res) => {
+          res.send('0001');
     });
 
   // ROUTE AUTH & CHECK_AUTH

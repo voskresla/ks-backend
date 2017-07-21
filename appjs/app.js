@@ -114,7 +114,11 @@ const store = new Vuex.Store({
       state.products = {...payload}
     },
     fillOrder (state,payload) {
-      state.order.productPrice = payload;
+      for (var key in payload) {
+        if (true) {
+          state.order[key] = payload[key];  
+        }
+      }
     }
   },
   getters: {
@@ -161,12 +165,24 @@ const store = new Vuex.Store({
     async getOrderInfoFromServer ({commit,state}) {
       
       if (state.orderLayoutState.new) {
+        
+        let payload = {}
         let productPriceId = state.orderLayoutState.key;
-        let payload = axios
+
+        let productPrice = axios
           .get('/api/getproductprice/'+productPriceId)
           .then((r) => { return r.data })
           .catch((err) => console.log(err))
-        commit('fillOrder', await payload)
+        
+        let couponNumber = axios
+          .get('/api/getnewcouponnumber/')
+          .then((r) => { return r.data })
+          .catch((err) => console.log(err))
+
+          payload.productPrice = await productPrice;
+          payload.couponNumber = await couponNumber;
+        
+        commit('fillOrder', payload)
       }
 
       if (state.orderLayoutState.edit) {

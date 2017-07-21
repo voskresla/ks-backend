@@ -4,11 +4,17 @@
     <Col :xs="22" :sm="22" :md="18" :lg="18" class="new-order-form">
       <Row>
         <Col :xs="24" :sm="24" :md="12" :lg="12">
-          <h2>Новая заявка</h2>
-          
+          <h2>Новая заявка {{order.couponNumber}}</h2>
+            <Input v-model="order.customerFullName" placeholder="Иванов Иван Иванович"></Input>
+            <Input v-model="order.customerPhone" placeholder="+7 999 999 99 99"></Input>
+            <Input v-model="order.customerAddress" placeholder="г Йошкар-Ола, Садовая 11-14"></Input>
+            <Input v-model="order.customerComment" type="textarea" placeholder="г Йошкар-Ола, Садовая 11-14"></Input>
+
+            <Button type="primary" @click="handleSendClick">Отправить заявку</Button>
+
         </Col>
         <Col :xs="24" :sm="24" :md="12" :lg="12">
-        
+          COUPON INFO
         </Col>
       </Row>
     </Col>
@@ -25,22 +31,14 @@ export default {
     }
   },
   methods: {
-    fillLocalOrder () {
-      // console.log(this.order);
-      // console.log(this.order.productPrice);
-      // console.log(this.order['productPrice']);
+    handleSendClick () {
       
-    },
-    handleTest() {
-      // this.$store.commit('changeOrderLayoutState', { init: false, new: true, edit: false, key: 'DW_VIP'});
-      // this.$store.dispatch('getOrderInfoFromServer');
-      this.fillLocalOrder();
     }
   },
   computed: {
     order () {
       return this.$store.getters.getOrderFromStore;
-    }
+    },
   },
   
   beforeMount () {
