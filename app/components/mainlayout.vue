@@ -31,6 +31,11 @@ export default {
     handleGetUserInfo() {
       this.$store.dispatch('getUserInfo');
     }
+  },
+  watch: {
+    '$route': function () {
+      console.log('ух ты')
+    }
   }
 }
 </script>

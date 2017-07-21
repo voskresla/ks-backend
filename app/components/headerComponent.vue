@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     handleNewOrderClick () {
+      this.$store.commit('changeOrderLayoutState', { init: true, key: false })
       this.$router.push({ name: 'newOrder' })
     },
     handleAllOrdersClick () {

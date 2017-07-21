@@ -37,6 +37,7 @@ const routes = [
   { path: '/', component: mainlayout,
     children: [
       {
+        name: 'allOrders',
         path: 'orders',
         component: ordersgrid
       },
@@ -44,7 +45,6 @@ const routes = [
         name: 'newOrder',
         path: 'orders/new',
         component: newOrderLayout,
-        props: true
       }
     ]
   },
@@ -62,19 +62,39 @@ const router = new VueRouter({
 // Store
 const store = new Vuex.Store({
   state: {
-    order: {},
     user: {
       usern: '',
       role: '',
       rights: ''
     },
+    products: {},
+    order: {},
+    orderLayoutState: {
+      init: true,
+      key: false
+    }
   },
   mutations: {
     fillUser (state, payload) {
       state.user = {...payload}
+    },
+    changeOrderLayoutState (state, payload) {
+      state.orderLayoutState = {...payload}
+    },
+    fillProducts (state, payload) {
+      console.log(payload)
+      state.products = {...payload}
     }
   },
   getters: {
+    getOrderLayoutState (state) {
+      return state.orderLayoutState
+    },
+    getProductsForCategoryList (state) {
+      // for (keyName in state.products) {
+
+      // }
+    }
     
   },
   actions: {
@@ -84,6 +104,13 @@ const store = new Vuex.Store({
         .then((r) => { return r.data })
         .catch((err) => console.log(err))
       commit('fillUser', await payload)
+    },
+    async getProducts ({commit,state}) {
+      let payload = axios
+        .get('/api/getproducts')
+        .then((r) => { return r.data[0] })
+        .catch((err) => console.log(err))
+      commit('fillProducts', await payload)
     }
   }
 })
@@ -99,6 +126,9 @@ let myVue = new Vue({
     makeorder: makeorder,
     ordersgrid: ordersgrid,
     claimlayout: claimlayout,
+  },
+  beforeMount () {
+    this.$store.dispatch('getProducts')    
   }
 
 });

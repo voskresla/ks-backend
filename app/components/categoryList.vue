@@ -6,6 +6,7 @@
       <div class="category-card-ul">
         <h4>Стиральные и посудомоечные машины</h4>
         <ul>
+          
           <li>
             <a @click="handleLinkClick('value')">Подключ. DW (стандарт)</a>
           </li>
@@ -154,7 +155,12 @@ export default {
   },
   methods: {
     handleLinkClick (value) {
-      this.$router.push({ name: 'newOrder', params: { state: 'value' } })
+      this.$store.commit('changeOrderLayoutState', { init: false, key: value })
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.products
     }
   }
 }

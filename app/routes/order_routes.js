@@ -24,6 +24,23 @@ async function getNextSequence() {
 
 module.exports = function (app, db, passport) {
 
+  // ROUTE INFO DATA
+
+  app
+    .route("/api/getproducts")
+    .get((req, res) => {
+      
+      let selector = {};
+      db.collection("products").find({}).toArray((err, item) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(item);
+        }
+      })
+    })
+
+  // ROUTE AUTH & CHECK_AUTH
   app.route("/").get(checkAuth, (req, res) => {
     let userRole = checkRole(req.user);
     res.sendFile("/app/views/" + userRole + "/index.html", { root: "./" });

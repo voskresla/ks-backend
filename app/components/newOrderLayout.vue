@@ -1,7 +1,7 @@
 <template>
   <div>
-    <category-list v-if="!routeParams"></category-list>
-    <new-order-form v-if="routeParams"></new-order-form>
+    <category-list v-if="orderLayoutState.init"></category-list>
+    <new-order-form v-if="!orderLayoutState.init"></new-order-form>
     
   </div>  
 </template>
@@ -19,18 +19,23 @@ export default {
   },
   props: [],
   data: function () {
-    return {}
+    return {
+      // orderLayoutState: {
+      //   init: true,
+      //   key: false
+      // }
+    }
   },
   methods: {},
   computed: {
-    routeParams () {
-      return this.$route.params.state
+    orderLayoutState () {
+      return this.$store.getters.getOrderLayoutState
     }
   },
-  watch: {
-    '$route': function () {
-      console.log('ух ты')
-    }
+
+  // HOOKS
+  beforeMount () {
+    this.orderLayoutState = this.$store.getters.getOrderLayoutState
   }
 }
 </script>
