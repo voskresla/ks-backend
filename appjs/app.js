@@ -90,10 +90,21 @@ const store = new Vuex.Store({
     getOrderLayoutState (state) {
       return state.orderLayoutState
     },
-    getProductsForCategoryList (state) {
-      // for (keyName in state.products) {
+    getProductsForCategoryList(state) {
+      
+      let object = state.products;
+      let arr = [];
+      for (var key in object) {
+        if (key !== '_id') {
+          object[key].id = key;
+          arr.push(object[key]);
+        }
+      }
+      arr.sort((a,b) => {
+        return a['KS OPERATION GROUP'] > b['KS OPERATION GROUP'] ? 1 : -1
+      })
 
-      // }
+      return arr
     }
     
   },

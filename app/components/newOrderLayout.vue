@@ -12,7 +12,7 @@ let categoryList = require('./categoryList.vue');
 let newOrderForm = require('./newOrderForm.vue');
 
 export default {
-  name: 'newOrder',
+  name: 'newOrderLayout',
   components: {
     'category-list': categoryList,
     'new-order-form': newOrderForm

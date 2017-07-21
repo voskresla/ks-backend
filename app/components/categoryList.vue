@@ -6,8 +6,10 @@
       <div class="category-card-ul">
         <h4>Стиральные и посудомоечные машины</h4>
         <ul>
-          
-          <li>
+          <li v-for="(item, index) in products" :key="index">
+            <a @click="handleLinkClick(item.id)">{{item['Наименование услуги']}}</a>
+          </li>
+          <!-- <li>
             <a @click="handleLinkClick('value')">Подключ. DW (стандарт)</a>
           </li>
           <li>
@@ -34,7 +36,7 @@
           </li>
           <li>
             <a href="#">Подключ. дораб.электросети</a>
-          </li>
+          </li> -->
         </ul>
       </div>
       </Col>
@@ -151,7 +153,9 @@
 export default {
   name: 'categoryList',
   data: function () {
-    return {}
+    return {
+      
+    }
   },
   methods: {
     handleLinkClick (value) {
@@ -160,7 +164,8 @@ export default {
   },
   computed: {
     products () {
-      return this.$store.products
+      //onsole.log(this.$store.getters('getProductsForCategoryList'))
+      return this.$store.getters.getProductsForCategoryList
     }
   }
 }

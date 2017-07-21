@@ -1,6 +1,6 @@
 <template>
 <div>
-  
+  {{productKey}}
 </div>
 </template>
 
@@ -8,9 +8,11 @@
 export default {
   name: 'newOrderForm',
   data: function() {	
-    return {}
+    return {
+      productKey: this.$store.getters.getOrderLayoutState.key
+    }
   },
-  methods: {}
+  methods: {},
 }
 </script>
 
