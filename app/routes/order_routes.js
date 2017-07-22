@@ -24,13 +24,10 @@ async function getNextSequence() {
 
 module.exports = function (app, db, passport) {
 
-  // ROUTE INFO DATA
-
+  // ROUTE GET INFO DATA
   app
     .route("/api/getproducts")
     .get((req, res) => {
-      
-      let selector = {};
       db.collection("products").find({}).toArray((err, item) => {
         if (err) {
           res.send(err);
@@ -45,15 +42,12 @@ module.exports = function (app, db, passport) {
     .get(
     // require("connect-ensure-login").ensureLoggedIn(),
     (req, res) => {
-      
-      //let selector = { priceid: req.params.priceid };
-
       db.collection("products_price").findOne({}, (err, item) => {
         if (err) {
           res.send(err);
         } else {
           let price = item[req.params.priceid];
-          res.send(price['Йошкар-Ола'].toString());
+          res.send(price['Йошкар-Ола'].toString())
         }
       });
     });
@@ -89,6 +83,19 @@ module.exports = function (app, db, passport) {
     res.redirect("/");
   });
 
+  // ROUTE ORDERS
+
+  app
+    .route('/api/postorder/')
+    .post((req, res) => {
+      getNextSequence().then((r) => {
+        req.body.globalId = r.counter;
+        db.collection('orders').insert(req.body);
+        res.send('ok order post');
+      });
+      
+    })
+  
   // API
 
   app
@@ -207,16 +214,16 @@ module.exports = function (app, db, passport) {
 
     })  
 
-  app
-    .route('/api/postorder/')
-    .post((req, res) => {
-      getNextSequence().then((r) => {
-        req.body.globalId = r.counter;
-        db.collection('orders').insert(req.body);
-        res.send('ok order post');
-      });
+  // app
+  //   .route('/api/postorder/')
+  //   .post((req, res) => {
+  //     getNextSequence().then((r) => {
+  //       req.body.globalId = r.counter;
+  //       db.collection('orders').insert(req.body);
+  //       res.send('ok order post');
+  //     });
       
-    })
+  //   })
 
   // CLAIMS
   //  /api/postclaim/

@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'newOrderForm',
   data: function() {	
@@ -32,12 +34,15 @@ export default {
   },
   methods: {
     handleSendClick () {
-      
+      axios
+        .post('/api/postorder/',this.order)
+        .then((r) => console.log(r))
+        .catch((err) => console.log(err))
     }
   },
   computed: {
     order () {
-      return this.$store.getters.getOrderFromStore;
+      return  this.$store.getters.getOrderFromStore;
     },
   },
   

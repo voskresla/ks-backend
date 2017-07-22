@@ -109,9 +109,19 @@ const store = new Vuex.Store({
     },
     changeOrderLayoutState (state, payload) {
       state.orderLayoutState = {...payload}
+      if (payload.init) {
+        store.commit('clearOrderObject');
+      }
     },
     fillProducts (state, payload) {
       state.products = {...payload}
+    },
+    clearOrderObject (state) {
+      for (var key in state.order) {
+        if (true) {
+          state.order[key] = '';  
+        }
+      }
     },
     fillOrder (state,payload) {
       for (var key in payload) {
@@ -163,9 +173,7 @@ const store = new Vuex.Store({
       commit('fillProducts', await payload)
     },
     async getOrderInfoFromServer ({commit,state}) {
-      
       if (state.orderLayoutState.new) {
-        
         let payload = {}
         let productPriceId = state.orderLayoutState.key;
 
@@ -179,6 +187,7 @@ const store = new Vuex.Store({
           .then((r) => { return r.data })
           .catch((err) => console.log(err))
 
+          payload.productKey = state.orderLayoutState.key;
           payload.productPrice = await productPrice;
           payload.couponNumber = await couponNumber;
         
@@ -187,9 +196,7 @@ const store = new Vuex.Store({
 
       if (state.orderLayoutState.edit) {
         console.log('handle actions edit mode')
-      }
-
-      
+      }   
     }
   }
 })
