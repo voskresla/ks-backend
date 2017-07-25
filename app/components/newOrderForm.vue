@@ -13,10 +13,12 @@
         <Input v-model="localOrder.customerFullName" placeholder="Иванов Иван Иванович"></Input>
         <Input v-model="localOrder.customerPhone" placeholder="+7 999 999 99 99"></Input>
         <Input v-model="localOrder.customerAddress" placeholder="г Йошкар-Ола, Садовая 11-14"></Input>
-        <Input v-model="localOrder.customerComment" type="textarea" placeholder="г Йошкар-Ола, Садовая 11-14"></Input>
+        <Input v-model="localOrder.customerComment" type="textarea" :rows="5" placeholder="Комментарий"></Input>
   
+        <Date-picker type="date" placeholder="Дата установки" style="width: 200px" @on-change="handleChangeDate"></Date-picker>
+
         <div v-if="localOrder.productAdditionals">
-          <Checkbox-group v-model="localAditionalProductsChecked">
+          <Checkbox-group v-model="localAditionalProductsChecked" class="my-checkbox">
           <Checkbox v-for="item in localOrder.productAdditionals" :label="item.key" :key="item.key">
               <span>{{item.name}} +{{item.price}}</span>
           </Checkbox>
@@ -49,6 +51,9 @@ export default {
     }
   },
   methods: {
+    handleChangeDate (value) {
+      this.localOrder.couponSaleDate = value;
+    },
     async handleSendClick() {
       if (this.localAditionalProductsChecked.length) {
         for (var i = 0; i < this.localAditionalProductsChecked.length; i++) {
@@ -78,7 +83,7 @@ export default {
           .then(() => console.log('post general order'))
           .catch((err) => console.log(err))
       
-      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false, name: false, additionals: false })
+      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false, name: false, all: false })
       this.$router.push({ name: 'newOrder' })
     },
     ...mapGetters([

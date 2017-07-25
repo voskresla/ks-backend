@@ -5,6 +5,36 @@ body {
     background-color: #e4e4e4
 }
 
+.new-order-form {
+  padding-top: 30px;
+}
+
+.new-order-form h2 {
+  padding-bottom: 20px;
+}
+
+.new-order-form h2 {
+  font-weight: 200;
+}
+
+.new-order-form input, .new-order-form textarea {
+    color: black !important;
+    height: 40px !important;
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
+    
+    background-color: transparent !important;
+    border: 0px !important;
+    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;
+    border-radius: 0px;
+}
+
+.new-order-form .my-checkbox {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
 .category-card-wrapper {
     background-color: #e4e4e4;
 }

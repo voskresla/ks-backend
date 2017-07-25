@@ -62,7 +62,7 @@ const store = new Vuex.Store({
       edit: false,
       key: false,
       name: false,
-      additionals: false
+      all: false,
     }
   },
   mutations: {
@@ -190,12 +190,13 @@ const store = new Vuex.Store({
             console.log(err);
             payload.error = true;
           })
-
+        
+        payload.orderKsId = await couponNumber.orderKsId;
         payload.productKey = state.orderLayoutState.key;
         payload.productFullName = state.orderLayoutState.name;
         payload.productPrice = await productPrice;
         payload.productAdditionals = additionalsObj;
-        payload.couponNumber = await couponNumber;
+        payload.couponNumber = await couponNumber.number;
         
         return new Promise ((resolve,reject) => {
           if (payload.error) {

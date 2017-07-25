@@ -64,7 +64,7 @@ module.exports = function (app, db, passport) {
     (req, res) => {
       getNextSequence().then((r) => {
         let number = '001' + '-' + r.counter + '-' + moment().format("DDMMYYYY-HHmm")
-        res.send(number) 
+        res.send({number: number, orderKsId: r.counter}) 
       });
           
     });
@@ -108,6 +108,9 @@ module.exports = function (app, db, passport) {
   app
     .route('/api/postorder/')
     .post((req, res) => {
+      
+
+
       db.collection('orders').insert(req.body);
       res.send('ok order post');
     })

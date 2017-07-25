@@ -3,22 +3,20 @@
     <category-list v-if="orderLayoutState.init"></category-list>
     <new-order-form v-if="orderLayoutState.new"></new-order-form>
     <editshow-order-form v-if="orderLayoutState.edit"></editshow-order-form>
+    <all-order-layout v-if="orderLayoutState.all"></all-order-layout>
     
   </div>  
 </template>
   
 <script>
 
-let categoryList = require('./categoryList.vue');
-let newOrderForm = require('./newOrderForm.vue');
-let editshowOrderForm = require('./editshowOrderForm.vue');
-
 export default {
   name: 'OrderLayout',
   components: {
-    'category-list': categoryList,
-    'new-order-form': newOrderForm,
-    'editshow-order-form': editshowOrderForm
+    'category-list': require('./categoryList.vue'),
+    'new-order-form': require('./newOrderForm.vue'),
+    'editshow-order-form': require('./editshowOrderForm.vue'),
+    'all-order-layout': require('../views/store/ordersgrid.vue'),
   },
   props: [],
   data: function () {

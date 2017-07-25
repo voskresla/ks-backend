@@ -43,10 +43,14 @@ export default {
   methods: {
     handleNewOrderClick () {
       //this.$store.commit('clearOrderObject')
-      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false, name: false, additionals: false })
+      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false, name: false, all: false })
       this.$router.push({ name: 'newOrder' })
     },
     handleAllOrdersClick () {
+
+      this.$store.commit('changeOrderLayoutState', { init: false, new:false, edit: false, key: false, name: false, all: true })
+      this.$router.push({ name: 'newOrder' })
+
 
     },
     handleAllClaimsClick () {
