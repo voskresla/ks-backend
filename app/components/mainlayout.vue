@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+
 
 let headerComponent = require('./headerComponent.vue');
 
@@ -28,14 +28,9 @@ export default {
 
   },
   methods: {
-    handleGetUserInfo() {
-      this.$store.dispatch('getUserInfo');
-    }
   },
   watch: {
-    '$route': function () {
-      console.log('ух ты')
-    }
+    
   }
 }
 </script>

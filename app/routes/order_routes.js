@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const ObjectID = require("mongodb").ObjectID;
+const ObjectID = require('mongodb').ObjectID;
+const moment = require('moment');
 
 let models = require('../../config/models')(mongoose);
 
@@ -42,14 +43,18 @@ module.exports = function (app, db, passport) {
     .get(
     // require("connect-ensure-login").ensureLoggedIn(),
     (req, res) => {
+
+    let mainProductPrice = '';
+
       db.collection("products_price").findOne({}, (err, item) => {
         if (err) {
           res.send(err);
         } else {
-          let price = item[req.params.priceid];
-          res.send(price['Йошкар-Ола'].toString())
+          mainProductPrice = item[req.params.priceid]['Йошкар-Ола'];
+          res.send(mainProductPrice.toString())
         }
       });
+      
     });
 
   app
@@ -57,7 +62,22 @@ module.exports = function (app, db, passport) {
     .get(
     // require("connect-ensure-login").ensureLoggedIn(),
     (req, res) => {
-          res.send('0001');
+      getNextSequence().then((r) => {
+        let number = '001' + '-' + r.counter + '-' + moment().format("DDMMYYYY-HHmm")
+        res.send(number) 
+      });
+          
+    });
+
+  app
+    .route("/api/getnewksid")
+    .get(
+    // require("connect-ensure-login").ensureLoggedIn(),
+    (req, res) => {
+      getNextSequence().then((r) => {
+        res.send(r.counter.toString()) 
+      });
+          
     });
 
   // ROUTE AUTH & CHECK_AUTH
@@ -88,12 +108,8 @@ module.exports = function (app, db, passport) {
   app
     .route('/api/postorder/')
     .post((req, res) => {
-      getNextSequence().then((r) => {
-        req.body.globalId = r.counter;
-        db.collection('orders').insert(req.body);
-        res.send('ok order post');
-      });
-      
+      db.collection('orders').insert(req.body);
+      res.send('ok order post');
     })
   
   // API

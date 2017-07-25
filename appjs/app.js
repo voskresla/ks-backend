@@ -3,69 +3,26 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
-import { mapState } from 'vuex';
-import axios from 'axios';
 
+import axios from 'axios';
 import iView from 'iview';
 
 // import '../app/asset/vendor/foundation6/css/foundation.css';
 import '../app/asset/vendor/foundation6/css/app.css';
 import '../app/asset/vendor/iview/iview.css';
 
-
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(iView);
-
-// Register Components
-
-let mainlayout = require('../app/components/mainlayout.vue');
-let OrderLayout = require('../app/components/OrderLayout.vue');
-// let categoryList = require('../app/components/categoryList.vue');
-let user = require('../app/views/user.vue');
-let ordersgrid = require('../app/views/store/ordersgrid.vue');
-let makeorder = require('../app/views/store/makeorder.vue');
-let claimlayout = require('../app/views/store/claimlayout.vue')
 
 // Register PDF
 let pdfMake = require('pdfmake/build/pdfmake.min.js');
 let pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs; // иначе не подгрузяться шрифты.
 
-// Routes
-const routes = [
-  { path: '/', component: mainlayout,
-    children: [
-      {
-        name: 'allOrders',
-        path: 'orders',
-        component: ordersgrid
-      },
-      {
-        name: 'newOrder',
-        path: 'orders/new',
-        component: OrderLayout,
-      },
-      {
-        name: 'editshowOrder',
-        path: 'orders/edit',
-        component: OrderLayout,
-      }
-    ]
-  },
-  { path: '/makeorder/', component: makeorder},
-  { path: '/makeorder/:change/:id', name: 'makeorder', component: makeorder, props: true },
-  { path: '/claim/:claimid', name: 'claim', component: claimlayout, props: true },
-  // { path: '/orders', name: 'orders', component: ordersgrid },
-  // { path: '/orders/id', component: makeorder }
-]
-
-const router = new VueRouter({
-  routes: routes
-})
-
 // Store
 const store = new Vuex.Store({
+  strict: true,
   state: {
     user: {
       usern: '',
@@ -90,7 +47,10 @@ const store = new Vuex.Store({
       customerComment: '',
 
       productKey: [],
+      productFullName: '',
       productPrice: '',
+      productAdditionals: {},
+      productAdditionalsChecked: [],
 
       masterKsId: '',
       masterFullname: '',
@@ -100,7 +60,9 @@ const store = new Vuex.Store({
       init: true,
       new: false,
       edit: false,
-      key: false
+      key: false,
+      name: false,
+      additionals: false
     }
   },
   mutations: {
@@ -118,17 +80,34 @@ const store = new Vuex.Store({
     },
     clearOrderObject (state) {
       for (var key in state.order) {
-        if (true) {
-          state.order[key] = '';  
+        switch (key) {
+          case 'productKey': 
+            state.order[key] = []
+            break;
+        
+          default:
+            state.order[key] = ''
+            break;
         }
       }
     },
     fillOrder (state,payload) {
+      console.log('in fillOrder: ', payload)
       for (var key in payload) {
-        if (true) {
-          state.order[key] = payload[key];  
+        switch (key) {
+          case 'productKey': 
+            state.order[key].push(payload[key])
+            break;
+        
+          default:
+            state.order[key] = payload[key]
+            break;
         }
+        
       }
+    },
+    updateOrder (state, payload) {
+      state.order[payload.key] = payload.value
     }
   },
   getters: {
@@ -155,7 +134,6 @@ const store = new Vuex.Store({
       return state.order
     }
     
-    
   },
   actions: {
     async getUserInfo ({commit, state}) {
@@ -174,24 +152,62 @@ const store = new Vuex.Store({
     },
     async getOrderInfoFromServer ({commit,state}) {
       if (state.orderLayoutState.new) {
-        let payload = {}
+        let payload = {};
+        let additionalsObj = {};
         let productPriceId = state.orderLayoutState.key;
+        let additionalProductsId = state.products[state.orderLayoutState.key]['ADDITIONALS'];
+        
+        for (let i = 0; i < additionalProductsId.length; i++) {
+          let element = additionalProductsId[i];
+          let tmpObj = {
+            key: element,
+            name: state.products[element]['Наименование услуги'],
+            price: await axios
+              .get('/api/getproductprice/'+element)
+              .then((r) => { return r.data })
+              .catch((err) => {
+                console.log(err);
+                payload.error = true;
+            }) 
+          }
+          additionalsObj[element] = tmpObj;
+        }
+
+        
 
         let productPrice = axios
           .get('/api/getproductprice/'+productPriceId)
           .then((r) => { return r.data })
-          .catch((err) => console.log(err))
+          .catch((err) => {
+            console.log(err);
+            payload.error = true;
+          })
         
         let couponNumber = axios
           .get('/api/getnewcouponnumber/')
           .then((r) => { return r.data })
-          .catch((err) => console.log(err))
+          .catch((err) => {
+            console.log(err);
+            payload.error = true;
+          })
 
-          payload.productKey = state.orderLayoutState.key;
-          payload.productPrice = await productPrice;
-          payload.couponNumber = await couponNumber;
+        payload.productKey = state.orderLayoutState.key;
+        payload.productFullName = state.orderLayoutState.name;
+        payload.productPrice = await productPrice;
+        payload.productAdditionals = additionalsObj;
+        payload.couponNumber = await couponNumber;
         
-        commit('fillOrder', payload)
+        return new Promise ((resolve,reject) => {
+          if (payload.error) {
+            reject(payload.error)
+          } else {
+            setTimeout(() => {
+              console.log('in setTimeot')
+              commit('fillOrder', payload);
+              resolve()
+            },1000)
+          }
+        })
       }
 
       if (state.orderLayoutState.edit) {
@@ -203,18 +219,14 @@ const store = new Vuex.Store({
 
 let myVue = new Vue({
   el: '#myApp',
-  router: router,
+  router: require('./router'),
   store,
   components: {
-    mainlayout: mainlayout,
-    'new-order-layout': OrderLayout,
-    user: user,
-    makeorder: makeorder,
-    ordersgrid: ordersgrid,
-    claimlayout: claimlayout,
+    
   },
   beforeMount () {
-    this.$store.dispatch('getProducts')    
+    this.$store.dispatch('getProducts') ;
+    this.$store.dispatch('getUserInfo');   
   }
 
 });

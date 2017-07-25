@@ -15,7 +15,17 @@
         </Col>
   
         <Col class="header-user" :lg="6">
-          <Icon type="person" size="20" color="#ffffff"></Icon>
+          <Poptip trigger="hover" placement="bottom">
+            <Icon type="person" size="20" color="#ffffff"></Icon>
+            
+            <div slot="title" style="color: black">{{$store.state.user.role}}<br>{{$store.state.user.user}}</div>
+            <div slot="content">
+              
+              <a href="/logout">выйти</a>
+            </div>
+            
+          </Poptip>
+          
         </Col>
       </Row>
     </Col>
@@ -33,7 +43,7 @@ export default {
   methods: {
     handleNewOrderClick () {
       //this.$store.commit('clearOrderObject')
-      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false })
+      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false, name: false, additionals: false })
       this.$router.push({ name: 'newOrder' })
     },
     handleAllOrdersClick () {

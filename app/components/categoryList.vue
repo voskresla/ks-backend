@@ -7,7 +7,7 @@
         <h4>Стиральные и посудомоечные машины</h4>
         <ul>
           <li v-for="(item, index) in products" :key="index">
-            <a @click="handleLinkClick(item.id)">{{item['Наименование услуги']}}</a>
+            <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
           </li>
           <!-- <li>
             <a @click="handleLinkClick('value')">Подключ. DW (стандарт)</a>
@@ -158,13 +158,12 @@ export default {
     }
   },
   methods: {
-    handleLinkClick (value) {
-      this.$store.commit('changeOrderLayoutState', { init: false, new: true, edit: false, key: value })
+    handleLinkClick (key, name, additionals) {
+      this.$store.commit('changeOrderLayoutState', { init: false, new: true, edit: false, key: key, name: name, additionals: additionals})
     }
   },
   computed: {
     products () {
-      //onsole.log(this.$store.getters('getProductsForCategoryList'))
       return this.$store.getters.getProductsForCategoryList
     }
   }
