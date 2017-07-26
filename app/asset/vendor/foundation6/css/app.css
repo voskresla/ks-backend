@@ -59,6 +59,16 @@ body {
   cursor: pointer;
 }
 
+.card_additionals {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 12px;
+}
+
+.card-addtitionals-wrapper {
+  margin-bottom: 15px;
+}
+
 .master-icon:disabled {
   cursor: not-allowed;
 }

@@ -29,14 +29,16 @@
       </p>
     </Modal>
 
+    <!-- CLAIM MODAL COMPONENT  -->
+    
 
-    <Row type="flex" justify="center" align="top">
+    <Row type="flex" justify="center" align="top" >
       <Col v-if="loading" :xs="22" :sm="22" :md="18" :lg="18" class="new-order-form"> Loading processing...
       </Col>
       <Col v-if="error" :xs="22" :sm="22" :md="18" :lg="18" class="new-order-form"> Error: {{error}}
       </Col>
       <Col v-if="localOrder" :xs="22" :sm="22" :md="18" :lg="18" class="new-order-form">
-      <Row>
+      <Row :gutter="16">
         <Col :xs="24" :sm="24" :md="12" :lg="12">
         <h3>Новая заявка {{localOrder.couponNumber}}</h3>
         <h2>{{localOrder.productFullName}}</h2>
@@ -72,20 +74,55 @@
         </div> -->
         <div>
           
-          <Card>
-            <p slot="title">
-              Связанные заявки
+          <Card class="card-addtitionals-wrapper">
+            <div v-if="relatedOrdersForAdditionalInfoByNumber.length">
+              <h3>По номеру:</h3>
+              <p v-for="item in relatedOrdersForAdditionalInfoByNumber" :key="item._id" class="card_additionals">
+                {{item.couponNumber}} | {{item.productFullName}} | {{item.payIsPayed ? 'оплачено' : 'не оплачено'}} | {{item.masterKsId ? item.masterKsId.fullname : 'мастер НЕ назначен'}}
+              </p>
+            </div>
+
+            <div v-if="relatedOrdersForAdditionalInfoByAddress.length">
+            <h3>По адресу:</h3>
+            <p v-for="item in relatedOrdersForAdditionalInfoByAddress" :key="item._id" class="card_additionals">
+              {{item.couponNumber}} | {{item.productFullName}} | {{item.payIsPayed ? 'оплачено' : 'не оплачено'}} | {{item.masterKsId ? item.masterKsId.fullname : 'мастер НЕ назначен'}}
             </p>
+            </div>
 
           </Card>
         </div>
         
+        <claim-make-new @refresh="refresh" :orderId="localOrder._id" :username="this.$store.state.user.user"></claim-make-new>
         <Button type="primary" @click="handleChangeOrderClick()" :disabled="!isOrderEditable">{{!isEdit ? 'Изменить' : 'Принять'}}</Button>
         <Button type="primary">Удалить</Button>
   
         </Col>
         <Col :xs="24" :sm="24" :md="12" :lg="12">
-          COMMENTS + CLAIMS + HISTORY
+          <Tabs v-model="tabValue">
+            <div slot="extra">
+                <a @click="handleTabPlusClick">+</a>
+              </div>
+            <Tab-pane label="Претензии" name="claims">
+              <Card class="card-claim">
+                <p slot="title"><Tag color="red">в работе</Tag>Номер претензии</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo fugit optio, consequuntur numquam reprehenderit debitis alias ipsa aliquam rem praesentium dolorum expedita quasi pariatur reiciendis deleniti aperiam delectus, dolores placeat.</p>
+                <p>by Usernamae. in Time.</p>
+              </Card>
+              <Card class="card-claim">
+                <p slot="title"><Tag color="green">решена</Tag>Номер претензии</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo fugit optio, consequuntur numquam reprehenderit debitis alias ipsa aliquam rem praesentium dolorum expedita quasi pariatur reiciendis deleniti aperiam delectus, dolores placeat.</p>
+                <p>by Usernamae. in Time.</p>
+              </Card>
+
+              
+            </Tab-pane>
+            <Tab-pane label="Комментарии" name="comments">
+              
+            </Tab-pane>
+            <Tab-pane label="История" name="history">
+              
+            </Tab-pane>
+        </Tabs>
         </Col>
       </Row>
       </Col>
@@ -99,6 +136,9 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'editshowOrderForm',
+  components: {
+    'claim-make-new': require('./claimMakeNewModal.vue')
+  },
   data: function() {	
     return {
       // DATA FOR ATASIAN MODAL
@@ -114,13 +154,44 @@ export default {
       error: null,
       localOrder: null,
       orders: [],
-      claims: []
+      claims: [],
+
+      // CLAIMS DATA
+
+      // TABS DATA
+      tabValue: 'claims'
     }
   },
   methods: {
     ...mapGetters([
       'getOrderFromStore',
     ]),
+    refresh: function () {
+      axios
+      .get('/api/getclaimsbyid/'+this.localOrder._id)
+      .then(r => { this.claims = r.data })
+      .catch((err) => console.log(err) )
+    },
+    createNewClaim() {
+      alert('handle CreateNewClaim')
+    },
+    createNewComment() {
+      alert('handle CreateNewComment')
+    },
+    handleTabPlusClick() {
+      switch (this.tabValue) {
+        case 'claims':
+          this.createNewClaim();
+          break;
+        case 'comments':
+          this.createNewComment();
+          break;
+      
+        default:
+          this.$Message('сорян в Историю ничего добавить нельзя, потом сделаю неактивной кнопку.')
+          break;
+      }
+    },
     artasianThis: function (id,address) {
       this.openNewArtasianModal = true;
       // this.orderIdForArtasianModal = id;
@@ -209,6 +280,16 @@ export default {
       return this.orders.filter((item) => {
         return item.customerAddress === this.localOrder.customerAddress && item._id !== this.localOrder._id
       })
+    },
+    relatedOrdersForAdditionalInfoByAddress () {
+      return this.orders.filter((item) => {
+        return item.customerAddress === this.localOrder.customerAddress && item._id !== this.localOrder._id && item._id.substring(0,13) !== this.localOrder._id.substring(0,13)
+      })
+    },
+    relatedOrdersForAdditionalInfoByNumber () {
+      return this.orders.filter((item) => {
+        return item._id.substring(0,13) === this.localOrder._id.substring(0,13) && item._id !== this.localOrder._id
+      })
     }
     
   },
@@ -227,7 +308,7 @@ export default {
       })
       .then(r => { this.orders = r.data })
       .then(() => {
-        return axios.get('/api/getallclaims')             
+        return axios.get('api/getclaimsbyid/'+this.localOrder._id)             
       })
       .then(r => { 
             this.claims=r.data

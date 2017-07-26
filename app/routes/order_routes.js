@@ -20,6 +20,8 @@ async function getNextSequence() {
     { new: true },
   ).exec()
 
+  
+
   return await y;
 }
 
@@ -63,7 +65,12 @@ module.exports = function (app, db, passport) {
     // require("connect-ensure-login").ensureLoggedIn(),
     (req, res) => {
       getNextSequence().then((r) => {
-        let number = '001' + '-' + r.counter + '-' + moment().format("DDMMYYYY-HHmm")
+        
+        let str = r.counter.toString();
+        let pad = "0000";
+        let answer = pad.substring(0, pad.length - str.length) + str
+        // TODO Первые 4 символа определять по номеру магазина
+        let number = '0001'+answer + moment().format("DDMMYY")
         res.send({number: number, orderKsId: r.counter}) 
       });
           

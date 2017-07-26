@@ -64,35 +64,47 @@ export default {
           title: '№',
           key: 'action',
           render: (h,params) => {
-            return h('a', {
+            return h('div',
+            [
+              h('a', {
                 on: {
                   click: () => {
                     this.changeThis(params.row._id);
                   }
                 }
-              }, params.row.couponNumber)
+              }, params.row.couponNumber),
+              h('p',{
+                
+              }, params.row.productFullName)
+            ])
+              
           }
         },
-        {
-          title: 'Услуга',
-          key: 'actions',
+        // {
+        //   title: 'Услуга',
+        //   key: 'actions',
           
-          render: (h, params) => {
-            return h('div',
-              [
-                h('p', {}, params.row.productFullName),
-                // h('p', {}, params.row.addOption1 ? '+' + params.row.addOption1 : ''),
-                // h('p', {}, params.row.addOption2 ? '+' + params.row.addOption2 : ''),
-                // h('p', {}, params.row.addOption3 ? '+' + params.row.addOption3 : ''),
-              ])
-          }
-        },
+        //   render: (h, params) => {
+        //     return h('div',
+        //       [
+        //         h('p', {}, params.row.productFullName),
+        //         // h('p', {}, params.row.addOption1 ? '+' + params.row.addOption1 : ''),
+        //         // h('p', {}, params.row.addOption2 ? '+' + params.row.addOption2 : ''),
+        //         // h('p', {}, params.row.addOption3 ? '+' + params.row.addOption3 : ''),
+        //       ])
+        //   }
+        // },
         {
           title: 'Покупатель',
           key: 'actions',
           
           render: (h, params) => {
             return h('div',
+              {
+                style: {
+                  padding: '10px'
+                }
+              },
               [
                 h('p', {}, params.row.customerFullName),
                 h('p', {}, params.row.customerPhone),

@@ -96,7 +96,7 @@ const store = new Vuex.Store({
           case 'productKey': 
             state.order[key] = []
             break;
-          case 'isOrderEDitable': 
+          case 'isOrderEditable': 
             state.order[key] = true
             break;
           default:
