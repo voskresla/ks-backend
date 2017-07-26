@@ -71,11 +71,12 @@
           </Checkbox-group>
         </div> -->
         <div>
-          ADDITIONALS INFO
+          
           <Card>
             <p slot="title">
-              
+              Связанные заявки
             </p>
+
           </Card>
         </div>
         
@@ -98,16 +99,13 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'editshowOrderForm',
-  components: {
-    'artasian': require('./artasian.vue')
-  },
   data: function() {	
     return {
       // DATA FOR ATASIAN MODAL
       artasians: [],
-      relatedOrdersForModal: [],
+      // relatedOrdersForModal: [],
       openNewArtasianModal: false,
-      orderIdForArtasianModal: '',
+      // orderIdForArtasianModal: '',
       artasianModalProps: {},
       choosenArtasian: '',
 
@@ -115,6 +113,8 @@ export default {
       loading: false,
       error: null,
       localOrder: null,
+      orders: [],
+      claims: []
     }
   },
   methods: {
@@ -123,20 +123,20 @@ export default {
     ]),
     artasianThis: function (id,address) {
       this.openNewArtasianModal = true;
-      this.orderIdForArtasianModal = id;
+      // this.orderIdForArtasianModal = id;
         
-      this.relatedOrdersForModal = this.orders.filter((item) => {
-        return item.customerAddress === address && item._id !== id
-      })
+      // this.relatedOrdersForModal = this.orders.filter((item) => {
+      //   return item.customerAddress === address && item._id !== id
+      // })
 
-      console.log(this.relatedOrdersForModal)
+      
 
     },
     closeModal: function () {
       this.orderIdForArtasianModal = '';
       this.choosenArtasian = '';
       this.openNewArtasianModal = false;
-      relatedOrdersForModal = [];
+      this.relatedOrdersForModal = [];
     },
     handleMasterClick () {
       alert('handleMasterClick')
@@ -201,7 +201,16 @@ export default {
     },
     isOrderEditable () {
       return Boolean(this.localOrder.isOrderEditable)
+    },
+    orderIdForArtasianModal () {
+      return this.localOrder._id
+    },
+    relatedOrdersForModal () {
+      return this.orders.filter((item) => {
+        return item.customerAddress === this.localOrder.customerAddress && item._id !== this.localOrder._id
+      })
     }
+    
   },
   beforeMount() {
     this.loading = true;
@@ -213,7 +222,16 @@ export default {
       })
       .then((r) => {
         this.artasians = r.data;
-        this.loading = false;
+        return axios
+          .get('/api/getallorders')
+      })
+      .then(r => { this.orders = r.data })
+      .then(() => {
+        return axios.get('/api/getallclaims')             
+      })
+      .then(r => { 
+            this.claims=r.data
+            this.loading = false;
       })
       .catch((err) => {
         console.log(err)

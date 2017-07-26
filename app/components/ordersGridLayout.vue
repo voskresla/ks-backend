@@ -410,7 +410,7 @@ export default {
       this.orderIdForArtasianModal = '';
       this.choosenArtasian = '';
       this.openNewArtasianModal = false;
-      relatedOrdersForModal = [];
+      this.relatedOrdersForModal = [];
     }
   },
   beforeMount: function beforeMount() {
@@ -418,6 +418,7 @@ export default {
   },
   
   created: function () {
+    console.log('created all orders')
     axios
       .get('/api/getallorders')
       .then(r => { this.orders = r.data })
