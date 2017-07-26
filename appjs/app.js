@@ -60,6 +60,8 @@ const store = new Vuex.Store({
       masterFullname: '',
       masterPhone: '',
       masterWorkDate: '',
+      
+      commentsArr: [],
 
       isOrderEditable: true
     },
@@ -72,9 +74,15 @@ const store = new Vuex.Store({
       all: false,
       id: false
     },
-    filterSearch: ''
+    filterSearch: '',
+    claimComponents: {
+      claimId: ''
+    }
   },
   mutations: {
+    changeClaimIdInStore (state, payload) {
+      state.claimComponents.claimId = payload.claimId
+    },
     updateFilterSearch (state, payload) {
       state.filterSearch = payload
     },
@@ -94,6 +102,9 @@ const store = new Vuex.Store({
       for (var key in state.order) {
         switch (key) {
           case 'productKey': 
+            state.order[key] = []
+            break;
+          case 'commentsArr': 
             state.order[key] = []
             break;
           case 'isOrderEditable': 

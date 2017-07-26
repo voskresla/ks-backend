@@ -92,32 +92,21 @@
           </Card>
         </div>
         
-        <claim-make-new @refresh="refresh" :orderId="localOrder._id" :username="this.$store.state.user.user"></claim-make-new>
+        <claim-make-new-modal @refreshClaims="refreshClaims" :orderId="localOrder._id" :username="this.$store.state.user.user"></claim-make-new-modal>
         <Button type="primary" @click="handleChangeOrderClick()" :disabled="!isOrderEditable">{{!isEdit ? 'Изменить' : 'Принять'}}</Button>
         <Button type="primary">Удалить</Button>
   
         </Col>
         <Col :xs="24" :sm="24" :md="12" :lg="12">
-          <Tabs v-model="tabValue">
+          <Tabs v-model="tabValue" @on-click="handleTabsClick">
             <div slot="extra">
                 <a @click="handleTabPlusClick">+</a>
               </div>
             <Tab-pane label="Претензии" name="claims">
-              <Card class="card-claim">
-                <p slot="title"><Tag color="red">в работе</Tag>Номер претензии</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo fugit optio, consequuntur numquam reprehenderit debitis alias ipsa aliquam rem praesentium dolorum expedita quasi pariatur reiciendis deleniti aperiam delectus, dolores placeat.</p>
-                <p>by Usernamae. in Time.</p>
-              </Card>
-              <Card class="card-claim">
-                <p slot="title"><Tag color="green">решена</Tag>Номер претензии</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo fugit optio, consequuntur numquam reprehenderit debitis alias ipsa aliquam rem praesentium dolorum expedita quasi pariatur reiciendis deleniti aperiam delectus, dolores placeat.</p>
-                <p>by Usernamae. in Time.</p>
-              </Card>
-
-              
+              <component :is="claimCurrentView" @changeClaimCurrentView="changeClaimCurrentView" :claims="claims"></component>
             </Tab-pane>
             <Tab-pane label="Комментарии" name="comments">
-              
+              <component :is="commentCurrentView" :localOrder="localOrder"></component>
             </Tab-pane>
             <Tab-pane label="История" name="history">
               
@@ -137,7 +126,10 @@ import { mapState, mapGetters } from 'vuex';
 export default {
   name: 'editshowOrderForm',
   components: {
-    'claim-make-new': require('./claimMakeNewModal.vue')
+    'claim-make-new-modal': require('./claimMakeNewModal.vue'),
+    'claim-layout': require('./claimsLayout.vue'),
+    'claim-form': require('./claimForm.vue'),
+    'comments-layout': require('./commentsLayout.vue')
   },
   data: function() {	
     return {
@@ -157,6 +149,10 @@ export default {
       claims: [],
 
       // CLAIMS DATA
+      claimCurrentView: 'claim-layout',
+
+      // COMMENTS DATA
+      commentCurrentView: 'comments-layout',
 
       // TABS DATA
       tabValue: 'claims'
@@ -166,11 +162,27 @@ export default {
     ...mapGetters([
       'getOrderFromStore',
     ]),
-    refresh: function () {
+    handleTabsClick (name) {
+      switch (name) {
+        case 'claims':
+          if (this.claimCurrentView === 'claim-form') {
+            this.changeClaimCurrentView();
+          }
+          break;
+      
+        default:
+          break;
+      }
+    },
+    refreshClaims () {
       axios
-      .get('/api/getclaimsbyid/'+this.localOrder._id)
-      .then(r => { this.claims = r.data })
-      .catch((err) => console.log(err) )
+        .get('api/getclaimsbyid/'+this.localOrder._id)
+        .then((r) => {this.claims = r.data})
+        .catch((err) => console.log(err)) 
+    },
+    changeClaimCurrentView () {
+      // commit claim id to store
+      this.claimCurrentView = this.claimCurrentView === 'claim-layout' ? 'claim-form' : 'claim-layout'
     },
     createNewClaim() {
       alert('handle CreateNewClaim')

@@ -65,8 +65,26 @@ body {
   font-size: 12px;
 }
 
+.claim-comment {
+  padding: 10px;
+  padding-right: 20px;
+}
+
+.claim-comment-bottom-info {
+  font-size: 12px;
+  text-align: right;
+}
+
 .card-addtitionals-wrapper {
   margin-bottom: 15px;
+}
+
+.claim-bottom-info {
+  font-size: 12px
+}
+
+.card-claim {
+  margin-bottom: 10px;
 }
 
 .master-icon:disabled {

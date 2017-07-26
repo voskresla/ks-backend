@@ -7,7 +7,7 @@
       </div>
       <Input v-model="claimText" type="textarea" :rows="10"></Input>
     <Select v-model="claimCategory" style="width:200px" placeholder="Выберите категорию">
-        <Option v-for="item in claimCategoryList" :value="item.value" :key="item">{{ item.label }}</Option>
+        <Option v-for="(item, index) in claimCategoryList" :value="item.value" :key="index">{{ item.label }}</Option>
     </Select>
       <div slot="footer">
         <Button type="primary" @click="openNewClaimModal = false">Закрыть</Button>
@@ -70,8 +70,10 @@ export default {
       axios
         .post('/api/postclaim/', claimObject)
         .then(() => {
-          this.$emit('refresh');
+          this.$emit('refreshClaims');
           this.openNewClaimModal = false;
+          this.claimText = '';
+          this.claimCategory = '';
           this.$Message.info('Претензия отправлена');
           
         })
