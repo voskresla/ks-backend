@@ -133,120 +133,125 @@ export default {
             ])
           }
         },
-        // {
-        //   title: '#',
-        //   key: 'action',
-        //   width: '120px',
+
+        //  START OF NOTIFICATION
+
+        {
+          title: '#',
+          key: 'action',
+          width: '120px',
           
-        //   render: (h,params) => {        
+          render: (h,params) => {        
 
-        //     let claimsArr = Array.apply(null,this.claims).filter(function (item) {
-        //             return item.orderId === params.row._id && item.status === 'open';
-        //           })
+            let claimsArr = Array.apply(null,this.claims).filter(function (item) {
+                    return item.orderId === params.row._id && item.status === 'open';
+                  })
 
-        //     let myComments = (function () {
-        //       return h('div',
-        //         Array.apply(null, params.row.commentsArr).map(function (item) {
-        //           return h('p', item.id + ' | ' + item.text + ' | ' + item.user)
-        //           })
-        //         )
-        //     })();
+            let myComments = (function () {
+              return h('div',
+                Array.apply(null, params.row.commentsArr).map(function (item) {
+                  return h('p', item.id + ' | ' + item.text + ' | ' + item.user)
+                  })
+                )
+            })();
 
-        //     let myClaims = (function () {
-        //       return h('div',
-        //         Array.apply(null, claimsArr).map(function (item) {
-        //           return h('p', item.claimCategory + ' | ' + item.creationDate + ' | ' + item.creationUser)
-        //           })
-        //         )
-        //     })();
+            let myClaims = (function () {
+              return h('div',
+                Array.apply(null, claimsArr).map(function (item) {
+                  return h('p', item.claimCategory + ' | ' + item.creationDate + ' | ' + item.creationUser)
+                  })
+                )
+            })();
 
-        //     return h('div',[
+            return h('div',[
             
             
-        //     h('Poptip', {
-        //       props: {
-        //         trigger: 'hover',
+            h('Poptip', {
+              props: {
+                trigger: 'hover',
                 
-        //       }
-        //     },
-        //     [
-        //       h('div',{
-        //         slot: 'content'
+              }
+            },
+            [
+              h('div',{
+                slot: 'content'
                   
                 
-        //       },[
-        //         myComments
-        //       ]),
-        //       h('Badge', {
-        //         props: {
-        //           count: params.row.commentsArr.length
-        //         },
-        //         style: {
-        //           display: params.row.commentsArr.length > 0 ? '' : 'none'
-        //         }
-        //       }, [
-        //         h('Icon', {
-        //           // 'class': {
-        //           //   'demo-badge': true
-        //           // },
-        //           // style: {
-        //           //   width: '30px',
-        //           //   height: '30px',
-        //           //   background: '#eee',
-        //           //   'border-radius': '6px',
-        //           //   display: 'inline-block'
-        //           // }
-        //           props: {
-        //             type: 'chatbox',
-        //             size: '32px'
-        //           }
-        //         })
-        //       ]),
-        //       // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
-        //       // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
+              },[
+                myComments
+              ]),
+              h('Badge', {
+                props: {
+                  count: params.row.commentsArr.length
+                },
+                style: {
+                  display: params.row.commentsArr.length > 0 ? '' : 'none'
+                }
+              }, [
+                h('Icon', {
+                  // 'class': {
+                  //   'demo-badge': true
+                  // },
+                  // style: {
+                  //   width: '30px',
+                  //   height: '30px',
+                  //   background: '#eee',
+                  //   'border-radius': '6px',
+                  //   display: 'inline-block'
+                  // }
+                  props: {
+                    type: 'chatbox',
+                    size: '32px'
+                  }
+                })
+              ]),
+              // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+              // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
               
-        //     ]),
+            ]),
 
-        //     h('Poptip', {
-        //       props: {
-        //         trigger: 'hover',
+            h('Poptip', {
+              props: {
+                trigger: 'hover',
                 
-        //       }
-        //     },
-        //     [
-        //       h('div',{
-        //         slot: 'content'
+              }
+            },
+            [
+              h('div',{
+                slot: 'content'
                   
                 
-        //       },[
-        //         myClaims
-        //       ]),
-        //       h('Badge', {
-        //         props: {
-        //           count: claimsArr.length
-        //         },
-        //         style: {
-        //           display: claimsArr.length > 0 ? '' : 'none'
-        //         }
-        //       }, [
-        //         h('Icon', {
+              },[
+                myClaims
+              ]),
+              h('Badge', {
+                props: {
+                  count: claimsArr.length
+                },
+                style: {
+                  display: claimsArr.length > 0 ? '' : 'none'
+                }
+              }, [
+                h('Icon', {
                   
-        //           props: {
-        //             type: 'android-notifications',
+                  props: {
+                    type: 'android-notifications',
                     
-        //           },
-        //           style: {
-        //             marginLeft: '20px'
-        //           }
-        //         })
-        //       ]),
-        //       // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
-        //       // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
+                  },
+                  style: {
+                    marginLeft: '20px'
+                  }
+                })
+              ]),
+              // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+              // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
               
-        //     ])
+            ])
 
-        //   ])}
-        // },
+          ])}
+        },
+
+        //  END OF NOTIFICATION
         {
           title: '',
           key: 'action',
@@ -397,7 +402,7 @@ export default {
     },
     deleteThis: function (id) {
       axios
-        .delete("/api/deleteorder/"+id)
+        .put("/api/deleteorder/"+id)
         .then(r => console.log ('delete order'))
         .then(() => {
           axios

@@ -14,6 +14,9 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
   name: 'commentsLayout',
   props: ['localOrder'],
@@ -34,7 +37,7 @@ export default {
         axios
           .put('/api/updateorder/' + this.localOrder._id, { commentsArr: tmpArr })
           .then(() => {
-            this.$store.dispatch('getOrderInfoFromServer');
+            this.$emit('refreshLocalOrder');
             this.commentsCommentText = '';
           })
           .catch(err => console.log(err));

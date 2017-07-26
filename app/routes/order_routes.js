@@ -177,7 +177,7 @@ module.exports = function (app, db, passport) {
     .route("/api/getallorders")
     .get((req, res) => {
       let selector = {};
-      db.collection("orders").find({}).toArray((err, item) => {
+      db.collection("orders").find({ isDeleted: { $exists: false } }).toArray((err, item) => {
         if (err) {
           res.send(err);
         } else {
@@ -358,14 +358,14 @@ module.exports = function (app, db, passport) {
 
   app
     .route('/api/deleteorder/:id')
-    .delete((req, res) => {
+    .put((req, res) => {
 
       const orderID = req.params.id;
       const selector = { _id: new ObjectID(orderID) };
 
       db
         .collection("orders")
-        .remove(selector, { fullResult: true }, (err, item) => {
+        .update(selector, { $set: { isDeleted: true } }, (err, item) => {
           // remove(selector, callback) // TODO: а как получить весь удаленный документ перед удалением? почему не работе fullresult
           if (err) {
             res.send(err);

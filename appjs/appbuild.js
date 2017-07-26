@@ -44355,120 +44355,99 @@ exports.default = {
           h('p', {}, params.row.masterKsId ? params.row.masterKsId.fullname : 'мастер НЕ назначен')]);
         }
       },
-      // {
-      //   title: '#',
-      //   key: 'action',
-      //   width: '120px',
 
-      //   render: (h,params) => {        
+      //  START OF NOTIFICATION
 
-      //     let claimsArr = Array.apply(null,this.claims).filter(function (item) {
-      //             return item.orderId === params.row._id && item.status === 'open';
-      //           })
+      {
+        title: '#',
+        key: 'action',
+        width: '120px',
 
-      //     let myComments = (function () {
-      //       return h('div',
-      //         Array.apply(null, params.row.commentsArr).map(function (item) {
-      //           return h('p', item.id + ' | ' + item.text + ' | ' + item.user)
-      //           })
-      //         )
-      //     })();
+        render: function render(h, params) {
 
-      //     let myClaims = (function () {
-      //       return h('div',
-      //         Array.apply(null, claimsArr).map(function (item) {
-      //           return h('p', item.claimCategory + ' | ' + item.creationDate + ' | ' + item.creationUser)
-      //           })
-      //         )
-      //     })();
+          var claimsArr = Array.apply(null, _this.claims).filter(function (item) {
+            return item.orderId === params.row._id && item.status === 'open';
+          });
 
-      //     return h('div',[
+          var myComments = function () {
+            return h('div', Array.apply(null, params.row.commentsArr).map(function (item) {
+              return h('p', item.id + ' | ' + item.text + ' | ' + item.user);
+            }));
+          }();
 
+          var myClaims = function () {
+            return h('div', Array.apply(null, claimsArr).map(function (item) {
+              return h('p', item.claimCategory + ' | ' + item.creationDate + ' | ' + item.creationUser);
+            }));
+          }();
 
-      //     h('Poptip', {
-      //       props: {
-      //         trigger: 'hover',
+          return h('div', [h('Poptip', {
+            props: {
+              trigger: 'hover'
 
-      //       }
-      //     },
-      //     [
-      //       h('div',{
-      //         slot: 'content'
+            }
+          }, [h('div', {
+            slot: 'content'
 
+          }, [myComments]), h('Badge', {
+            props: {
+              count: params.row.commentsArr.length
+            },
+            style: {
+              display: params.row.commentsArr.length > 0 ? '' : 'none'
+            }
+          }, [h('Icon', {
+            // 'class': {
+            //   'demo-badge': true
+            // },
+            // style: {
+            //   width: '30px',
+            //   height: '30px',
+            //   background: '#eee',
+            //   'border-radius': '6px',
+            //   display: 'inline-block'
+            // }
+            props: {
+              type: 'chatbox',
+              size: '32px'
+            }
+          })])]
+          // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+          // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
 
-      //       },[
-      //         myComments
-      //       ]),
-      //       h('Badge', {
-      //         props: {
-      //           count: params.row.commentsArr.length
-      //         },
-      //         style: {
-      //           display: params.row.commentsArr.length > 0 ? '' : 'none'
-      //         }
-      //       }, [
-      //         h('Icon', {
-      //           // 'class': {
-      //           //   'demo-badge': true
-      //           // },
-      //           // style: {
-      //           //   width: '30px',
-      //           //   height: '30px',
-      //           //   background: '#eee',
-      //           //   'border-radius': '6px',
-      //           //   display: 'inline-block'
-      //           // }
-      //           props: {
-      //             type: 'chatbox',
-      //             size: '32px'
-      //           }
-      //         })
-      //       ]),
-      //       // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
-      //       // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
+          ), h('Poptip', {
+            props: {
+              trigger: 'hover'
 
-      //     ]),
+            }
+          }, [h('div', {
+            slot: 'content'
 
-      //     h('Poptip', {
-      //       props: {
-      //         trigger: 'hover',
+          }, [myClaims]), h('Badge', {
+            props: {
+              count: claimsArr.length
+            },
+            style: {
+              display: claimsArr.length > 0 ? '' : 'none'
+            }
+          }, [h('Icon', {
 
-      //       }
-      //     },
-      //     [
-      //       h('div',{
-      //         slot: 'content'
+            props: {
+              type: 'android-notifications'
 
+            },
+            style: {
+              marginLeft: '20px'
+            }
+          })])]
+          // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+          // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
 
-      //       },[
-      //         myClaims
-      //       ]),
-      //       h('Badge', {
-      //         props: {
-      //           count: claimsArr.length
-      //         },
-      //         style: {
-      //           display: claimsArr.length > 0 ? '' : 'none'
-      //         }
-      //       }, [
-      //         h('Icon', {
+          )]);
+        }
+      },
 
-      //           props: {
-      //             type: 'android-notifications',
-
-      //           },
-      //           style: {
-      //             marginLeft: '20px'
-      //           }
-      //         })
-      //       ]),
-      //       // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
-      //       // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
-
-      //     ])
-
-      //   ])}
-      // },
+      //  END OF NOTIFICATION
       {
         title: '',
         key: 'action',
@@ -44609,7 +44588,7 @@ exports.default = {
     deleteThis: function deleteThis(id) {
       var _this4 = this;
 
-      _axios2.default.delete("/api/deleteorder/" + id).then(function (r) {
+      _axios2.default.put("/api/deleteorder/" + id).then(function (r) {
         return console.log('delete order');
       }).then(function () {
         _axios2.default.get('/api/getallorders').then(function (r) {
@@ -46610,7 +46589,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -46804,11 +46783,20 @@ exports.default = {
           break;
       }
     },
-    refreshClaims: function refreshClaims() {
+    refreshLocalOrder: function refreshLocalOrder() {
       var _this = this;
 
+      this.$store.dispatch('getOrderInfoFromServer').then(function (r) {
+        _this.localOrder = _extends({}, r[0]);
+      }).catch(function (err) {
+        return comsole.log(err);
+      });
+    },
+    refreshClaims: function refreshClaims() {
+      var _this2 = this;
+
       _axios2.default.get('api/getclaimsbyid/' + this.localOrder._id).then(function (r) {
-        _this.claims = r.data;
+        _this2.claims = r.data;
       }).catch(function (err) {
         return console.log(err);
       });
@@ -46857,27 +46845,27 @@ exports.default = {
       alert('handleMasterClick');
     },
     handleChangeOrderClick: function handleChangeOrderClick() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!this.isEdit) {
         this.$Message.info('Начинаем редактирование');
         _axios2.default.get('/api/checkeditable/' + this.$route.params.id).then(function (r) {
           if (r.data) {
-            _this2.loading = true;
-            _this2.localOrder = _this2.error = null;
-            _this2.$store.dispatch('getOrderInfoFromServer').then(function (r) {
-              _this2.loading = false;
-              _this2.localOrder = _extends({}, r[0]);
-              return _axios2.default.put('/api/updateorder/' + _this2.$route.params.id, { isOrderEditable: false });
+            _this3.loading = true;
+            _this3.localOrder = _this3.error = null;
+            _this3.$store.dispatch('getOrderInfoFromServer').then(function (r) {
+              _this3.loading = false;
+              _this3.localOrder = _extends({}, r[0]);
+              return _axios2.default.put('/api/updateorder/' + _this3.$route.params.id, { isOrderEditable: false });
             }).then(function () {
-              _this2.$store.commit('changeOrderLayoutState', { init: false, new: false, edit: true, key: false, name: false, all: true, id: _this2.$route.params.id });
+              _this3.$store.commit('changeOrderLayoutState', { init: false, new: false, edit: true, key: false, name: false, all: true, id: _this3.$route.params.id });
             }).catch(function (err) {
               console.log(err);
-              _this2.loading = false;
-              _this2.error = err;
+              _this3.loading = false;
+              _this3.error = err;
             });
           } else {
-            _this2.$Message.info('Сорян, за это время уже кто-то его правит.');
+            _this3.$Message.info('Сорян, за это время уже кто-то его правит.');
           }
         }).catch(function (err) {
           return console.log(err);
@@ -46886,16 +46874,16 @@ exports.default = {
         this.$Message.info('НАчинаем применять');
         this.localOrder.isOrderEditable = true;
         _axios2.default.put('/api/updateorder/' + this.$route.params.id, _extends({}, this.localOrder)).then(function (r) {
-          _this2.loading = true;
-          _this2.localOrder = _this2.error = null;
-          _this2.$store.dispatch('getOrderInfoFromServer').then(function (r) {
-            _this2.loading = false;
-            _this2.localOrder = _extends({}, r[0]);
-            _this2.$store.commit('changeOrderLayoutState', { init: false, new: false, edit: false, key: false, name: false, all: true, id: _this2.$route.params.id });
+          _this3.loading = true;
+          _this3.localOrder = _this3.error = null;
+          _this3.$store.dispatch('getOrderInfoFromServer').then(function (r) {
+            _this3.loading = false;
+            _this3.localOrder = _extends({}, r[0]);
+            _this3.$store.commit('changeOrderLayoutState', { init: false, new: false, edit: false, key: false, name: false, all: true, id: _this3.$route.params.id });
           }).catch(function (err) {
             console.log(err);
-            _this2.loading = false;
-            _this2.error = err;
+            _this3.loading = false;
+            _this3.error = err;
           });
         });
       }
@@ -46912,49 +46900,49 @@ exports.default = {
       return this.localOrder._id;
     },
     relatedOrdersForModal: function relatedOrdersForModal() {
-      var _this3 = this;
-
-      return this.orders.filter(function (item) {
-        return item.customerAddress === _this3.localOrder.customerAddress && item._id !== _this3.localOrder._id;
-      });
-    },
-    relatedOrdersForAdditionalInfoByAddress: function relatedOrdersForAdditionalInfoByAddress() {
       var _this4 = this;
 
       return this.orders.filter(function (item) {
-        return item.customerAddress === _this4.localOrder.customerAddress && item._id !== _this4.localOrder._id && item._id.substring(0, 13) !== _this4.localOrder._id.substring(0, 13);
+        return item.customerAddress === _this4.localOrder.customerAddress && item._id !== _this4.localOrder._id;
       });
     },
-    relatedOrdersForAdditionalInfoByNumber: function relatedOrdersForAdditionalInfoByNumber() {
+    relatedOrdersForAdditionalInfoByAddress: function relatedOrdersForAdditionalInfoByAddress() {
       var _this5 = this;
 
       return this.orders.filter(function (item) {
-        return item._id.substring(0, 13) === _this5.localOrder._id.substring(0, 13) && item._id !== _this5.localOrder._id;
+        return item.customerAddress === _this5.localOrder.customerAddress && item._id !== _this5.localOrder._id && item._id.substring(0, 13) !== _this5.localOrder._id.substring(0, 13);
+      });
+    },
+    relatedOrdersForAdditionalInfoByNumber: function relatedOrdersForAdditionalInfoByNumber() {
+      var _this6 = this;
+
+      return this.orders.filter(function (item) {
+        return item._id.substring(0, 13) === _this6.localOrder._id.substring(0, 13) && item._id !== _this6.localOrder._id;
       });
     }
   },
   beforeMount: function beforeMount() {
-    var _this6 = this;
+    var _this7 = this;
 
     this.loading = true;
     this.localOrder = this.error = null;
     this.$store.dispatch('getOrderInfoFromServer').then(function (r) {
-      _this6.localOrder = _extends({}, r[0]);
+      _this7.localOrder = _extends({}, r[0]);
       return _axios2.default.get('/api/getallartasians/');
     }).then(function (r) {
-      _this6.artasians = r.data;
+      _this7.artasians = r.data;
       return _axios2.default.get('/api/getallorders');
     }).then(function (r) {
-      _this6.orders = r.data;
+      _this7.orders = r.data;
     }).then(function () {
-      return _axios2.default.get('api/getclaimsbyid/' + _this6.localOrder._id);
+      return _axios2.default.get('api/getclaimsbyid/' + _this7.localOrder._id);
     }).then(function (r) {
-      _this6.claims = r.data;
-      _this6.loading = false;
+      _this7.claims = r.data;
+      _this7.loading = false;
     }).catch(function (err) {
       console.log(err);
-      _this6.loading = false;
-      _this6.error = err;
+      _this7.loading = false;
+      _this7.error = err;
     });
   }
 };
@@ -47710,7 +47698,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47725,21 +47713,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var _axios = __webpack_require__(4);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: 'commentsLayout',
@@ -47760,8 +47739,8 @@ exports.default = {
         var pushComment = { id: new Date(), text: this.commentsCommentText, user: this.$store.state.user.user };
         tmpArr.push(pushComment);
 
-        axios.put('/api/updateorder/' + this.localOrder._id, { commentsArr: tmpArr }).then(function () {
-          _this.$store.dispatch('getOrderInfoFromServer');
+        _axios2.default.put('/api/updateorder/' + this.localOrder._id, { commentsArr: tmpArr }).then(function () {
+          _this.$emit('refreshLocalOrder');
           _this.commentsCommentText = '';
         }).catch(function (err) {
           return console.log(err);
@@ -47769,7 +47748,21 @@ exports.default = {
       }
     }
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 115 */
@@ -48125,6 +48118,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     tag: "component",
     attrs: {
       "localOrder": _vm.localOrder
+    },
+    on: {
+      "refreshLocalOrder": _vm.refreshLocalOrder
     }
   })], 1), _vm._v(" "), _c('Tab-pane', {
     attrs: {

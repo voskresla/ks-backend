@@ -106,7 +106,7 @@
               <component :is="claimCurrentView" @changeClaimCurrentView="changeClaimCurrentView" :claims="claims"></component>
             </Tab-pane>
             <Tab-pane label="Комментарии" name="comments">
-              <component :is="commentCurrentView" :localOrder="localOrder"></component>
+              <component :is="commentCurrentView" @refreshLocalOrder="refreshLocalOrder" :localOrder="localOrder"></component>
             </Tab-pane>
             <Tab-pane label="История" name="history">
               
@@ -173,6 +173,13 @@ export default {
         default:
           break;
       }
+    },
+    refreshLocalOrder() {
+      this.$store.dispatch('getOrderInfoFromServer')
+      .then((r) => {
+        this.localOrder = {...r[0]};
+      })
+      .catch(err => comsole.log(err))
     },
     refreshClaims () {
       axios
