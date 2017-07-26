@@ -16,7 +16,7 @@ export default {
     'category-list': require('./categoryList.vue'),
     'new-order-form': require('./newOrderForm.vue'),
     'editshow-order-form': require('./editshowOrderForm.vue'),
-    'all-order-layout': require('../views/store/ordersgrid.vue'),
+    'all-order-layout': require('./ordersGridLayout.vue'),
   },
   props: [],
   data: function () {

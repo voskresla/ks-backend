@@ -11930,13 +11930,13 @@ textarea.ivu-page-options-elevator input {
 }
 
 .ivu-input:hover {
-    border-color: #57a3f3
+    /* border-color: #57a3f3 */
 }
 
 .ivu-input:focus {
     border-color: #57a3f3;
     outline: 0;
-    box-shadow: 0 0 0 2px rgba(45, 140, 240, .2)
+    /* box-shadow: 0 0 0 2px rgba(45, 140, 240, .2) */
 }
 
 .ivu-input[disabled],

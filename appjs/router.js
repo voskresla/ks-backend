@@ -10,7 +10,7 @@ module.exports = new VueRouter({
         {
           name: 'allOrders',
           path: 'orders',
-          component: require('../app/views/store/ordersgrid.vue')
+          component: require('../app/components/ordersGridLayout.vue')
         },
         {
           name: 'newOrder',
@@ -19,8 +19,8 @@ module.exports = new VueRouter({
         },
         {
           name: 'editshowOrder',
-          path: 'orders/edit',
-          component: require('../app/components/OrderLayout.vue'),
+          path: 'orders/:id',
+          component: require('../app/components/editshowOrderForm.vue'),
         }
       ]
     },

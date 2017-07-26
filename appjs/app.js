@@ -25,13 +25,14 @@ const store = new Vuex.Store({
   strict: true,
   state: {
     user: {
-      usern: '',
+      user: '',
       role: '',
       rights: ''
     },
     products: {},
     order: {
       orderKsId: '',
+      orderCreateBy: '',
       orderCreateAt: '',
       orderUpdateAt: '',
       orderLastModify: '',
@@ -52,9 +53,15 @@ const store = new Vuex.Store({
       productAdditionals: {},
       productAdditionalsChecked: [],
 
+      payIsPayed: false,
+      payPayDate: '',
+
       masterKsId: '',
       masterFullname: '',
       masterPhone: '',
+      masterWorkDate: '',
+
+      isOrderEditable: true
     },
     orderLayoutState: {
       init: true,
@@ -63,9 +70,14 @@ const store = new Vuex.Store({
       key: false,
       name: false,
       all: false,
-    }
+      id: false
+    },
+    filterSearch: ''
   },
   mutations: {
+    updateFilterSearch (state, payload) {
+      state.filterSearch = payload
+    },
     fillUser (state, payload) {
       state.user = {...payload}
     },
@@ -84,7 +96,9 @@ const store = new Vuex.Store({
           case 'productKey': 
             state.order[key] = []
             break;
-        
+          case 'isOrderEDitable': 
+            state.order[key] = true
+            break;
           default:
             state.order[key] = ''
             break;
@@ -175,7 +189,7 @@ const store = new Vuex.Store({
 
         
 
-        let productPrice = axios
+        let productPrice = await axios
           .get('/api/getproductprice/'+productPriceId)
           .then((r) => { return r.data })
           .catch((err) => {
@@ -183,7 +197,7 @@ const store = new Vuex.Store({
             payload.error = true;
           })
         
-        let couponNumber = axios
+        let couponNumber = await axios
           .get('/api/getnewcouponnumber/')
           .then((r) => { return r.data })
           .catch((err) => {
@@ -191,12 +205,14 @@ const store = new Vuex.Store({
             payload.error = true;
           })
         
-        payload.orderKsId = await couponNumber.orderKsId;
+        payload.orderKsId = couponNumber.orderKsId;
         payload.productKey = state.orderLayoutState.key;
         payload.productFullName = state.orderLayoutState.name;
-        payload.productPrice = await productPrice;
+        payload.productPrice = productPrice;
         payload.productAdditionals = additionalsObj;
-        payload.couponNumber = await couponNumber.number;
+        payload.couponNumber = couponNumber.number;
+        payload.orderCreateBy = state.user.user;
+        payload.couponSaleDate = new Date();
         
         return new Promise ((resolve,reject) => {
           if (payload.error) {
@@ -211,8 +227,26 @@ const store = new Vuex.Store({
         })
       }
 
-      if (state.orderLayoutState.edit) {
-        console.log('handle actions edit mode')
+      if (!state.orderLayoutState.new) {
+        
+        let payload = await axios
+          .get('/api/getorder/'+state.orderLayoutState.id)
+          .then((r) => { return r.data })
+          .catch((err) => {
+            console.log(err);
+            payload.error = true;
+          })
+
+        return new Promise ((resolve,reject) => {
+          if (payload.error) {
+            reject(payload.error)
+          } else {
+            setTimeout(() => {
+              console.log('in setTimeot editshow') 
+              resolve(payload)
+            },1000)
+          }
+        })
       }   
     }
   }

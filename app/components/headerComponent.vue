@@ -37,18 +37,30 @@ export default {
   name: 'headerComponent',
   data: function() {	
     return {
-      inputSearch: ''
+      
+    }
+  },
+  computed: {
+    inputSearch: {
+      get () {
+        return this.$store.state.filterSearch
+      },
+      set (value) {
+        this.$store.commit('updateFilterSearch', value)
+      }
     }
   },
   methods: {
     handleNewOrderClick () {
       //this.$store.commit('clearOrderObject')
-      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false, name: false, all: false })
+      this.$store.commit('changeOrderLayoutState', { init: true, new:false, edit: false, key: false, name: false, all: false, id: false })
+      this.$store.commit('updateFilterSearch', '');
       this.$router.push({ name: 'newOrder' })
     },
     handleAllOrdersClick () {
 
-      this.$store.commit('changeOrderLayoutState', { init: false, new:false, edit: false, key: false, name: false, all: true })
+      this.$store.commit('changeOrderLayoutState', { init: false, new:false, edit: false, key: false, name: false, all: true, id: false})
+      this.$store.commit('updateFilterSearch', '');
       this.$router.push({ name: 'newOrder' })
 
 

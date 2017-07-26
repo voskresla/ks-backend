@@ -80,6 +80,19 @@ module.exports = function (app, db, passport) {
           
     });
 
+  app
+    .route('/api/checkeditable/:id')
+    .get(
+      (req,res) => {
+        const orderID = req.params.id;
+        const selector = { _id: new ObjectID(orderID) };
+        
+        db.collection('orders').findOne(selector, (err,item) => {
+          res.send(Boolean(item.isOrderEditable))
+        })
+      }
+    )
+
   // ROUTE AUTH & CHECK_AUTH
   app.route("/").get(checkAuth, (req, res) => {
     let userRole = checkRole(req.user);
@@ -109,8 +122,14 @@ module.exports = function (app, db, passport) {
     .route('/api/postorder/')
     .post((req, res) => {
       
+      
+      // Генерим все недостающие поля
 
+      let dateCreate = new Date();
+      req.body.orderCreateAt = dateCreate;
+      req.body.orderLastModify = dateCreate;
 
+      
       db.collection('orders').insert(req.body);
       res.send('ok order post');
     })
@@ -179,22 +198,18 @@ module.exports = function (app, db, passport) {
     .route("/api/payorder/:id")
     .get((req, res) => {
       const orderID = req.params.id;
-      console.log(new ObjectID(orderID));
       res.send(req.params.id)
     })
     .put((req, res) => {
-
       const orderID = req.params.id;
       const selector = { _id: new ObjectID(orderID) };
-      
-
       db
         .collection("orders")
-        .update(selector, { $set: { payed: "PAYED", payDate: Date() } }, (err, item) => {
+        .update(selector, { $set: { payIsPayed: true, payPayDate: new Date() } }, (err, item) => {
           if (err) {
             res.send(err);
           } else {
-            res.send('ok we update it');
+            res.send(200);
           }
         })
 
@@ -203,30 +218,25 @@ module.exports = function (app, db, passport) {
   app
     .route("/api/updateorder/:id")
     .put((req, res) => {
-
-      
       
       const orderID = req.params.id;
       const selector = { _id: new ObjectID(orderID) };
 
       let updateObject = {};
-
       for (keyName in req.body) {
-        updateObject[keyName] = req.body[keyName]
+        if (keyName !== '_id') {
+          updateObject[keyName] = req.body[keyName]
+        }
       };
 
-      
+      console.log(updateObject)
 
-      
       db
         .collection("orders")
         .update(selector, { $set: updateObject }, (err, item) => {
           if (err) {
             res.send(err);
           } else {
-            
-            
-
             res.send('ok we update it');
           }
         })

@@ -34,13 +34,13 @@
 
 <script>
 
-import { getNewDefinition } from './couponDocDefinition';
+import { getNewDefinition } from '../models/couponDocDefinition';
 import artasian from './artasian.vue';
 import axios from 'axios';
 
 export default {
   
-  name: 'ordersgrid',
+  name: 'orderGridLayout',
   components: {
     'artasian': artasian
   },
@@ -70,7 +70,7 @@ export default {
                     this.changeThis(params.row._id);
                   }
                 }
-              }, params.row._id)
+              }, params.row.couponNumber)
           }
         },
         {
@@ -117,7 +117,7 @@ export default {
               h('p', {}, params.row.payIsPayed ? 'оплачено' : 'не оплачено' ),
               // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
               // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
-              h('p', {}, params.row.masterKsId ? params.row.actualArtasian.masterFullname : 'мастер НЕ назначен' )
+              h('p', {}, params.row.masterKsId ? params.row.masterKsId.fullname : 'мастер НЕ назначен' )
             ])
           }
         },
@@ -347,7 +347,7 @@ export default {
       })
 
       axios 
-        .put('/api/updateorder/'+orderId, { actualArtasian: artasianObject[0] })
+        .put('/api/updateorder/'+orderId, { masterKsId: artasianObject[0] })
         .then(() => {
           axios
             .get('/api/getallorders')
@@ -362,7 +362,9 @@ export default {
     },
     changeThis: function (id) {
       // TODO  router.push /makeorder
-      this.$router.push({name: 'makeorder', params: { change: true, id: id}})
+      this.$store.commit('changeOrderLayoutState', { init: false, new:false, edit: false, key: false, name: false, all: false, id: id })
+      this.$store.commit('updateFilterSearch', '');
+      this.$router.push({ name: 'editshowOrder', params: {id: id} })
 
     },
     printThis: function (orderObject) {
@@ -375,12 +377,9 @@ export default {
         .put('/api/payorder/' + id)
         .then(r => console.log(r.data))
         .then(() => {
-          axios
-            .get('/api/getallorders')
-            .then(r => { this.orders = r.data })
-            .catch(err => { console.log(err) })
-        }
-        )
+          return axios.get('/api/getallorders')
+        })
+        .then(r => { this.orders = r.data })
         .catch(err => console.log(err));
 
     },
@@ -401,10 +400,7 @@ export default {
       this.orderIdForArtasianModal = id;
         
       this.relatedOrdersForModal = this.orders.filter((item) => {
-        
-        
-        
-        return item.address === address && item._id !== id
+        return item.customerAddress === address && item._id !== id
       })
 
       console.log(this.relatedOrdersForModal)
@@ -445,9 +441,9 @@ export default {
     computedData: function () {
       return this.orders.filter((order) => {
         let matchFullname = order.customerFullName.toLowerCase().includes(this.$store.state.filterSearch.toLowerCase()); 
-        let matchCouponNUmber = order.couponNumber.toLowerCase().includes(this.$store.state.filterSearch.toLowerCase());
+        let matchCouponNumber = order.couponNumber.toLowerCase().includes(this.$store.state.filterSearch.toLowerCase());
         let matchAddress = order.customerAddress.toLowerCase().includes(this.$store.state.filterSearch.toLowerCase());
-        return matchFullname || matchCouponNUmber || matchAddress;
+        return matchFullname || matchCouponNumber || matchAddress;
       })
     },
    

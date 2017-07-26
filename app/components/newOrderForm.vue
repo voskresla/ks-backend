@@ -28,7 +28,8 @@
         <Button type="primary" @click="handleSendClick">Отправить заявку</Button>
   
         </Col>
-        <Col :xs="24" :sm="24" :md="12" :lg="12"> COUPON INFO
+        <Col :xs="24" :sm="24" :md="12" :lg="12">
+          <coupon-layout :localOrder="localOrder" :localAditionalProductsChecked="localAditionalProductsChecked"></coupon-layout>
         </Col>
       </Row>
       </Col>
@@ -42,6 +43,9 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'newOrderForm',
+  components: {
+    'coupon-layout': require('./couponLayout.vue')
+  },
   data: function () {
     return {
       loading: false,
@@ -52,7 +56,7 @@ export default {
   },
   methods: {
     handleChangeDate (value) {
-      this.localOrder.couponSaleDate = value;
+      this.localOrder.masterWorkDate = value;
     },
     async handleSendClick() {
       if (this.localAditionalProductsChecked.length) {
