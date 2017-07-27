@@ -12,7 +12,14 @@
         <h2>{{localOrder.productFullName}}</h2>
         <Input v-model="localOrder.customerFullName" placeholder="Иванов Иван Иванович"></Input>
         <Input v-model="localOrder.customerPhone" placeholder="+7 999 999 99 99"></Input>
-        <Input v-model="localOrder.customerAddress" placeholder="г Йошкар-Ола, Садовая 11-14"></Input>
+        <Select placeholder="г Йошкар-Ола, Садовая 11-14"
+                v-model="localOrder.customerAddress"
+                filterable
+                remote
+                :remote-method="suggestionRemote">
+                  <Option v-for="option in suggestionOptions" :value="option.value" :key="option.value">{{option.value}}</Option>
+                </Select>
+        <!-- <Input v-model="localOrder.customerAddress" placeholder="г Йошкар-Ола, Садовая 11-14"></Input> -->
         <Input v-model="localOrder.customerComment" type="textarea" :rows="5" placeholder="Комментарий"></Input>
   
         <Date-picker type="date" placeholder="Дата установки" style="width: 200px" @on-change="handleChangeDate"></Date-picker>
@@ -51,12 +58,40 @@ export default {
       loading: false,
       error: null,
       localOrder: null,
-      localAditionalProductsChecked: []
+      localAditionalProductsChecked: [],
+
+      // DADATA.RU
+      suggestions: '',
+      suggestionOptions: ''
     }
   },
   methods: {
     handleChangeDate (value) {
       this.localOrder.masterWorkDate = value;
+    },
+    suggestionRemote: function (value) {
+      axios
+        .post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
+
+          "query": value,
+          "count": 5,
+          "locations": [{
+            "region": "Марий Эл"
+          }],
+          "restrict_value": true
+            
+        }, 
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Token daa7df9d3d75b308e28317375c6c0587d5c17c06',
+          }
+        })
+        .then(r => {
+          this.suggestionOptions = r.data.suggestions
+        })
+        .catch(err => console.log(err));
     },
     async handleSendClick() {
       if (this.localAditionalProductsChecked.length) {

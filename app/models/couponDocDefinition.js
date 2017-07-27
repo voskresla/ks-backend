@@ -126,14 +126,14 @@ export let getNewDefinition = function (orderObj) {
 
   let infoText = getInfoText(orderObj.row.productFullName);
   let productFullName = orderObj.row.productFullName;
-  let customerFullName = returnSpacesUnderline(100, orderObj.row.fullname) ;
+  let customerFullName = returnSpacesUnderline(100, orderObj.row.customerFullName) ;
   let couponNumber = orderObj.row.couponNumber;
   let worksInCoupon = getWorks(orderObj.row.productFullName);
   let materialsInCoupon = getMaterials (orderObj.row.productFullName);
   let worksNotIncludeInCoupon = worksNotInclude(orderObj.row.productFullName);
   let additionalInfo = getAdditionalInfo(orderObj.row.productFullName);
-  let dateValue = orderObj.row.dateValue;
-  let payDate = orderObj.row.payDate;
+  let dateValue = orderObj.row.masterWorkDate;
+  let payDate = orderObj.row.payPayDate;
 
   let couponDocDefinition = {
     pageSize: 'A4',

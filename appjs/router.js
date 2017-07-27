@@ -21,6 +21,11 @@ module.exports = new VueRouter({
           name: 'editshowOrder',
           path: 'orders/:id',
           component: require('../app/components/editshowOrderForm.vue'),
+        },
+        {
+          name: 'allClaims',
+          path: 'claims',
+          component: require('../app/components/allClaimsLayout.vue')
         }
       ]
     },

@@ -66,7 +66,9 @@ export default {
 
     },
     handleAllClaimsClick () {
-
+      this.$store.commit('changeOrderLayoutState', { init: false, new:false, edit: false, key: false, name: false, all: false, id: false})
+      this.$store.commit('updateFilterSearch', '');
+      this.$router.push({ name: 'allClaims' })
     }
   }
 }
