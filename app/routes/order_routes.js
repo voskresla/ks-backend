@@ -25,6 +25,41 @@ async function getNextSequence() {
   return await y;
 }
 
+async function getNextOrderNumberInDay () {
+  let y = models.counters.findOne(
+      { name: 'orderinday' }
+  ).exec().then(r => {
+
+    let now = new Date()
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf() + 86400000
+    let prevdate = new Date(r['newtrade'].prevdate.getFullYear(), r['newtrade'].prevdate.getMonth(), r['newtrade'].prevdate.getDate()).valueOf() + 86400000
+
+    if (prevdate < today) {
+      return models.counters.findOneAndUpdate(
+          {name: 'orderinday'},
+          {$set: {
+            newtrade: {
+              counter: 1,
+              prevdate: new Date()
+            }
+          }}
+        ).exec()
+
+    } else {
+      return models.counters.findOneAndUpdate(
+        { name: 'orderinday' },
+        { $inc: { 'newtrade.counter': 1 } } ,
+        { new: true },
+      ).exec()
+    }
+  })
+
+  return await y
+  
+}
+
+
+
 module.exports = function (app, db, passport) {
 
   // ROUTE GET INFO DATA
@@ -64,14 +99,22 @@ module.exports = function (app, db, passport) {
     .get(
     // require("connect-ensure-login").ensureLoggedIn(),
     (req, res) => {
-      getNextSequence().then((r) => {
-        
-        let str = r.counter.toString();
+      let objToSend = {
+        number: 0,
+        orderKsId: 0,
+      }
+
+      getNextSequence().then(r=>{
+        objToSend.orderKsId = r.counter;
+        return getNextOrderNumberInDay()
+      })
+      .then(r => {
+        let str = r['newtrade'].counter.toString();
         let pad = "0000";
         let answer = pad.substring(0, pad.length - str.length) + str
-        // TODO Первые 4 символа определять по номеру магазина
-        let number = '0001'+answer + moment().format("DDMMYY")
-        res.send({number: number, orderKsId: r.counter}) 
+        let number = r['newtrade'].shopnumber + answer + moment().format("DDMMYY")
+        objToSend.number = number;
+        res.send(objToSend) 
       });
           
     });

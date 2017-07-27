@@ -1,18 +1,16 @@
 <template>
-  <div>  
-  <!-- HEADER COMPONENT -->
+  <div>
+    <!-- HEADER COMPONENT -->
     <header-component></header-component>
-    
-  <!-- MAIN COMPONENT -->
+  
+    <!-- MAIN COMPONENT -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-
 let headerComponent = require('./headerComponent.vue');
-
 
 export default {
   name: 'mainLayout',
@@ -21,7 +19,6 @@ export default {
   },
   data: function () {
     return {
-      
     }
   },
   computed: {
@@ -30,7 +27,7 @@ export default {
   methods: {
   },
   watch: {
-    
+
   }
 }
 </script>
