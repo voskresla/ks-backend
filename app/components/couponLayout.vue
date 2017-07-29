@@ -1,102 +1,110 @@
 <template>
-  <div class="large-4 small-12 column pricebckg">
-    <div class="row">
-      <div class="large-7 columns line">
+  <div class="coupon-height pricebckg">
+  <Row>
+    <Col :xs="24" :sm="24" :md="12" :lg="12" class="line"></Col>
+    <Col :xs="24" :md="12" :lg="12" class="coupon-view-header"> 
+      <span>Купон №: {{localOrder.couponNumber}}</span>
+    </Col>
+  </Row>
   
-      </div>
-      <div class="large-5 columns">
-        №: {{localOrder.couponNumber}}
-      </div>
-    </div>
+  <Row>
+    
+    <Col :xs="24" :md="24" :lg="24" class="coupon-view-productFullName"> 
+      <span >{{localOrder.productFullName}}</span>
+      <p v-for="(item,index) in localAditionalProductsChecked" :key="index">
+        {{localOrder.productAdditionals[item].name}}
+      </p>
+    </Col>
+  </Row>
   
-    <div class="row">
-      <div class="large-10 columns line">
-      </div>
-    </div>
+  <Row>
+    <Col :xs="24" :sm="24" :md="24" :lg="24" class="line"></Col>
+  </Row>
   
-    <div class="row">
-      <div class="large-10 columns productname">
-        <h6 class="">
-          <strong>
-            <p>{{localOrder.productFullName}}</p>
-            <p v-for="(item,index) in localAditionalProductsChecked" :key="index">
-              {{localOrder.productAdditionals[item].name}}
-            </p> 
-          </strong>
-        </h6>
-      </div>
-    </div>
-  
-    <div class="row">
-      <div class="large-4 columns line"></div>
-      <div class="large-1 columns"></div>
-      <div class="large-6 columns line"></div>
-    </div>
-    <div class="row">
-      <div class="large-8 columns line"></div>
-    </div>
-  
-    <div class="row">
-      <div class="large-4 columns data">{{localOrder.couponSaleDate}}</div>
-      <div class="large-5 columns line"></div>
-  
-    </div>
-  
-    <div class="row">
-      <div class="large-10 columns line"></div>
-  
-    </div>
-  
-    <div class="row">
-      <div class="large-10 columns text-left fullname">
-        {{localOrder.customerFullName}}
-      </div>
-  
-    </div>
-  
-    <div class="row">
-      <div class="large-10 columns text-left tel">
-        {{localOrder.customerPhone}}
-      </div>
-  
-    </div>
-  
-    <div class="row">
-      <div class="large-10 columns text-left tel">
-        {{localOrder.customerAddress}}
-      </div>
-  
-    </div>
+  <Row>
+    <Col :xs="8" :sm="8" :md="8" :lg="8" class="line"></Col>
+    <Col :xs="1" :sm="1" :md="1" :lg="1" class="line-white"></Col>
+    <Col :xs="4" :sm="4" :md="4" :lg="4" class="line"></Col> 
+  </Row>
 
-    <div class="row">
-      <div class="large-10 columns text-left tel">
-        {{localOrder.masterWorkDate}}
-      </div>
+  <Row>
+    <Col :xs="24" :sm="24" :md="24" :lg="24" class="line"></Col>
+  </Row>
+
+  <Row>
+    <Col :xs="2" :sm="2" :md="2" :lg="2" class="line"></Col>
+    <Col :xs="1" :sm="1" :md="1" :lg="1" class="line-white"></Col>
+    <Col :xs="18" :sm="18" :md="18" :lg="18" class="line"></Col> 
+  </Row>
+
+  <Row>
+    <Col :xs="5" :sm="5" :md="5" :lg="5" class="line"></Col>
+    <Col :xs="1" :sm="1" :md="1" :lg="1" class="line-white"></Col>
+    <Col :xs="12" :sm="12" :md="12" :lg="12" class="line"></Col> 
+  </Row>
+
+  <Row>
+    <Col :xs="24" :sm="24" :md="24" :lg="24" class="coupon-view-customerFullName">
+      <span >ПОКУПАТЕЛЬ: {{localOrder.customerFullName}}</span>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col :xs="24" :sm="24" :md="24" :lg="24" class="coupon-view-customerFullName">
+      <span >ТЕЛ.: {{localOrder.customerPhone}}</span>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col :xs="24" :sm="24" :md="24" :lg="24" class="coupon-view-customerFullName">
+      <span >АДРЕС: {{localOrder.customerAddress}}</span>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col :xs="2" :sm="2" :md="2" :lg="2" class="line"></Col>
+    <Col :xs="1" :sm="1" :md="1" :lg="1" class="line-white"></Col>
+    <Col :xs="18" :sm="18" :md="18" :lg="18" class="line"></Col> 
+  </Row>
+
+  <Row>
+    <Col :xs="24" :sm="24" :md="24" :lg="24" class="coupon-view-date">
+      <span>ДАТА УСТАНОВКИ: {{localOrder.masterWorkDate}}</span>
+    </Col>
+  </Row>  
   
-    </div>
+  <Row>
+    <Col :xs="2" :sm="2" :md="2" :lg="2" class="line"></Col>
+    <Col :xs="1" :sm="1" :md="1" :lg="1" class="line-white"></Col>
+    <Col :xs="18" :sm="18" :md="18" :lg="18" class="line"></Col> 
+  </Row>
+
+  <Row>
+    <Col :xs="5" :sm="5" :md="5" :lg="5" class="line"></Col>
+    <Col :xs="1" :sm="1" :md="1" :lg="1" class="line-white"></Col>
+    <Col :xs="12" :sm="12" :md="12" :lg="12" class="line"></Col> 
+  </Row>
+
+  <Row>
+    <Col :xs="24" :sm="24" :md="24" :lg="24" class="line"></Col>
+  </Row>
   
-    <div class="row lastline">
-      <div class="large-1 columns line"></div>
-      <div class="large-1 columns"></div>
-      <div class="large-9 columns line"></div>
+  <Row>
+    <Col :xs="8" :sm="8" :md="8" :lg="8" class="line"></Col>
+    <Col :xs="1" :sm="1" :md="1" :lg="1" class="line-white"></Col>
+    <Col :xs="4" :sm="4" :md="4" :lg="4" class="line"></Col> 
+  </Row>
   
-    </div>
+  <Row class="barcode-wrapper">
+    <Col :xs="12" :sm="12" :md="12" :lg="12" class="barcode">
+      &nbsp
+    </Col>
+    <Col :xs="8" :sm="8" :md="8" :lg="8" class="price"> 
+      <span >&#8381 {{couponPrice}}</span>
+    </Col>
+
+  </Row> 
   
-    <div class="row">
-      <div class="large-3 columns line"></div>
-      <div class="large-1 columns"></div>
-      <div class="large-6 columns line"></div>
-  
-    </div>
-  
-    <div class="row bottomprice">
-      <div class="large-5 columns barcode">
-  
-      </div>
-      <div class="columns text-right">
-        <span class="price">&#8381 {{couponPrice}}</span>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -113,7 +121,7 @@ export default {
     }
   },
   computed: {
-    couponPrice () {
+    couponPrice() {
       let additionalPriceText = this.localOrder.productPrice;
       for (var i = 0; i < this.localAditionalProductsChecked.length; i++) {
         var element = this.localAditionalProductsChecked[i];

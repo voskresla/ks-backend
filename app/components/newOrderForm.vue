@@ -6,7 +6,7 @@
       <Col v-if="error" :xs="22" :sm="22" :md="18" :lg="18" class="new-order-form"> Error: {{error}}
       </Col>
       <Col v-if="localOrder" :xs="22" :sm="22" :md="18" :lg="18" class="new-order-form">
-      <Row>
+      <Row :gutter="16" >
         <Col :xs="24" :sm="24" :md="12" :lg="12">
         <h3>Новая заявка {{localOrder.couponNumber}}</h3>
         <h2>{{localOrder.productFullName}}</h2>
@@ -31,11 +31,12 @@
           </Checkbox>
           </Checkbox-group>
         </div>
-
-        <Button type="primary" @click="handleSendClick">Отправить заявку</Button>
-  
+        <Row justify="center">
+        <Col class="send-button"><Button type="primary" @click="handleSendClick" :disabled="!formIsValid">Отправить заявку</Button></Col>
+      </Row>
         </Col>
-        <Col :xs="24" :sm="24" :md="12" :lg="12">
+      
+        <Col :xs="24" :sm="24" :md="12" :lg="12" class="coupon-view-pretty">
           <coupon-layout :localOrder="localOrder" :localAditionalProductsChecked="localAditionalProductsChecked"></coupon-layout>
         </Col>
       </Row>
@@ -130,7 +131,14 @@ export default {
     ])
   },
   computed: {
-    
+    formIsValid () {
+      const isValid = 
+        Boolean(this.localOrder.customerFullName)
+        && Boolean(this.localOrder.customerPhone)
+        && Boolean(this.localOrder.customerAddress)
+        && Boolean(this.localOrder.masterWorkDate) 
+      return isValid
+    }
   },
   beforeMount() {
     this.loading = true;

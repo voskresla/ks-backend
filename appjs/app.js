@@ -149,8 +149,9 @@ const store = new Vuex.Store({
           arr.push(object[key]);
         }
       }
+      console.log(arr)
       arr.sort((a,b) => {
-        return a['KS OPERATION GROUP'] > b['KS OPERATION GROUP'] ? 1 : -1
+        return a['KS_OPERATION_GROUP'] > b['KS_OPERATION_GROUP'] ? 1 : -1
       })
 
       return arr

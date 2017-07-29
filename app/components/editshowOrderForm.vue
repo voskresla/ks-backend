@@ -162,6 +162,15 @@ export default {
     ...mapGetters([
       'getOrderFromStore',
     ]),
+    sendNewArtasian: function(orderId, artasianId) {
+      this.openNewArtasianModal = false;
+      
+      let artasianObject = this.artasians.filter(function (item) {
+        return artasianId === item._id
+      })
+
+      this.localOrder.masterKsId = artasianObject[0]
+    },
     handleTabsClick (name) {
       switch (name) {
         case 'claims':
@@ -212,7 +221,11 @@ export default {
       }
     },
     artasianThis: function (id,address) {
-      this.openNewArtasianModal = true;
+      if (!this.isEdit) {
+        this.$Message.info('нельзя менять мастера не нажав кнпоку ИЗМЕНИТЬ')
+      } else {
+        this.openNewArtasianModal = true;
+      }
       // this.orderIdForArtasianModal = id;
         
       // this.relatedOrdersForModal = this.orders.filter((item) => {
@@ -239,7 +252,7 @@ export default {
         .then((r) => {
           if (r.data) {
             this.loading = true;
-            this.localOrder = this.error = null;
+            
             this.$store.dispatch('getOrderInfoFromServer')
             .then((r) => {
                 this.loading = false;
@@ -268,7 +281,7 @@ export default {
           .put('/api/updateorder/'+this.$route.params.id, {...this.localOrder})
           .then((r) => {
             this.loading = true;
-            this.localOrder = this.error = null;
+            
             this.$store.dispatch('getOrderInfoFromServer')
             .then((r) => {
               this.loading = false;
@@ -296,14 +309,17 @@ export default {
       return this.localOrder._id
     },
     relatedOrdersForModal () {
-      return this.orders.filter((item) => {
-        return item.customerAddress === this.localOrder.customerAddress && item._id !== this.localOrder._id
-      })
+      
+        return this.orders.filter((item) => {
+          return item.customerAddress === this.localOrder.customerAddress && item._id !== this.localOrder._id
+        })
+      
     },
     relatedOrdersForAdditionalInfoByAddress () {
-      return this.orders.filter((item) => {
-        return item.customerAddress === this.localOrder.customerAddress && item._id !== this.localOrder._id && item._id.substring(0,13) !== this.localOrder._id.substring(0,13)
-      })
+      
+        return this.orders.filter((item) => {
+          return item.customerAddress === this.localOrder.customerAddress && item._id !== this.localOrder._id && item._id.substring(0,13) !== this.localOrder._id.substring(0,13)
+        })
     },
     relatedOrdersForAdditionalInfoByNumber () {
       return this.orders.filter((item) => {

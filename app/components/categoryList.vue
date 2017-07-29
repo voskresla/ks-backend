@@ -7,36 +7,10 @@
         <h4>Стиральные и посудомоечные машины</h4>
         <ul>
           <li v-for="(item, index) in products" :key="index">
-            <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            <div v-if="item['KS_OPERATION_CATEGORY'] === 0">
+              <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            </div>
           </li>
-          <!-- <li>
-            <a @click="handleLinkClick('value')">Подключ. DW (стандарт)</a>
-          </li>
-          <li>
-            <a href="#">Подключ. WM (стандарт)</a>
-          </li>
-          <li>
-            <a href="#">Подключ. DW (Премиум)</a>
-          </li>
-          <li>
-            <a href="#">Подключ. WM (Премиум)</a>
-          </li>
-          <li>
-            <a href="#">Подключ.В\ DW (стандарт)</a>
-          </li>
-          <li>
-            <a href="#">Подключ.В\ WM (стандарт)</a>
-          </li>
-  
-          <li>
-            <a href="#">Подключ. дораб.слива</a>
-          </li>
-          <li>
-            <a href="#">Подключ. дораб.водоснабжения</a>
-          </li>
-          <li>
-            <a href="#">Подключ. дораб.электросети</a>
-          </li> -->
         </ul>
       </div>
       </Col>
@@ -45,28 +19,12 @@
       <div class="category-card-ul">
         <h4>Кондиционеры</h4>
         <ul>
-          <li>
-            <a href="#">Подключ.кондиц. (7000-9000)</a>
+          <li v-for="(item, index) in products" :key="index">
+            <div v-if="item['KS_OPERATION_CATEGORY'] === 1">
+              <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            </div>
           </li>
-          <li>
-            <a href="#">Подключ.кондиц. (12000-16000)</a>
-          </li>
-          <li>
-            <a href="#">Подключ.кондиц. (18000-24000)</a>
-          </li>
-          <li>
-            <a href="#">Подкл. Обслуж.кондиц.(станд)</a>
-          </li>
-          <li>
-            <a href="#">Подкл.демонтаж AC(7000-9000)</a>
-          </li>
-          <li>
-            <a href="#">Подкл.демонтаж AC(12000)</a>
-          </li>
-          <li>
-            <a href="#">Подкл.демонтаж AC(16000-24000)</a>
-          </li>
-        </ul>
+        </ul> 
       </div>
       </Col>
   
@@ -74,13 +32,11 @@
       <div class="category-card-ul">
         <h4>Электро плиты / панели / духовки и вытяжки</h4>
         <ul>
-          <li>Подключ. Эл.плиты(стандарт)</li>
-          <li>Подключ.В\Эл.панель (незав)</li>
-          <li>Подключ.В\Эл.шкаф (незав)</li>
-          <li>Подключ.В\Эл.пан. и шкаф(зав)</li>
-          <li>Подключ.В\Вытяжки</li>
-          <li>Подключ.вытяжки (плоской)</li>
-          <li>Подключ.вытяжки (купольной)</li>
+          <li v-for="(item, index) in products" :key="index">
+            <div v-if="item['KS_OPERATION_CATEGORY'] === 2">
+              <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            </div>
+          </li>
         </ul>
       </div>
       </Col>
@@ -89,16 +45,11 @@
       <div class="category-card-ul">
         <h4>ТВ и домашние кинотеатры</h4>
         <ul>
-          <li>Подкл. ТВ до 46" </li>
-          <li>Подкл. ТВ свыше 46" </li>
-          <li>Подкл. ТВ до 46" (Подвес) </li>
-          <li>Подкл. ТВ свыше 46" (Подвес) </li>
-          <li>Подкл. ТВ до 32" </li>
-          <li>Подкл. ТВ до 32" (Подвес) </li>
-          <li>Подкл. ТВ свыше 65" </li>
-          <li>Подкл. ТВ свыше 65" (Подвес) </li>
-          <li>Подкл. Дом.кинот.1 кор.(уст.) </li>
-          <li>Подкл. Дом.кинот.1 кор.(подв.)</li>
+          <li v-for="(item, index) in products" :key="index">
+            <div v-if="item['KS_OPERATION_CATEGORY'] === 3">
+              <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            </div>
+          </li>
         </ul>
       </div>
       </Col>
@@ -111,9 +62,11 @@
       <div class="category-card-ul">
         <h4>Водонагреватели</h4>
         <ul>
-          <li>Подключ. WH проточн. элек.</li>
-          <li>Подключ. WH накопит.эл(до 50л)</li>
-          <li>Подключ. WH накопит.эл(от 51л)</li>
+          <li v-for="(item, index) in products" :key="index">
+            <div v-if="item['KS_OPERATION_CATEGORY'] === 4">
+              <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            </div>
+          </li>
         </ul>
       </div>
       </Col>
@@ -122,11 +75,11 @@
       <div class="category-card-ul">
         <h4>Холодильники</h4>
         <ul>
-          <li>Подключ.В\RF</li>
-          <li>Подключ.RF Side-by-Side(станд)</li>
-          <li>Подключ.RF (стандарт)</li>
-          <li>Подк.дор.RF пер.дв. с эл. дисп</li>
-          <li>Подкл.дор.RFпер.дв.без эл.дисп</li>
+          <li v-for="(item, index) in products" :key="index">
+            <div v-if="item['KS_OPERATION_CATEGORY'] === 5">
+              <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            </div>
+          </li>
         </ul>
       </div>
       </Col>
@@ -135,9 +88,11 @@
       <div class="category-card-ul">
         <h4>Спутниковые тарелки</h4>
         <ul>
-          <li>Подкл. тестиров. спутн. сигн.</li>
-          <li>Подкл. спутн.тел.(d до 0.79м)</li>
-          <li>Подкл. спутн.тел.(d от 0.8м)</li>
+          <li v-for="(item, index) in products" :key="index">
+            <div v-if="item['KS_OPERATION_CATEGORY'] === 6">
+              <a @click="handleLinkClick(item.id, item['Наименование услуги'], item.additionals)">{{item['Наименование услуги']}}</a>
+            </div>
+          </li>
         </ul>
       </div>
       </Col>
@@ -164,7 +119,10 @@ export default {
   },
   computed: {
     products () {
-      return this.$store.getters.getProductsForCategoryList
+      return this.$store.getters.getProductsForCategoryList.filter((item) => {
+        let matchProductName = item['Наименование услуги'].toLowerCase().includes(this.$store.state.filterSearch.toLowerCase());
+        return matchProductName
+      })
     }
   }
 }

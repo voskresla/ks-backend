@@ -42,7 +42,8 @@ async function getNextOrderNumberInDay () {
               counter: 1,
               prevdate: new Date()
             }
-          }}
+          }},
+          { new: true }
         ).exec()
 
     } else {
@@ -78,7 +79,7 @@ module.exports = function (app, db, passport) {
   app
     .route("/api/getproductprice/:priceid")
     .get(
-    // require("connect-ensure-login").ensureLoggedIn(),
+    require("connect-ensure-login").ensureLoggedIn(),
     (req, res) => {
 
     let mainProductPrice = '';

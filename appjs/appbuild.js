@@ -15499,8 +15499,9 @@ var store = new _vuex2.default.Store({
           arr.push(object[key]);
         }
       }
+      console.log(arr);
       arr.sort(function (a, b) {
-        return a['KS OPERATION GROUP'] > b['KS OPERATION GROUP'] ? 1 : -1;
+        return a['KS_OPERATION_GROUP'] > b['KS_OPERATION_GROUP'] ? 1 : -1;
       });
 
       return arr;
@@ -43362,7 +43363,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n    /* background-color: rgba(37, 143, 175, 0.19); */\n    font-family: Roboto !important;\n    font-weight: 100 !important;\n    background-color: #ffffff\n}\n\n.new-order-form {\n  padding-top: 30px;\n}\n\n.new-order-form h2 {\n  padding-bottom: 20px;\n}\n\n.new-order-form h2 {\n  font-weight: 200;\n}\n\n.new-order-form input {\n    color: black !important;\n    height: 40px !important;\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    \n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.new-order-form select {\n    color: black !important;\n    height: 40px !important;\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    \n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.new-order-form-master-button {\n    display: inline-block;\n    width: 100%;\n    \n    line-height: 1.5;\n    padding: 4px 7px;\n\n    color: black !important;\n    height: 40px !important;\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    \n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.master-icon {\n  cursor: pointer;\n}\n\n.card_additionals {\n  padding-top: 10px;\n  padding-bottom: 10px;\n  font-size: 12px;\n}\n\n.claim-comment {\n  padding: 10px;\n  padding-right: 20px;\n}\n\n.claim-comment-bottom-info {\n  font-size: 12px;\n  text-align: right;\n}\n\n.card-addtitionals-wrapper {\n  margin-bottom: 15px;\n}\n\n.claim-bottom-info {\n  font-size: 12px\n}\n\n.card-claim {\n  margin-bottom: 10px;\n}\n\n.master-icon:disabled {\n  cursor: not-allowed;\n}\n\n.new-order-form textarea {\n    color: black !important;\n    /* height: 40px !important; */\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    padding-top: 20px;\n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.new-order-form .my-checkbox {\n  padding-top: 15px;\n  padding-bottom: 15px;\n}\n\n\n.category-card-wrapper {\n    background-color: #e4e4e4;\n}\n\n.category-card-wrapper h4 {\n    font-weight: 100;\n    font-size: 18px;\n    padding-bottom: 15px;\n}\n\nh2 {\n    font-weight: 100;\n    font-size: 18px;\n    padding-bottom: 15px;\n}\n\n.category-card-wrapper ul {\n    padding-left: 10px;\n}\n\n.category-card-wrapper li {\n    font-weight: 100;\n    font-size: 14px;\n}\n\n.category-card-ul {\n    margin: 10px;\n    padding: 20px;\n}\n\n.header-row {\n  height: 70px;\n  background-image: linear-gradient(143deg,rgba(32, 98, 169, 0.91) 20%,rgba(45, 140, 240, .9) 81%,rgba(45, 140, 240, .9));\n  background-color: #2b83f9;\n  color: #ffffff;\n  font-weight: 400;\n}\n\n.header-search {\n  text-align: center;\n}\n\n.header-user {\n  text-align: right;\n}\n\n.header-icon {\n  padding-right: 25px;\n}\n\n.header-button i {\n  color: #ffffff;\n  background-color: transparent;\n  \n  font-size: 20px;\n}\n\n.header-button i:hover {\n  color: rgba(255, 255, 255, 0.7);\n  background-color: transparent;\n  \n  font-size: 20px;\n}\n\n.header-button.ivu-btn {\n  border: 0px;\n}\n\n\n\n\n/* body {\n  background-color: rgba(37, 143, 175, 0.19)\n}\n\n.vertical-100vh {\n  margin-top: 1em;\n}\n\n.buttons {\n  padding-top: 1em;\n}\n\n.coupon {\n  \n  border: 1px solid rgba(22, 83, 102, 0.3);\n  border-radius: 6px;\n  background-color: rgba(37, 143, 175, 0.19);\n  -webkit-box-shadow: 0 5px 15px 0 #dedede;\n  box-shadow: 0 5px 15px 0 #dedede;\n}\n\n.padding-10 {\n  padding: 10px;\n}\n\n.price {\n  font-size: 24px;\n  color: red;\n}\n\n.line {\n    background-color: rgba(128, 128, 128, 0.32);\n    border-radius: 10px;\n    height: 10px;\n    margin-top: 10px;\n}\n\n.productname {\n  padding-top: 15px;\n  font-weight: 600;\n  padding-left: 0px;\n}\n\n.bottomprice {\n  padding-top: 40px;\n  padding-bottom: 40px;\n}\n\n.pricebckg {\n  background: no-repeat 87% 92% url('/asset/svg/stamp.svg');\n  box-shadow: rgba(128, 128, 128, 0.2) 5px 5px 10px -1px;\n    padding: 28px;\n    background-color: white;\n\n}\n\nselect {\n    border-radius: 5px;\n    border: 0;\n    height: 3.5em;\n    padding-left: 20px;\n    background-color: rgba(22, 83, 102, 0.1);\n}\n\n[type='text'] {\n  border-radius: 5px;\n    border: 0;\n    height: 3.5em;\n    padding-left: 20px;\n    background-color: rgba(22, 83, 102, 0.1);\n}\n\ntextarea {\n  border-radius: 5px;\n    border: 0;\n    height: 3.5em;\n    padding-left: 20px;\n    background-color: rgba(22, 83, 102, 0.1);\n}\n\n.fullname {\n  padding-left: 0px;\n    padding-top: 11px;\n    text-transform: uppercase;\n\n}\n\n.data {\n  padding-left: 0px;\n}\n\n.tel {\n  padding-left: 0px;\n  text-transform: uppercase;\n\n}\n\n.lastline {\n  padding-top: 10px;\n}\n\n.barcode {\n  background: url(http://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png);\n    background-size: cover;\n}\n\n.is-invalid-input:not(:focus) {\n    color: #c60f13; }\n\ninput::-webkit-input-placeholder,\ntextarea::-webkit-input-placeholder {\n  color: rgba(0,0,0,0.4) }\n\ninput::-moz-placeholder,\ntextarea::-moz-placeholder {\n  color: rgba(0,0,0,0.4) }\n\ninput:-ms-input-placeholder,\ntextarea:-ms-input-placeholder {\n  color: rgba(0,0,0,0.4) }\n\ninput::placeholder,\ntextarea::placeholder {\n  color: rgba(0,0,0,0.4) }\n\n\n  \n\n  [type='text']:focus, [type='password']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='week']:focus, [type='email']:focus, [type='number']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='url']:focus, [type='color']:focus,\n  textarea:focus {\n    outline: none;\n    border: 1px solid rgba(0, 0, 0, 0.29);\n    background-color: rgba(22, 83, 102, 0.04);\n    box-shadow: 0 0 10px 1px rgba(22, 83, 102, 0.15);\n    transition: box-shadow 0.2s, border-color 0.0s ease-in-out;\n    }\n\n    select:focus {\n    outline: none;\n    border: 1px solid rgba(0, 0, 0, 0.29);\n    background-color: rgba(22, 83, 102, 0.04);\n    box-shadow: 0 0 10px 1px rgba(22, 83, 102, 0.15);\n    transition: box-shadow 0.2s, border-color 0.0s ease-in-out;\n    }\nselect:invalid {\n    color: rgba(0,0,0,0.4);\n}\n\n.userinfo {\n  font-weight: 400;\n  font-size: small;\n  padding-top: 10px;\n}\n\n.logo {\n  padding-top: 10px;\n}\n\n.textarea {\n  margin-bottom: 0;\n}\n\n.additional {\n padding-top: 40px; \n}\n\n.switch {\n  height: 2rem;\n  position: relative;\n  \n  outline: 0;\n  font-size: 0.875rem;\n  font-weight: bold;\n  color: #fefefe;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none; }\n\n.switch-input {\n  position: absolute;\n  margin-bottom: 0;\n  opacity: 0; }\n\n.switch-paddle {\n  position: relative;\n  display: block;\n  width: 4rem;\n  height: 2rem;\n  border-radius: 3px;\n  background: rgba(22, 83, 102, 0.1);\n  transition: all 0.25s ease-out;\n  font-weight: inherit;\n  color: inherit;\n  cursor: pointer; }\n  input + .switch-paddle {\n    margin: 0; }\n  .switch-paddle::after {\n    position: absolute;\n    top: 0.25rem;\n    left: 0.25rem;\n    display: block;\n    width: 1.5rem;\n    height: 1.5rem;\n    transform: translate3d(0, 0, 0);\n    border-radius: 3px;\n    background: #fefefe;\n    transition: all 0.25s ease-out;\n    content: ''; }\n  input:checked ~ .switch-paddle {\n    background: #2ba6cb; }\n    input:checked ~ .switch-paddle::after {\n      left: 2.25rem; }\n  [data-whatinput='mouse'] input:focus ~ .switch-paddle {\n    outline: 0; }\n\n.switch-active, .switch-inactive {\n  position: absolute;\n  top: 50%;\n  -ms-transform: translateY(-50%);\n      transform: translateY(-50%); }\n\n.switch-active {\n  left: 8%;\n  display: none; }\n  input:checked + label > .switch-active {\n    display: block; }\n\n.switch-inactive {\n  right: 15%; }\n  input:checked + label > .switch-inactive {\n    display: none; }\n\n.switch.tiny {\n  height: 1.5rem; }\n  .switch.tiny .switch-paddle {\n    width: 3rem;\n    height: 1.5rem;\n    font-size: 0.625rem; }\n  .switch.tiny .switch-paddle::after {\n    top: 0.25rem;\n    left: 0.25rem;\n    width: 1rem;\n    height: 1rem; }\n  .switch.tiny input:checked ~ .switch-paddle::after {\n    left: 1.75rem; }\n\n.switch.small {\n  height: 1.75rem; }\n  .switch.small .switch-paddle {\n    width: 3.5rem;\n    height: 1.75rem;\n    font-size: 0.75rem; }\n  .switch.small .switch-paddle::after {\n    top: 0.25rem;\n    left: 0.25rem;\n    width: 1.25rem;\n    height: 1.25rem; }\n  .switch.small input:checked ~ .switch-paddle::after {\n    left: 2rem; }\n\n.switch.large {\n  height: 2.5rem; }\n  .switch.large .switch-paddle {\n    width: 5rem;\n    height: 2.5rem;\n    font-size: 1rem; }\n  .switch.large .switch-paddle::after {\n    top: 0.25rem;\n    left: 0.25rem;\n    width: 2rem;\n    height: 2rem; }\n  .switch.large input:checked ~ .switch-paddle::after {\n    left: 2.75rem; }\n\n\n.additional-text {\n  font-size: small;\n  padding-left: 2px;\n}\n\n.option-gray {\n  color: rgba(0,0,0,0.4);\n}\n\n.login {\n  padding-top: 100px;\n\n}\n\n.login100vh {\n  height: 100vh;\n\n}\n\ntd.priceformat span::after {\n  content: ' .00'\n}\n\ntd.priceformat span::before {\n  \n}\n\n.searchinput {\n  \n    \n    \n    text-align: center;\n    \n}\n\n\n */", ""]);
+exports.push([module.i, "body {\n    /* background-color: rgba(37, 143, 175, 0.19); */\n    font-family: Roboto !important;\n    font-weight: 100 !important;\n    background-color: #ffffff\n}\n\n.new-order-form {\n  padding-top: 30px;\n}\n\n.new-order-form h2 {\n  padding-bottom: 20px;\n}\n\n.new-order-form h2 {\n  font-weight: 200;\n}\n\n.new-order-form input {\n    color: black !important;\n    height: 40px !important;\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    \n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.new-order-form select {\n    color: black !important;\n    height: 40px !important;\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    \n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.new-order-form-master-button {\n    display: inline-block;\n    width: 100%;\n    \n    line-height: 1.5;\n    padding: 4px 7px;\n\n    color: black !important;\n    height: 40px !important;\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    \n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.master-icon {\n  cursor: pointer;\n}\n\n.card_additionals {\n  padding-top: 10px;\n  padding-bottom: 10px;\n  font-size: 12px;\n}\n\n.claim-comment {\n  padding: 10px;\n  padding-right: 20px;\n}\n\n.claim-comment-bottom-info {\n  font-size: 12px;\n  text-align: right;\n}\n\n.card-addtitionals-wrapper {\n  margin-bottom: 15px;\n}\n\n.claim-bottom-info {\n  font-size: 12px\n}\n\n.card-claim {\n  margin-bottom: 10px;\n}\n\n.master-icon:disabled {\n  cursor: not-allowed;\n}\n\n.coupon-view-pretty {\n  padding: 20px;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);\n}\n\n.new-order-form textarea {\n    color: black !important;\n    /* height: 40px !important; */\n    font-size: 14px !important;\n    margin-bottom: 10px !important;\n    padding-top: 20px;\n    background-color: transparent !important;\n    border: 0px !important;\n    border-bottom: 1px solid rgba(32, 98, 169, 0.91) !important;\n    border-radius: 0px;\n}\n\n.new-order-form .my-checkbox {\n  padding-top: 15px;\n  padding-bottom: 15px;\n}\n\n\n.category-card-wrapper {\n    background-color: #e4e4e4;\n}\n\n.category-card-wrapper h4 {\n    font-weight: 100;\n    font-size: 18px;\n    padding-bottom: 15px;\n}\n\nh2 {\n    font-weight: 100;\n    font-size: 18px;\n    padding-bottom: 15px;\n}\n\n.category-card-wrapper ul {\n    padding-left: 10px;\n}\n\n.category-card-wrapper li {\n    font-weight: 100;\n    font-size: 14px;\n}\n\n.category-card-ul {\n    margin: 10px;\n    padding: 20px;\n}\n\n.header-row {\n  height: 70px;\n  background-image: linear-gradient(143deg,rgba(32, 98, 169, 0.91) 20%,rgba(45, 140, 240, .9) 81%,rgba(45, 140, 240, .9));\n  background-color: #2b83f9;\n  color: #ffffff;\n  font-weight: 400;\n}\n\n.header-search {\n  text-align: center;\n}\n\n.header-user {\n  text-align: right;\n}\n\n.header-icon {\n  padding-right: 25px;\n}\n\n.header-button i {\n  color: #ffffff;\n  background-color: transparent;\n  \n  font-size: 20px;\n}\n\n.header-button i:hover {\n  color: rgba(255, 255, 255, 0.7);\n  background-color: transparent;\n  \n  font-size: 20px;\n}\n\n.header-button.ivu-btn {\n  border: 0px;\n}\n\n\n.line {\n    background-color: rgba(128, 128, 128, 0.32);\n    border-radius: 10px;\n    height: 10px;\n    margin-top: 10px;\n    \n}\n\n.line-white {\n    background-color: rgba(255, 255, 255, 1);\n    border-radius: 10px;\n    height: 10px;\n    margin-top: 10px;\n}\n\n.coupon-view-header {\n  font-size: 15px;\n  padding-left: 8px;\n}\n\n.coupon-view-productFullName {\n  font-size: 15px;\n  padding-left: 8px;\n  padding-top: 10px\n}\n\n.coupon-view-customerFullName {\n  font-size: 15px;\n  padding-left: 8px;\n  padding-top: 15px;\n}\n\n.coupon-view-date {\n  font-size: 15px;\n  padding-left: 8px;\n  padding-top: 15px;\n}\n\n.coupon-height {\n  height: 500px;\n}\n\n.price {\n  font-size: 24px;\n  color: red;\n  text-align: right\n}\n\n.pricebckg {\n  background: no-repeat 87% 100% url('/asset/svg/stamp.svg');\n}\n\n.barcode {\n  background: url(http://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png);\n    background-size: cover;\n    padding-top: 10px;\n}\n\n.barcode-wrapper {\n  padding-top: 25px;\n}\n\n.send-button {\n  text-align: center;\n  padding-top: 10px;\n}\n\n/* body {\n  background-color: rgba(37, 143, 175, 0.19)\n}\n\n.vertical-100vh {\n  margin-top: 1em;\n}\n\n.buttons {\n  padding-top: 1em;\n}\n\n.coupon {\n  \n  border: 1px solid rgba(22, 83, 102, 0.3);\n  border-radius: 6px;\n  background-color: rgba(37, 143, 175, 0.19);\n  -webkit-box-shadow: 0 5px 15px 0 #dedede;\n  box-shadow: 0 5px 15px 0 #dedede;\n}\n\n.padding-10 {\n  padding: 10px;\n}\n\n.price {\n  font-size: 24px;\n  color: red;\n}\n\n.line {\n    background-color: rgba(128, 128, 128, 0.32);\n    border-radius: 10px;\n    height: 10px;\n    margin-top: 10px;\n}\n\n.productname {\n  padding-top: 15px;\n  font-weight: 600;\n  padding-left: 0px;\n}\n\n.bottomprice {\n  padding-top: 40px;\n  padding-bottom: 40px;\n}\n\n.pricebckg {\n  background: no-repeat 87% 92% url('/asset/svg/stamp.svg');\n  box-shadow: rgba(128, 128, 128, 0.2) 5px 5px 10px -1px;\n    padding: 28px;\n    background-color: white;\n\n}\n\nselect {\n    border-radius: 5px;\n    border: 0;\n    height: 3.5em;\n    padding-left: 20px;\n    background-color: rgba(22, 83, 102, 0.1);\n}\n\n[type='text'] {\n  border-radius: 5px;\n    border: 0;\n    height: 3.5em;\n    padding-left: 20px;\n    background-color: rgba(22, 83, 102, 0.1);\n}\n\ntextarea {\n  border-radius: 5px;\n    border: 0;\n    height: 3.5em;\n    padding-left: 20px;\n    background-color: rgba(22, 83, 102, 0.1);\n}\n\n.fullname {\n  padding-left: 0px;\n    padding-top: 11px;\n    text-transform: uppercase;\n\n}\n\n.data {\n  padding-left: 0px;\n}\n\n.tel {\n  padding-left: 0px;\n  text-transform: uppercase;\n\n}\n\n.lastline {\n  padding-top: 10px;\n}\n\n.barcode {\n  background: url(http://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png);\n    background-size: cover;\n}\n\n.is-invalid-input:not(:focus) {\n    color: #c60f13; }\n\ninput::-webkit-input-placeholder,\ntextarea::-webkit-input-placeholder {\n  color: rgba(0,0,0,0.4) }\n\ninput::-moz-placeholder,\ntextarea::-moz-placeholder {\n  color: rgba(0,0,0,0.4) }\n\ninput:-ms-input-placeholder,\ntextarea:-ms-input-placeholder {\n  color: rgba(0,0,0,0.4) }\n\ninput::placeholder,\ntextarea::placeholder {\n  color: rgba(0,0,0,0.4) }\n\n\n  \n\n  [type='text']:focus, [type='password']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='week']:focus, [type='email']:focus, [type='number']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='url']:focus, [type='color']:focus,\n  textarea:focus {\n    outline: none;\n    border: 1px solid rgba(0, 0, 0, 0.29);\n    background-color: rgba(22, 83, 102, 0.04);\n    box-shadow: 0 0 10px 1px rgba(22, 83, 102, 0.15);\n    transition: box-shadow 0.2s, border-color 0.0s ease-in-out;\n    }\n\n    select:focus {\n    outline: none;\n    border: 1px solid rgba(0, 0, 0, 0.29);\n    background-color: rgba(22, 83, 102, 0.04);\n    box-shadow: 0 0 10px 1px rgba(22, 83, 102, 0.15);\n    transition: box-shadow 0.2s, border-color 0.0s ease-in-out;\n    }\nselect:invalid {\n    color: rgba(0,0,0,0.4);\n}\n\n.userinfo {\n  font-weight: 400;\n  font-size: small;\n  padding-top: 10px;\n}\n\n.logo {\n  padding-top: 10px;\n}\n\n.textarea {\n  margin-bottom: 0;\n}\n\n.additional {\n padding-top: 40px; \n}\n\n.switch {\n  height: 2rem;\n  position: relative;\n  \n  outline: 0;\n  font-size: 0.875rem;\n  font-weight: bold;\n  color: #fefefe;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none; }\n\n.switch-input {\n  position: absolute;\n  margin-bottom: 0;\n  opacity: 0; }\n\n.switch-paddle {\n  position: relative;\n  display: block;\n  width: 4rem;\n  height: 2rem;\n  border-radius: 3px;\n  background: rgba(22, 83, 102, 0.1);\n  transition: all 0.25s ease-out;\n  font-weight: inherit;\n  color: inherit;\n  cursor: pointer; }\n  input + .switch-paddle {\n    margin: 0; }\n  .switch-paddle::after {\n    position: absolute;\n    top: 0.25rem;\n    left: 0.25rem;\n    display: block;\n    width: 1.5rem;\n    height: 1.5rem;\n    transform: translate3d(0, 0, 0);\n    border-radius: 3px;\n    background: #fefefe;\n    transition: all 0.25s ease-out;\n    content: ''; }\n  input:checked ~ .switch-paddle {\n    background: #2ba6cb; }\n    input:checked ~ .switch-paddle::after {\n      left: 2.25rem; }\n  [data-whatinput='mouse'] input:focus ~ .switch-paddle {\n    outline: 0; }\n\n.switch-active, .switch-inactive {\n  position: absolute;\n  top: 50%;\n  -ms-transform: translateY(-50%);\n      transform: translateY(-50%); }\n\n.switch-active {\n  left: 8%;\n  display: none; }\n  input:checked + label > .switch-active {\n    display: block; }\n\n.switch-inactive {\n  right: 15%; }\n  input:checked + label > .switch-inactive {\n    display: none; }\n\n.switch.tiny {\n  height: 1.5rem; }\n  .switch.tiny .switch-paddle {\n    width: 3rem;\n    height: 1.5rem;\n    font-size: 0.625rem; }\n  .switch.tiny .switch-paddle::after {\n    top: 0.25rem;\n    left: 0.25rem;\n    width: 1rem;\n    height: 1rem; }\n  .switch.tiny input:checked ~ .switch-paddle::after {\n    left: 1.75rem; }\n\n.switch.small {\n  height: 1.75rem; }\n  .switch.small .switch-paddle {\n    width: 3.5rem;\n    height: 1.75rem;\n    font-size: 0.75rem; }\n  .switch.small .switch-paddle::after {\n    top: 0.25rem;\n    left: 0.25rem;\n    width: 1.25rem;\n    height: 1.25rem; }\n  .switch.small input:checked ~ .switch-paddle::after {\n    left: 2rem; }\n\n.switch.large {\n  height: 2.5rem; }\n  .switch.large .switch-paddle {\n    width: 5rem;\n    height: 2.5rem;\n    font-size: 1rem; }\n  .switch.large .switch-paddle::after {\n    top: 0.25rem;\n    left: 0.25rem;\n    width: 2rem;\n    height: 2rem; }\n  .switch.large input:checked ~ .switch-paddle::after {\n    left: 2.75rem; }\n\n\n.additional-text {\n  font-size: small;\n  padding-left: 2px;\n}\n\n.option-gray {\n  color: rgba(0,0,0,0.4);\n}\n\n.login {\n  padding-top: 100px;\n\n}\n\n.login100vh {\n  height: 100vh;\n\n}\n\ntd.priceformat span::after {\n  content: ' .00'\n}\n\ntd.priceformat span::before {\n  \n}\n\n.searchinput {\n  \n    \n    \n    text-align: center;\n    \n}\n\n\n */", ""]);
 
 // exports
 
@@ -44039,7 +44040,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -44107,20 +44108,50 @@ exports.default = {
   methods: {
     handleNewOrderClick: function handleNewOrderClick() {
       //this.$store.commit('clearOrderObject')
-      this.$store.commit('changeOrderLayoutState', { init: true, new: false, edit: false, key: false, name: false, all: false, id: false });
+      this.$store.commit('changeOrderLayoutState', {
+        init: true,
+        new: false,
+        edit: false,
+        key: false,
+        name: false,
+        all: false,
+        id: false
+      });
       this.$store.commit('updateFilterSearch', '');
-      this.$router.push({ name: 'newOrder' });
+      this.$router.push({
+        name: 'newOrder'
+      });
     },
     handleAllOrdersClick: function handleAllOrdersClick() {
 
-      this.$store.commit('changeOrderLayoutState', { init: false, new: false, edit: false, key: false, name: false, all: true, id: false });
+      this.$store.commit('changeOrderLayoutState', {
+        init: false,
+        new: false,
+        edit: false,
+        key: false,
+        name: false,
+        all: true,
+        id: false
+      });
       this.$store.commit('updateFilterSearch', '');
-      this.$router.push({ name: 'newOrder' });
+      this.$router.push({
+        name: 'newOrder'
+      });
     },
     handleAllClaimsClick: function handleAllClaimsClick() {
-      this.$store.commit('changeOrderLayoutState', { init: false, new: false, edit: false, key: false, name: false, all: false, id: false });
+      this.$store.commit('changeOrderLayoutState', {
+        init: false,
+        new: false,
+        edit: false,
+        key: false,
+        name: false,
+        all: false,
+        id: false
+      });
       this.$store.commit('updateFilterSearch', '');
-      this.$router.push({ name: 'allClaims' });
+      this.$router.push({
+        name: 'allClaims'
+      });
     }
   }
 };
@@ -45579,7 +45610,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -45700,51 +45731,6 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 exports.default = {
   name: 'categoryList',
@@ -45758,7 +45744,12 @@ exports.default = {
   },
   computed: {
     products: function products() {
-      return this.$store.getters.getProductsForCategoryList;
+      var _this = this;
+
+      return this.$store.getters.getProductsForCategoryList.filter(function (item) {
+        var matchProductName = item['Наименование услуги'].toLowerCase().includes(_this.$store.state.filterSearch.toLowerCase());
+        return matchProductName;
+      });
     }
   }
 };
@@ -45795,13 +45786,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h4', [_vm._v("Стиральные и посудомоечные машины")]), _vm._v(" "), _c('ul', _vm._l((_vm.products), function(item, index) {
     return _c('li', {
       key: index
-    }, [_c('a', {
+    }, [(item['KS_OPERATION_CATEGORY'] === 0) ? _c('div', [_c('a', {
       on: {
         "click": function($event) {
           _vm.handleLinkClick(item.id, item['Наименование услуги'], item.additionals)
         }
       }
-    }, [_vm._v(_vm._s(item['Наименование услуги']))])])
+    }, [_vm._v(_vm._s(item['Наименование услуги']))])]) : _vm._e()])
   }))])]), _vm._v(" "), _c('Col', {
     staticClass: "category-card",
     attrs: {
@@ -45812,35 +45803,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "category-card-ul"
-  }, [_c('h4', [_vm._v("Кондиционеры")]), _vm._v(" "), _c('ul', [_c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Подключ.кондиц. (7000-9000)")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Подключ.кондиц. (12000-16000)")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Подключ.кондиц. (18000-24000)")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Подкл. Обслуж.кондиц.(станд)")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Подкл.демонтаж AC(7000-9000)")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Подкл.демонтаж AC(12000)")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Подкл.демонтаж AC(16000-24000)")])])])])]), _vm._v(" "), _c('Col', {
+  }, [_c('h4', [_vm._v("Кондиционеры")]), _vm._v(" "), _c('ul', _vm._l((_vm.products), function(item, index) {
+    return _c('li', {
+      key: index
+    }, [(item['KS_OPERATION_CATEGORY'] === 1) ? _c('div', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.handleLinkClick(item.id, item['Наименование услуги'], item.additionals)
+        }
+      }
+    }, [_vm._v(_vm._s(item['Наименование услуги']))])]) : _vm._e()])
+  }))])]), _vm._v(" "), _c('Col', {
     staticClass: "category-card",
     attrs: {
       "xs": 22,
@@ -45850,7 +45823,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "category-card-ul"
-  }, [_c('h4', [_vm._v("Электро плиты / панели / духовки и вытяжки")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("Подключ. Эл.плиты(стандарт)")]), _vm._v(" "), _c('li', [_vm._v("Подключ.В\\Эл.панель (незав)")]), _vm._v(" "), _c('li', [_vm._v("Подключ.В\\Эл.шкаф (незав)")]), _vm._v(" "), _c('li', [_vm._v("Подключ.В\\Эл.пан. и шкаф(зав)")]), _vm._v(" "), _c('li', [_vm._v("Подключ.В\\Вытяжки")]), _vm._v(" "), _c('li', [_vm._v("Подключ.вытяжки (плоской)")]), _vm._v(" "), _c('li', [_vm._v("Подключ.вытяжки (купольной)")])])])]), _vm._v(" "), _c('Col', {
+  }, [_c('h4', [_vm._v("Электро плиты / панели / духовки и вытяжки")]), _vm._v(" "), _c('ul', _vm._l((_vm.products), function(item, index) {
+    return _c('li', {
+      key: index
+    }, [(item['KS_OPERATION_CATEGORY'] === 2) ? _c('div', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.handleLinkClick(item.id, item['Наименование услуги'], item.additionals)
+        }
+      }
+    }, [_vm._v(_vm._s(item['Наименование услуги']))])]) : _vm._e()])
+  }))])]), _vm._v(" "), _c('Col', {
     staticClass: "category-card",
     attrs: {
       "xs": 22,
@@ -45860,7 +45843,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "category-card-ul"
-  }, [_c('h4', [_vm._v("ТВ и домашние кинотеатры")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("Подкл. ТВ до 46\" ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. ТВ свыше 46\" ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. ТВ до 46\" (Подвес) ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. ТВ свыше 46\" (Подвес) ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. ТВ до 32\" ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. ТВ до 32\" (Подвес) ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. ТВ свыше 65\" ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. ТВ свыше 65\" (Подвес) ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. Дом.кинот.1 кор.(уст.) ")]), _vm._v(" "), _c('li', [_vm._v("Подкл. Дом.кинот.1 кор.(подв.)")])])])])], 1)], 1), _vm._v(" "), _c('Row', {
+  }, [_c('h4', [_vm._v("ТВ и домашние кинотеатры")]), _vm._v(" "), _c('ul', _vm._l((_vm.products), function(item, index) {
+    return _c('li', {
+      key: index
+    }, [(item['KS_OPERATION_CATEGORY'] === 3) ? _c('div', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.handleLinkClick(item.id, item['Наименование услуги'], item.additionals)
+        }
+      }
+    }, [_vm._v(_vm._s(item['Наименование услуги']))])]) : _vm._e()])
+  }))])])], 1)], 1), _vm._v(" "), _c('Row', {
     staticClass: "category-card-wrapper",
     attrs: {
       "type": "flex",
@@ -45884,7 +45877,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "category-card-ul"
-  }, [_c('h4', [_vm._v("Водонагреватели")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("Подключ. WH проточн. элек.")]), _vm._v(" "), _c('li', [_vm._v("Подключ. WH накопит.эл(до 50л)")]), _vm._v(" "), _c('li', [_vm._v("Подключ. WH накопит.эл(от 51л)")])])])]), _vm._v(" "), _c('Col', {
+  }, [_c('h4', [_vm._v("Водонагреватели")]), _vm._v(" "), _c('ul', _vm._l((_vm.products), function(item, index) {
+    return _c('li', {
+      key: index
+    }, [(item['KS_OPERATION_CATEGORY'] === 4) ? _c('div', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.handleLinkClick(item.id, item['Наименование услуги'], item.additionals)
+        }
+      }
+    }, [_vm._v(_vm._s(item['Наименование услуги']))])]) : _vm._e()])
+  }))])]), _vm._v(" "), _c('Col', {
     staticClass: "category-card",
     attrs: {
       "xs": 22,
@@ -45894,7 +45897,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "category-card-ul"
-  }, [_c('h4', [_vm._v("Холодильники")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("Подключ.В\\RF")]), _vm._v(" "), _c('li', [_vm._v("Подключ.RF Side-by-Side(станд)")]), _vm._v(" "), _c('li', [_vm._v("Подключ.RF (стандарт)")]), _vm._v(" "), _c('li', [_vm._v("Подк.дор.RF пер.дв. с эл. дисп")]), _vm._v(" "), _c('li', [_vm._v("Подкл.дор.RFпер.дв.без эл.дисп")])])])]), _vm._v(" "), _c('Col', {
+  }, [_c('h4', [_vm._v("Холодильники")]), _vm._v(" "), _c('ul', _vm._l((_vm.products), function(item, index) {
+    return _c('li', {
+      key: index
+    }, [(item['KS_OPERATION_CATEGORY'] === 5) ? _c('div', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.handleLinkClick(item.id, item['Наименование услуги'], item.additionals)
+        }
+      }
+    }, [_vm._v(_vm._s(item['Наименование услуги']))])]) : _vm._e()])
+  }))])]), _vm._v(" "), _c('Col', {
     staticClass: "category-card",
     attrs: {
       "xs": 22,
@@ -45904,7 +45917,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "category-card-ul"
-  }, [_c('h4', [_vm._v("Спутниковые тарелки")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("Подкл. тестиров. спутн. сигн.")]), _vm._v(" "), _c('li', [_vm._v("Подкл. спутн.тел.(d до 0.79м)")]), _vm._v(" "), _c('li', [_vm._v("Подкл. спутн.тел.(d от 0.8м)")])])])]), _vm._v(" "), _c('Col', {
+  }, [_c('h4', [_vm._v("Спутниковые тарелки")]), _vm._v(" "), _c('ul', _vm._l((_vm.products), function(item, index) {
+    return _c('li', {
+      key: index
+    }, [(item['KS_OPERATION_CATEGORY'] === 6) ? _c('div', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.handleLinkClick(item.id, item['Наименование услуги'], item.additionals)
+        }
+      }
+    }, [_vm._v(_vm._s(item['Наименование услуги']))])]) : _vm._e()])
+  }))])]), _vm._v(" "), _c('Col', {
     staticClass: "category-card",
     attrs: {
       "xs": 22,
@@ -46001,7 +46024,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -46018,6 +46041,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
+//
 //
 //
 //
@@ -46155,7 +46179,12 @@ exports.default = {
       this.$router.push({ name: 'newOrder' });
     }
   }, (0, _vuex.mapGetters)(['getOrderFromStore'])),
-  computed: {},
+  computed: {
+    formIsValid: function formIsValid() {
+      var isValid = Boolean(this.localOrder.customerFullName) && Boolean(this.localOrder.customerPhone) && Boolean(this.localOrder.customerAddress) && Boolean(this.localOrder.masterWorkDate);
+      return isValid;
+    }
+  },
   beforeMount: function beforeMount() {
     var _this2 = this;
 
@@ -46252,7 +46281,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -46267,6 +46296,14 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46395,101 +46432,277 @@ exports.default = {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "large-4 small-12 column pricebckg"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-7 columns line"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "large-5 columns"
-  }, [_vm._v("\n      №: " + _vm._s(_vm.localOrder.couponNumber) + "\n    ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-10 columns productname"
-  }, [_c('h6', {}, [_c('strong', [_c('p', [_vm._v(_vm._s(_vm.localOrder.productFullName))]), _vm._v(" "), _vm._l((_vm.localAditionalProductsChecked), function(item, index) {
+    staticClass: "coupon-height pricebckg"
+  }, [_c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 12,
+      "lg": 12
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "coupon-view-header",
+    attrs: {
+      "xs": 24,
+      "md": 12,
+      "lg": 12
+    }
+  }, [_c('span', [_vm._v("Купон №: " + _vm._s(_vm.localOrder.couponNumber))])])], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "coupon-view-productFullName",
+    attrs: {
+      "xs": 24,
+      "md": 24,
+      "lg": 24
+    }
+  }, [_c('span', [_vm._v(_vm._s(_vm.localOrder.productFullName))]), _vm._v(" "), _vm._l((_vm.localAditionalProductsChecked), function(item, index) {
     return _c('p', {
       key: index
-    }, [_vm._v("\n            " + _vm._s(_vm.localOrder.productAdditionals[item].name) + "\n          ")])
-  })], 2)])])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-4 columns data"
-  }, [_vm._v(_vm._s(_vm.localOrder.couponSaleDate))]), _vm._v(" "), _c('div', {
-    staticClass: "large-5 columns line"
-  })]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-10 columns text-left fullname"
-  }, [_vm._v("\n      " + _vm._s(_vm.localOrder.customerFullName) + "\n    ")])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-10 columns text-left tel"
-  }, [_vm._v("\n      " + _vm._s(_vm.localOrder.customerPhone) + "\n    ")])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-10 columns text-left tel"
-  }, [_vm._v("\n      " + _vm._s(_vm.localOrder.customerAddress) + "\n    ")])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-10 columns text-left tel"
-  }, [_vm._v("\n      " + _vm._s(_vm.localOrder.masterWorkDate) + "\n    ")])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('div', {
-    staticClass: "row bottomprice"
-  }, [_c('div', {
-    staticClass: "large-5 columns barcode"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "columns text-right"
-  }, [_c('span', {
-    staticClass: "price"
-  }, [_vm._v("₽ " + _vm._s(_vm.couponPrice))])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-10 columns line"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-4 columns line"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "large-1 columns"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "large-6 columns line"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-8 columns line"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-10 columns line"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row lastline"
-  }, [_c('div', {
-    staticClass: "large-1 columns line"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "large-1 columns"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "large-9 columns line"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "large-3 columns line"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "large-1 columns"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "large-6 columns line"
-  })])
-}]}
+    }, [_vm._v("\n      " + _vm._s(_vm.localOrder.productAdditionals[item].name) + "\n    ")])
+  })], 2)], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 24,
+      "lg": 24
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 8,
+      "sm": 8,
+      "md": 8,
+      "lg": 8
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line-white",
+    attrs: {
+      "xs": 1,
+      "sm": 1,
+      "md": 1,
+      "lg": 1
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 4,
+      "sm": 4,
+      "md": 4,
+      "lg": 4
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 24,
+      "lg": 24
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 2,
+      "sm": 2,
+      "md": 2,
+      "lg": 2
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line-white",
+    attrs: {
+      "xs": 1,
+      "sm": 1,
+      "md": 1,
+      "lg": 1
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 18,
+      "sm": 18,
+      "md": 18,
+      "lg": 18
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 5,
+      "sm": 5,
+      "md": 5,
+      "lg": 5
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line-white",
+    attrs: {
+      "xs": 1,
+      "sm": 1,
+      "md": 1,
+      "lg": 1
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "coupon-view-customerFullName",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 24,
+      "lg": 24
+    }
+  }, [_c('span', [_vm._v("ПОКУПАТЕЛЬ: " + _vm._s(_vm.localOrder.customerFullName))])])], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "coupon-view-customerFullName",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 24,
+      "lg": 24
+    }
+  }, [_c('span', [_vm._v("ТЕЛ.: " + _vm._s(_vm.localOrder.customerPhone))])])], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "coupon-view-customerFullName",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 24,
+      "lg": 24
+    }
+  }, [_c('span', [_vm._v("АДРЕС: " + _vm._s(_vm.localOrder.customerAddress))])])], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 2,
+      "sm": 2,
+      "md": 2,
+      "lg": 2
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line-white",
+    attrs: {
+      "xs": 1,
+      "sm": 1,
+      "md": 1,
+      "lg": 1
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 18,
+      "sm": 18,
+      "md": 18,
+      "lg": 18
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "coupon-view-date",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 24,
+      "lg": 24
+    }
+  }, [_c('span', [_vm._v("ДАТА УСТАНОВКИ: " + _vm._s(_vm.localOrder.masterWorkDate))])])], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 2,
+      "sm": 2,
+      "md": 2,
+      "lg": 2
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line-white",
+    attrs: {
+      "xs": 1,
+      "sm": 1,
+      "md": 1,
+      "lg": 1
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 18,
+      "sm": 18,
+      "md": 18,
+      "lg": 18
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 5,
+      "sm": 5,
+      "md": 5,
+      "lg": 5
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line-white",
+    attrs: {
+      "xs": 1,
+      "sm": 1,
+      "md": 1,
+      "lg": 1
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 24,
+      "sm": 24,
+      "md": 24,
+      "lg": 24
+    }
+  })], 1), _vm._v(" "), _c('Row', [_c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 8,
+      "sm": 8,
+      "md": 8,
+      "lg": 8
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line-white",
+    attrs: {
+      "xs": 1,
+      "sm": 1,
+      "md": 1,
+      "lg": 1
+    }
+  }), _vm._v(" "), _c('Col', {
+    staticClass: "line",
+    attrs: {
+      "xs": 4,
+      "sm": 4,
+      "md": 4,
+      "lg": 4
+    }
+  })], 1), _vm._v(" "), _c('Row', {
+    staticClass: "barcode-wrapper"
+  }, [_c('Col', {
+    staticClass: "barcode",
+    attrs: {
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12
+    }
+  }, [_vm._v("\n     \n  ")]), _vm._v(" "), _c('Col', {
+    staticClass: "price",
+    attrs: {
+      "xs": 8,
+      "sm": 8,
+      "md": 8,
+      "lg": 8
+    }
+  }, [_c('span', [_vm._v("₽ " + _vm._s(_vm.couponPrice))])])], 1)], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -46533,7 +46746,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "md": 18,
       "lg": 18
     }
-  }, [_c('Row', [_c('Col', {
+  }, [_c('Row', {
+    attrs: {
+      "gutter": 16
+    }
+  }, [_c('Col', {
     attrs: {
       "xs": 24,
       "sm": 24,
@@ -46623,14 +46840,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": item.key
       }
     }, [_c('span', [_vm._v(_vm._s(item.name) + " +" + _vm._s(item.price))])])
-  }))], 1) : _vm._e(), _vm._v(" "), _c('Button', {
+  }))], 1) : _vm._e(), _vm._v(" "), _c('Row', {
     attrs: {
-      "type": "primary"
+      "justify": "center"
+    }
+  }, [_c('Col', {
+    staticClass: "send-button"
+  }, [_c('Button', {
+    attrs: {
+      "type": "primary",
+      "disabled": !_vm.formIsValid
     },
     on: {
       "click": _vm.handleSendClick
     }
-  }, [_vm._v("Отправить заявку")])], 1), _vm._v(" "), _c('Col', {
+  }, [_vm._v("Отправить заявку")])], 1)], 1)], 1), _vm._v(" "), _c('Col', {
+    staticClass: "coupon-view-pretty",
     attrs: {
       "xs": 24,
       "sm": 24,
@@ -46687,7 +46912,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -46869,6 +47094,15 @@ exports.default = {
     };
   },
   methods: _extends({}, (0, _vuex.mapGetters)(['getOrderFromStore']), {
+    sendNewArtasian: function sendNewArtasian(orderId, artasianId) {
+      this.openNewArtasianModal = false;
+
+      var artasianObject = this.artasians.filter(function (item) {
+        return artasianId === item._id;
+      });
+
+      this.localOrder.masterKsId = artasianObject[0];
+    },
     handleTabsClick: function handleTabsClick(name) {
       switch (name) {
         case 'claims':
@@ -46925,7 +47159,11 @@ exports.default = {
     },
 
     artasianThis: function artasianThis(id, address) {
-      this.openNewArtasianModal = true;
+      if (!this.isEdit) {
+        this.$Message.info('нельзя менять мастера не нажав кнпоку ИЗМЕНИТЬ');
+      } else {
+        this.openNewArtasianModal = true;
+      }
       // this.orderIdForArtasianModal = id;
 
       // this.relatedOrdersForModal = this.orders.filter((item) => {
@@ -46950,7 +47188,7 @@ exports.default = {
         _axios2.default.get('/api/checkeditable/' + this.$route.params.id).then(function (r) {
           if (r.data) {
             _this3.loading = true;
-            _this3.localOrder = _this3.error = null;
+
             _this3.$store.dispatch('getOrderInfoFromServer').then(function (r) {
               _this3.loading = false;
               _this3.localOrder = _extends({}, r[0]);
@@ -46973,7 +47211,7 @@ exports.default = {
         this.localOrder.isOrderEditable = true;
         _axios2.default.put('/api/updateorder/' + this.$route.params.id, _extends({}, this.localOrder)).then(function (r) {
           _this3.loading = true;
-          _this3.localOrder = _this3.error = null;
+
           _this3.$store.dispatch('getOrderInfoFromServer').then(function (r) {
             _this3.loading = false;
             _this3.localOrder = _extends({}, r[0]);

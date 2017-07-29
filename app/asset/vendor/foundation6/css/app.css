@@ -95,6 +95,11 @@ body {
   cursor: not-allowed;
 }
 
+.coupon-view-pretty {
+  padding: 20px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
 .new-order-form textarea {
     color: black !important;
     /* height: 40px !important; */
@@ -182,7 +187,72 @@ h2 {
 }
 
 
+.line {
+    background-color: rgba(128, 128, 128, 0.32);
+    border-radius: 10px;
+    height: 10px;
+    margin-top: 10px;
+    
+}
 
+.line-white {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    height: 10px;
+    margin-top: 10px;
+}
+
+.coupon-view-header {
+  font-size: 15px;
+  padding-left: 8px;
+}
+
+.coupon-view-productFullName {
+  font-size: 15px;
+  padding-left: 8px;
+  padding-top: 10px
+}
+
+.coupon-view-customerFullName {
+  font-size: 15px;
+  padding-left: 8px;
+  padding-top: 15px;
+}
+
+.coupon-view-date {
+  font-size: 15px;
+  padding-left: 8px;
+  padding-top: 15px;
+}
+
+.coupon-height {
+  height: 500px;
+}
+
+.price {
+  font-size: 24px;
+  color: red;
+  text-align: right
+}
+
+.pricebckg {
+  background: no-repeat 87% 100% url('/asset/svg/stamp.svg');
+}
+
+.barcode {
+  background: url(http://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png);
+    background-size: cover;
+    padding-top: 10px;
+}
+
+.barcode-wrapper {
+  padding-top: 25px;
+}
+
+.send-button {
+  text-align: center;
+  padding-top: 10px;
+}
 
 /* body {
   background-color: rgba(37, 143, 175, 0.19)
