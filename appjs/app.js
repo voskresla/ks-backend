@@ -7,6 +7,8 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import iView from 'iview';
 
+
+
 // import '../app/asset/vendor/foundation6/css/foundation.css';
 import '../app/asset/vendor/foundation6/css/app.css';
 import '../app/asset/vendor/iview/iview.css';

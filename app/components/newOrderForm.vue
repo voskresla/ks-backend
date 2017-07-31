@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <Row type="flex" justify="center" align="top">
       <Col v-if="loading" :xs="22" :sm="22" :md="18" :lg="18" class="new-order-form"> Loading processing...
       </Col>
@@ -10,6 +11,7 @@
         <Col :xs="24" :sm="24" :md="12" :lg="12">
         <h3>Новая заявка {{localOrder.couponNumber}}</h3>
         <h2>{{localOrder.productFullName}}</h2>
+        <input ref='myref' type="text"></input>
         <Input v-model="localOrder.customerFullName" placeholder="Иванов Иван Иванович"></Input>
         <Input v-model="localOrder.customerPhone" placeholder="+7 999 999 99 99"></Input>
         <Select placeholder="г Йошкар-Ола, Садовая 11-14"
@@ -48,6 +50,9 @@
 <script>
 import axios from 'axios';
 import { mapState, mapGetters } from 'vuex';
+import Cleave from 'cleave.js';
+
+
 
 export default {
   name: 'newOrderForm',
@@ -56,6 +61,7 @@ export default {
   },
   data: function () {
     return {
+      cleave: null,
       loading: false,
       error: null,
       localOrder: null,
@@ -146,14 +152,25 @@ export default {
     this.$store.dispatch('getOrderInfoFromServer')
       .then((r) => {
         this.loading = false;
+        
         let orderFromStore = this.getOrderFromStore();
         this.localOrder = {...orderFromStore};
+        
+      })
+      .then(() => {
+        this.cleave = new Cleave(this.$refs.myref, {
+          creditCard: true
+        });
       })
       .catch((err) => {
         console.log(err)
         this.loading = false;
         this.error = err;
       })
+  },
+  mounted () {
+    
+    
   }
 }
 </script>
