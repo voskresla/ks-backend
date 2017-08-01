@@ -40,7 +40,8 @@ async function getNextOrderNumberInDay () {
           {$set: {
             newtrade: {
               counter: 1,
-              prevdate: new Date()
+              prevdate: new Date(),
+              shopnumber: '0001'
             }
           }},
           { new: true }

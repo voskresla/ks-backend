@@ -11,9 +11,9 @@
         <Col :xs="24" :sm="24" :md="12" :lg="12">
         <h3>Новая заявка {{localOrder.couponNumber}}</h3>
         <h2>{{localOrder.productFullName}}</h2>
-        <input ref='myref' type="text"></input>
+        
         <Input v-model="localOrder.customerFullName" placeholder="Иванов Иван Иванович"></Input>
-        <Input v-model="localOrder.customerPhone" placeholder="+7 999 999 99 99"></Input>
+        <Input class="myref" v-model="localOrder.customerPhone" placeholder="+7 999 999 99 99"></Input>
         <Select placeholder="г Йошкар-Ола, Садовая 11-14"
                 v-model="localOrder.customerAddress"
                 filterable
@@ -24,7 +24,7 @@
         <!-- <Input v-model="localOrder.customerAddress" placeholder="г Йошкар-Ола, Садовая 11-14"></Input> -->
         <Input v-model="localOrder.customerComment" type="textarea" :rows="5" placeholder="Комментарий"></Input>
   
-        <Date-picker type="date" placeholder="Дата установки" style="width: 200px" @on-change="handleChangeDate"></Date-picker>
+        <Date-picker type="date" :options="datePickerOptions"placeholder="Дата установки" style="width: 200px" @on-change="handleChangeDate"></Date-picker>
 
         <div v-if="localOrder.productAdditionals">
           <Checkbox-group v-model="localAditionalProductsChecked" class="my-checkbox">
@@ -69,7 +69,14 @@ export default {
 
       // DADATA.RU
       suggestions: '',
-      suggestionOptions: ''
+      suggestionOptions: '',
+
+      // DatePicker
+      datePickerOptions: {
+                    disabledDate (date) {
+                        return date && date.valueOf() < Date.now();
+                    }
+                },
     }
   },
   methods: {
@@ -158,8 +165,11 @@ export default {
         
       })
       .then(() => {
-        this.cleave = new Cleave(this.$refs.myref, {
-          creditCard: true
+        this.cleave = new Cleave(this.$el.querySelector('.myref input'), {
+          prefix: '+7',
+          numericOnly: true,
+          blocks: [2 ,3, 3, 4],
+          rawValueTrimPrefix: true
         });
       })
       .catch((err) => {

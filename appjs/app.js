@@ -6,6 +6,7 @@ import Vuex from 'vuex';
 
 import axios from 'axios';
 import iView from 'iview';
+import locale from 'iview/src/locale/lang/ru-RU'
 
 
 
@@ -15,7 +16,7 @@ import '../app/asset/vendor/iview/iview.css';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
-Vue.use(iView);
+Vue.use(iView,{locale});
 
 // Register PDF
 let pdfMake = require('pdfmake/build/pdfmake.min.js');

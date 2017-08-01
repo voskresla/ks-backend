@@ -126,10 +126,10 @@ export default {
           render: (h,params) => {
             return h('div',
             [
-              h('p', {}, params.row.payIsPayed ? 'оплачено' : 'не оплачено' ),
+              h('p', {}, params.row.payIsPayed ? 'Купон оплачен' : '' ),
               // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
               // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
-              h('p', {}, params.row.masterKsId ? params.row.masterKsId.fullname : 'мастер НЕ назначен' )
+              h('p', {}, params.row.masterKsId ? params.row.masterKsId.fullname : '' )
             ])
           }
         },
