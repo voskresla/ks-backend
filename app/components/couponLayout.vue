@@ -69,7 +69,7 @@
 
   <Row>
     <Col :xs="24" :sm="24" :md="24" :lg="24" class="coupon-view-date">
-      <span>ДАТА УСТАНОВКИ: {{localOrder.masterWorkDate}}</span>
+      <span>ДАТА УСТАНОВКИ: {{masterWorkDate}}</span>
     </Col>
   </Row>  
   
@@ -109,6 +109,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'couponLayout',
   props: [
@@ -129,6 +131,9 @@ export default {
 
       }
       return additionalPriceText
+    },
+    masterWorkDate () {
+      return moment(this.localOrder.masterWorkDate).format('DD.MM.YY')
     }
   },
   methods: {}

@@ -37,6 +37,7 @@
 import { getNewDefinition } from '../models/couponDocDefinition';
 import artasian from './artasian.vue';
 import axios from 'axios';
+import moment from 'moment';
 
 export default {
   
@@ -53,7 +54,6 @@ export default {
       orderIdForArtasianModal: '',
       artasianModalProps: {},
       choosenArtasian: '',
-      ishq: false,
       searchInput: '',
       columns: [
         // {
@@ -114,8 +114,10 @@ export default {
         },
         {
           title: 'Дата установки',
-          key: 'masterWorkDate',
-          
+          key: 'action',
+          render: (h, params) => {
+            return ('p', {}, moment(params.row.masterWorkDate).format('DD.MM.YY'))
+          }
           // className: 'priceformat'
           // TODO вставать свой classname для формата :after :before
         },
@@ -301,7 +303,7 @@ export default {
                 },
                 style: {
                   marginRight: '5px',
-                  display: this.ishq ? '' : 'none'
+                  display: this.isHQ ? '' : 'none'
                   
                 },
                 on: {
@@ -319,6 +321,7 @@ export default {
                 },
                 style: {
                   marginRight: '5px',
+                  display: this.isHQ ? '' : 'none'
                   
                 },
                 on: {
@@ -337,7 +340,7 @@ export default {
                 },
                 style: {
                   marginRight: '5px',
-                  display: this.ishq ? '' : 'none'
+                  display: this.isHQ ? '' : 'none'
                 },
                 on: {
                   click: () => {
@@ -431,7 +434,7 @@ export default {
     }
   },
   beforeMount: function beforeMount() {
-    this.ishq = this.$store.state.user.role === 'hq' ? true : false ;
+    
   },
   
   created: function () {
@@ -464,6 +467,9 @@ export default {
         return matchFullname || matchCouponNumber || matchAddress;
       })
     },
+    isHQ () {
+      return this.$store.getters.isHQ
+    }
    
   }
 

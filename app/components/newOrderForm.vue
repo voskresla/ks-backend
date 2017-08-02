@@ -24,7 +24,7 @@
         <!-- <Input v-model="localOrder.customerAddress" placeholder="г Йошкар-Ола, Садовая 11-14"></Input> -->
         <Input v-model="localOrder.customerComment" type="textarea" :rows="5" placeholder="Комментарий"></Input>
   
-        <Date-picker type="date" :options="datePickerOptions"placeholder="Дата установки" style="width: 200px" @on-change="handleChangeDate"></Date-picker>
+        <Date-picker format="dd.MM.yyyy" placement="right" type="date" :options="datePickerOptions" placeholder="Дата установки" style="width: 200px" @on-change="handleChangeDate"></Date-picker>
 
         <div v-if="localOrder.productAdditionals">
           <Checkbox-group v-model="localAditionalProductsChecked" class="my-checkbox">
@@ -51,6 +51,7 @@
 import axios from 'axios';
 import { mapState, mapGetters } from 'vuex';
 import Cleave from 'cleave.js';
+
 
 
 

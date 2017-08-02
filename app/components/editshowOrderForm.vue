@@ -50,13 +50,13 @@
               <Input v-model="localOrder.customerPhone" placeholder="+7 999 999 99 99" :disabled="!isEdit"></Input>
             </Col>
             <Col :xs="24" :sm="24" :md="12" :lg="12">
-              <Date-picker v-model="localOrder.masterWorkDate" type="date" placeholder="Дата установки" :disabled="!isEdit"></Date-picker>  
+              <Date-picker format="dd.MM.yyyy" placement="right" v-model="localOrder.masterWorkDate" type="date" placeholder="Дата установки" :disabled="!isEdit"></Date-picker>  
             </Col>
           </Row>
         
         <Input v-model="localOrder.customerComment" type="textarea" :rows="5" placeholder="Комментарий" :disabled="!isEdit"></Input>
         
-        <Row class="new-order-form-master-button">
+        <Row v-if="$store.getters.isHQ" class="new-order-form-master-button">
           <Col :xs="22" :sm="22" :md="23" :lg="23" >
             {{localOrder.masterKsId.fullname}}
           </Col>
@@ -92,12 +92,12 @@
           </Card>
         </div>
         
-        <claim-make-new-modal @refreshClaims="refreshClaims" :orderId="localOrder._id" :username="this.$store.state.user.user"></claim-make-new-modal>
-        <Button type="primary" @click="handleChangeOrderClick()" :disabled="!isOrderEditable">{{!isEdit ? 'Изменить' : 'Принять'}}</Button>
-        <Button type="primary">Удалить</Button>
+        <claim-make-new-modal v-if="$store.getters.isHQ" @refreshClaims="refreshClaims" :orderId="localOrder._id" :username="this.$store.state.user.user"></claim-make-new-modal>
+        <Button v-if="$store.getters.isHQ" type="primary" @click="handleChangeOrderClick()" :disabled="!isOrderEditable">{{!isEdit ? 'Изменить' : 'Принять'}}</Button>
+        <Button v-if="$store.getters.isHQ" type="primary">Удалить</Button>
   
         </Col>
-        <Col :xs="24" :sm="24" :md="12" :lg="12">
+        <Col :xs="24" :sm="24" :md="12" :lg="12" v-if="$store.getters.isHQ">
           <Tabs v-model="tabValue" @on-click="handleTabsClick">
             <div slot="extra">
                 <a @click="handleTabPlusClick">+</a>

@@ -5,7 +5,7 @@
     <Col class="header-buttons" :lg="6">
     <Button type="ghost" shape="circle" icon="ios-plus" @click="handleNewOrderClick" class='header-button'></Button>
     <Button type="ghost" shape="circle" icon="ios-paper" @click="handleAllOrdersClick" class='header-button'></Button>
-    <Button type="ghost" shape="circle" icon="android-notifications" @click="handleAllClaimsClick" class='header-button'></Button>
+    <Button v-if="$store.getters.isHQ" type="ghost" shape="circle" icon="android-notifications" @click="handleAllClaimsClick" class='header-button'></Button>
     </Col>
 
     <Col class="header-search" :lg="6">
@@ -18,7 +18,7 @@
     <Poptip trigger="hover" placement="bottom">
       <Icon type="person" size="20" color="#ffffff"></Icon>
 
-      <div slot="title" style="color: black">{{$store.state.user.role}}<br>{{$store.state.user.user}}</div>
+      <div slot="title" style="color: black">{{$store.state.user.fullname}}<br>{{$store.state.user.role}}</div>
       <div slot="content">
 
         <a href="/logout">выйти</a>

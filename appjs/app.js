@@ -30,7 +30,8 @@ const store = new Vuex.Store({
     user: {
       user: '',
       role: '',
-      rights: ''
+      rights: '',
+      fullname: ''
     },
     products: {},
     order: {
@@ -139,6 +140,9 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    isHQ (state) {
+      return state.user.role == 'hq' ? true : false
+    },
     getOrderLayoutState (state) {
       return state.orderLayoutState
     },
@@ -233,11 +237,11 @@ const store = new Vuex.Store({
           if (payload.error) {
             reject(payload.error)
           } else {
-            setTimeout(() => {
-              console.log('in setTimeot')
+            
+              
               commit('fillOrder', payload);
               resolve()
-            },1000)
+            
           }
         })
       }

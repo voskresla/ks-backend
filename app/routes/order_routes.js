@@ -196,7 +196,8 @@ module.exports = function (app, db, passport) {
           res.send({ 
             user: req.user.username, 
             role: req.user.role, 
-            rights: ''});
+            rights: '',
+            fullname: req.user.fullname});
       }
     );
 
@@ -227,7 +228,7 @@ module.exports = function (app, db, passport) {
           res.send(err);
         } else {
           console.log('а далше не пойдем');
-          res.send(item);
+          res.send(item.reverse());
         }
       })
     })
