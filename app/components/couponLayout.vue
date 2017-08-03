@@ -133,7 +133,9 @@ export default {
       return additionalPriceText
     },
     masterWorkDate () {
-      return moment(this.localOrder.masterWorkDate).format('DD.MM.YY')
+      if (this.localOrder.masterWorkDate) {
+        return moment(this.localOrder.masterWorkDate).format('DD.MM.YY')
+      }
     }
   },
   methods: {}

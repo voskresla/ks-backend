@@ -72,20 +72,20 @@
           </Checkbox>
           </Checkbox-group>
         </div> -->
-        <div>
+        <div v-if="relatedOrdersForAdditionalInfoByNumber.length || relatedOrdersForAdditionalInfoByAddress.length">
           
           <Card class="card-addtitionals-wrapper">
             <div v-if="relatedOrdersForAdditionalInfoByNumber.length">
               <h3>По номеру:</h3>
               <p v-for="item in relatedOrdersForAdditionalInfoByNumber" :key="item._id" class="card_additionals">
-                {{item.couponNumber}} | {{item.productFullName}} | {{item.payIsPayed ? 'оплачено' : 'не оплачено'}} | {{item.masterKsId ? item.masterKsId.fullname : 'мастер НЕ назначен'}}
+                {{item.couponNumber}} | {{item.productFullName}} | {{item.payIsPayed ? 'оплачено' : 'не оплачено'}} {{item.masterKsId && isHQ ? ' | '+item.masterKsId.fullname : ''}}
               </p>
             </div>
 
             <div v-if="relatedOrdersForAdditionalInfoByAddress.length">
             <h3>По адресу:</h3>
             <p v-for="item in relatedOrdersForAdditionalInfoByAddress" :key="item._id" class="card_additionals">
-              {{item.couponNumber}} | {{item.productFullName}} | {{item.payIsPayed ? 'оплачено' : 'не оплачено'}} | {{item.masterKsId ? item.masterKsId.fullname : 'мастер НЕ назначен'}}
+              {{item.couponNumber}} | {{item.productFullName}} | {{item.payIsPayed ? 'оплачено' : 'не оплачено'}}  {{item.masterKsId && isHQ ? ' | '+item.masterKsId.fullname : ''}}
             </p>
             </div>
 
@@ -299,6 +299,9 @@ export default {
     }
   },
   computed: {
+    isHQ () {
+      return this.$store.getters.isHQ
+    },
     isEdit () {
       return Boolean(this.$store.state.orderLayoutState.edit)
     },

@@ -131,7 +131,7 @@ export default {
               h('p', {}, params.row.payIsPayed ? 'Купон оплачен' : '' ),
               // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
               // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
-              h('p', {}, params.row.masterKsId ? params.row.masterKsId.fullname : '' )
+              h('p', {}, params.row.masterKsId && this.isHQ ? params.row.masterKsId.fullname : '' )
             ])
           }
         },
@@ -282,9 +282,11 @@ export default {
                 props: {
                   type: 'primary',
                   size: 'large',
-                  icon: 'printer'
+                  icon: 'printer',
+                  disabled: params.row.payIsPayed ? false : true,
                 },
                 style: {
+                  
                   marginRight: '5px'
                 },
                 on: {
