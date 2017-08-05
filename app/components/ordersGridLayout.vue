@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Table stripe :columns="columns" :data="computedData"></Table>
+    <Table stripe :columns="columns" :data="paginatorData"></Table>
+    <Row type="flex" align="middle" justify="center">
+      <Col span="24">
+        <Page v-if="computedData.length > 10" :total="computedData.length" :page-size="pageSize" size="small" @on-change="handlePageNumberChange" show-total></Page>
+      </Col>
+    </Row>
     <!--
       Мы ебашим сюда модалку только потому что не можем вставить компонент в h() внутри columns
       Не забудь написать вот сюда issue https://github.com/iview/iview/issues/775#issuecomment-314061077
@@ -357,10 +362,18 @@ export default {
       ],
       orders: [],
       claims: [],
-      artasians: []
+      artasians: [],
+
+      // PAGINATOR
+
+      pageSize: 10,
+      pageNumber: 0
     }
   },
   methods: {
+    handlePageNumberChange: function (value) {
+      this.pageNumber = value-1;
+    },
     sendNewArtasian: function(orderId, artasianId) {
       this.openNewArtasianModal = false;
       
@@ -471,6 +484,15 @@ export default {
     },
     isHQ () {
       return this.$store.getters.isHQ
+    },
+    paginatorData: function () {
+      if (this.computedData.length < this.pageSize) {
+        this.pageNumber = 0;
+      }
+      this.$store.state.filterSearch;
+      console.log('ping')
+      
+      return this.computedData.slice(this.pageNumber * this.pageSize, (this.pageNumber + 1) * this.pageSize);;
     }
    
   }

@@ -134,7 +134,7 @@ export default {
     },
     masterWorkDate () {
       if (this.localOrder.masterWorkDate) {
-        return moment(this.localOrder.masterWorkDate).format('DD.MM.YY')
+        return moment(this.localOrder.masterWorkDate).format('dd.MM.yyyy')
       }
     }
   },
