@@ -1,10 +1,16 @@
 <template>
   <div>
-    <Table stripe :columns="columns" :data="paginatorData"></Table>
     <Row type="flex" align="middle" justify="center">
-      <Col span="24">
-        <Page v-if="computedData.length > 10" :total="computedData.length" :page-size="pageSize" size="small" @on-change="handlePageNumberChange" show-total></Page>
-      </Col>
+      <Row type="flex" align="middle" justify="center">
+        <Col span="24">
+          <Table stripe :columns="columns" :data="paginatorData"></Table>
+        </Col>
+      </Row>
+      <Row type="flex" align="middle" justify="center">
+        <Col span="24" class="paginator">
+          <Page v-if="computedData.length > 10" :total="computedData.length" :page-size="pageSize" size="small" @on-change="handlePageNumberChange" show-total></Page>
+        </Col>
+      </Row>
     </Row>
     <!--
       Мы ебашим сюда модалку только потому что не можем вставить компонент в h() внутри columns

@@ -82,7 +82,9 @@ export default {
   },
   methods: {
     handleChangeDate (value) {
-      this.localOrder.masterWorkDate = value;
+      let tmp = value.split('.');
+      let tmp2 = tmp[2]+"-"+tmp[1]+"-"+tmp[0];
+      this.localOrder.masterWorkDate = new Date(tmp2);
     },
     suggestionRemote: function (value) {
       axios

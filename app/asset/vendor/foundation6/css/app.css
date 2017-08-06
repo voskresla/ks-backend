@@ -117,6 +117,9 @@ body {
   padding-bottom: 15px;
 }
 
+.paginator {
+  padding: 20px
+}
 
 .category-card-wrapper {
     /* background-color: #e4e4e4; */
