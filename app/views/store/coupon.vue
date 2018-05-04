@@ -17,7 +17,12 @@
     <div class="row">
       <div class="large-10 columns productname">
         <h6 class="">
-          <strong>{{productFullName}}</strong>
+          <strong>
+            <p>{{productFullName}}</p>
+            <p v-for="item in chekedAdditionalOptions" :key="item.text">
+              {{item.text}}
+            </p> 
+          </strong>
         </h6>
       </div>
     </div>
@@ -106,7 +111,8 @@ export default {
     'phone',
     'address',
     'productPrice',
-    'dateValue'
+    'dateValue',
+    'chekedAdditionalOptions'
   ],
   data: function () {
     return {

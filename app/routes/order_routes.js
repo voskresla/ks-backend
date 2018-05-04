@@ -1,7 +1,8 @@
-// routes/order_routes.js
+const mongoose = require('mongoose');
+const ObjectID = require('mongodb').ObjectID;
+const moment = require('moment');
 
-
-const ObjectID = require("mongodb").ObjectID;
+let models = require('../../config/models')(mongoose);
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) next();
@@ -12,10 +13,137 @@ function checkRole(user) {
   return user.role;
 }
 
+async function getNextSequence() { 
+  let y = models.counters.findOneAndUpdate(
+    { name: 'orders' },
+    { $inc: { counter: 1 } },
+    { new: true },
+  ).exec()
+
+  
+
+  return await y;
+}
+
+async function getNextOrderNumberInDay () {
+  let y = models.counters.findOne(
+      { name: 'orderinday' }
+  ).exec().then(r => {
+
+    let now = new Date()
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf() + 86400000
+    let prevdate = new Date(r['newtrade'].prevdate.getFullYear(), r['newtrade'].prevdate.getMonth(), r['newtrade'].prevdate.getDate()).valueOf() + 86400000
+
+    if (prevdate < today) {
+      return models.counters.findOneAndUpdate(
+          {name: 'orderinday'},
+          {$set: {
+            newtrade: {
+              counter: 1,
+              prevdate: new Date()
+            }
+          }}
+        ).exec()
+
+    } else {
+      return models.counters.findOneAndUpdate(
+        { name: 'orderinday' },
+        { $inc: { 'newtrade.counter': 1 } } ,
+        { new: true },
+      ).exec()
+    }
+  })
+
+  return await y
+  
+}
+
 
 
 module.exports = function (app, db, passport) {
 
+  // ROUTE GET INFO DATA
+  app
+    .route("/api/getproducts")
+    .get((req, res) => {
+      db.collection("products").find({}).toArray((err, item) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(item);
+        }
+      })
+    })
+
+  app
+    .route("/api/getproductprice/:priceid")
+    .get(
+    // require("connect-ensure-login").ensureLoggedIn(),
+    (req, res) => {
+
+    let mainProductPrice = '';
+
+      db.collection("products_price").findOne({}, (err, item) => {
+        if (err) {
+          res.send(err);
+        } else {
+          mainProductPrice = item[req.params.priceid]['Йошкар-Ола'];
+          res.send(mainProductPrice.toString())
+        }
+      });
+      
+    });
+
+  app
+    .route("/api/getnewcouponnumber")
+    .get(
+    // require("connect-ensure-login").ensureLoggedIn(),
+    (req, res) => {
+      let objToSend = {
+        number: 0,
+        orderKsId: 0,
+      }
+
+      getNextSequence().then(r=>{
+        objToSend.orderKsId = r.counter;
+        return getNextOrderNumberInDay()
+      })
+      .then(r => {
+        let str = r['newtrade'].counter.toString();
+        let pad = "0000";
+        let answer = pad.substring(0, pad.length - str.length) + str
+        let number = r['newtrade'].shopnumber + answer + moment().format("DDMMYY")
+        objToSend.number = number;
+        res.send(objToSend) 
+      });
+          
+    });
+
+  app
+    .route("/api/getnewksid")
+    .get(
+    // require("connect-ensure-login").ensureLoggedIn(),
+    (req, res) => {
+      getNextSequence().then((r) => {
+        res.send(r.counter.toString()) 
+      });
+          
+    });
+
+  app
+    .route('/api/checkeditable/:id')
+    .get(
+      (req,res) => {
+        const orderID = req.params.id;
+        const selector = { _id: new ObjectID(orderID) };
+        
+        db.collection('orders').findOne(selector, (err,item) => {
+          res.send(Boolean(item.isOrderEditable))
+        })
+      }
+    )
+
+  // ROUTE AUTH & CHECK_AUTH
   app.route("/").get(checkAuth, (req, res) => {
     let userRole = checkRole(req.user);
     res.sendFile("/app/views/" + userRole + "/index.html", { root: "./" });
@@ -38,16 +166,37 @@ module.exports = function (app, db, passport) {
     res.redirect("/");
   });
 
+  // ROUTE ORDERS
+
+  app
+    .route('/api/postorder/')
+    .post((req, res) => {
+      
+      
+      // Генерим все недостающие поля
+
+      let dateCreate = new Date();
+      req.body.orderCreateAt = dateCreate;
+      req.body.orderLastModify = dateCreate;
+
+      
+      db.collection('orders').insert(req.body);
+      res.send('ok order post');
+    })
+  
   // API
 
   app
     .route("/api/getuser")
     .get(
     require("connect-ensure-login").ensureLoggedIn(),
-    (req, res) => {
-      //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4787/')
-      res.send({ user: req.user.username, role: req.user.role });
-    });
+      (req, res) => {
+          res.send({ 
+            user: req.user.username, 
+            role: req.user.role, 
+            rights: ''});
+      }
+    );
 
   app
     .route("/api/getproductprice/:priceid")
@@ -71,7 +220,7 @@ module.exports = function (app, db, passport) {
     .route("/api/getallorders")
     .get((req, res) => {
       let selector = {};
-      db.collection("orders").find({}).toArray((err, item) => {
+      db.collection("orders").find({ isDeleted: { $exists: false } }).toArray((err, item) => {
         if (err) {
           res.send(err);
         } else {
@@ -99,22 +248,18 @@ module.exports = function (app, db, passport) {
     .route("/api/payorder/:id")
     .get((req, res) => {
       const orderID = req.params.id;
-      console.log(new ObjectID(orderID));
       res.send(req.params.id)
     })
     .put((req, res) => {
-
       const orderID = req.params.id;
       const selector = { _id: new ObjectID(orderID) };
-      
-
       db
         .collection("orders")
-        .update(selector, { $set: { payed: "PAYED", payDate: Date() } }, (err, item) => {
+        .update(selector, { $set: { payIsPayed: true, payPayDate: new Date() } }, (err, item) => {
           if (err) {
             res.send(err);
           } else {
-            res.send('ok we update it');
+            res.send(200);
           }
         })
 
@@ -123,21 +268,19 @@ module.exports = function (app, db, passport) {
   app
     .route("/api/updateorder/:id")
     .put((req, res) => {
-
-      
       
       const orderID = req.params.id;
       const selector = { _id: new ObjectID(orderID) };
 
       let updateObject = {};
-
       for (keyName in req.body) {
-        updateObject[keyName] = req.body[keyName]
+        if (keyName !== '_id') {
+          updateObject[keyName] = req.body[keyName]
+        }
       };
 
-      
+      console.log(updateObject)
 
-      
       db
         .collection("orders")
         .update(selector, { $set: updateObject }, (err, item) => {
@@ -150,12 +293,16 @@ module.exports = function (app, db, passport) {
 
     })  
 
-  app
-    .route('/api/postorder/')
-    .post((req, res) => {
-      db.collection('orders').insert(req.body);
-      res.send('ok order post');
-    })
+  // app
+  //   .route('/api/postorder/')
+  //   .post((req, res) => {
+  //     getNextSequence().then((r) => {
+  //       req.body.globalId = r.counter;
+  //       db.collection('orders').insert(req.body);
+  //       res.send('ok order post');
+  //     });
+      
+  //   })
 
   // CLAIMS
   //  /api/postclaim/
@@ -254,14 +401,14 @@ module.exports = function (app, db, passport) {
 
   app
     .route('/api/deleteorder/:id')
-    .delete((req, res) => {
+    .put((req, res) => {
 
       const orderID = req.params.id;
       const selector = { _id: new ObjectID(orderID) };
 
       db
         .collection("orders")
-        .remove(selector, { fullResult: true }, (err, item) => {
+        .update(selector, { $set: { isDeleted: true } }, (err, item) => {
           // remove(selector, callback) // TODO: а как получить весь удаленный документ перед удалением? почему не работе fullresult
           if (err) {
             res.send(err);

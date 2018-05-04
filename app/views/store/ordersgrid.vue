@@ -1,74 +1,54 @@
 <template>
-  <div >
-    
-    <div class="row align-middle align-center">
-      <div class="small-4 columns text-center">
-        <input type="text" v-model="searchInput" placeholder="номер купона / фио" class='searchinput'>
-      </div>
-    </div>
-    
-    
-    
+  <div>
     <Table stripe :columns="columns" :data="computedData"></Table>
-
     <!--
       Мы ебашим сюда модалку только потому что не можем вставить компонент в h() внутри columns
       Не забудь написать вот сюда issue https://github.com/iview/iview/issues/775#issuecomment-314061077
       -->
-
     <Modal v-model="openNewArtasianModal" :closable="false" :mask-closable="false">
-      
       <Card>
         <p slot="title">Доступные мастера</p>
         <p slot="extra"><Icon type="ios-loop-strong"></Icon></p>
-        
         <p>
           <Radio-group v-model="choosenArtasian">
-            <Radio v-for="(item,index) in artasians" :key="item" :label="item._id">
+            <Radio v-for="(item,index) in artasians" :key="item._id" :label="item._id">
               {{item.fullname}} | {{item.orderGetToday}}/4 | <Icon type="ios-star" v-if="item.rating >= 1"></Icon><Icon type="ios-star" v-if="item.rating >= 2"></Icon><Icon type="ios-star" v-if="item.rating >= 3"></Icon><Icon type="ios-star" v-if="item.rating >= 4"></Icon><Icon type="ios-star" v-if="item.rating >= 5"></Icon>
             </Radio>
           </Radio-group>
         </p>
+        <Alert show-icon v-if="relatedOrdersForModal.length">
+          <template slot="desc">
+            <p v-for="order in relatedOrdersForModal" :key="order._id">
+              Заявка {{order.couponNumber}}. Мастер: {{order.actualArtasian ? order.actualArtasian.fullname : 'не назначен'}}
+            </p>
+          </template>
+        </Alert>
       </Card>
-      
       <p slot="footer">
         <Button type="primary" @click="closeModal">Закрыть</Button>
         <Button type="primary" @click="sendNewArtasian(orderIdForArtasianModal, choosenArtasian)">Назначить</Button>
       </p>
     </Modal>
-
-    <!-- <Modal v-model='openPrintCouponComponent' id='printcontent'>
-      
-      <printCouponComponent></printCouponComponent>
-      <p slot="footer"></p>
-    </Modal> -->
-
-     
-
   </div>
 </template>
 
 <script>
 
-
 import { getNewDefinition } from './couponDocDefinition';
 import artasian from './artasian.vue';
-import printCouponComponent from './printCouponComponent.vue'
 import axios from 'axios';
-
-
 
 export default {
   
   name: 'ordersgrid',
   components: {
-    'artasian': artasian,
-    'printCouponComponent':printCouponComponent
+    'artasian': artasian
   },
   data: function () {
     return {
+      
       openPrintCouponComponent:false,
-
+      relatedOrdersForModal: [],
       openNewArtasianModal: false,
       orderIdForArtasianModal: '',
       artasianModalProps: {},
@@ -76,40 +56,54 @@ export default {
       ishq: false,
       searchInput: '',
       columns: [
+        // {
+        //   title: 'ЗНУ',
+        //   key: 'globalId',
+        // },
         {
           title: '№',
-          key: 'couponNumber',
-          width: '100px'
+          key: 'action',
+          render: (h,params) => {
+            return h('a', {
+                on: {
+                  click: () => {
+                    this.changeThis(params.row._id);
+                  }
+                }
+              }, params.row._id)
+          }
         },
         {
           title: 'Услуга',
           key: 'actions',
+          
           render: (h, params) => {
             return h('div',
               [
                 h('p', {}, params.row.productFullName),
-                h('p', {}, params.row.addOption1 ? '+' + params.row.addOption1 : ''),
-                h('p', {}, params.row.addOption2 ? '+' + params.row.addOption2 : ''),
-                h('p', {}, params.row.addOption3 ? '+' + params.row.addOption3 : ''),
+                // h('p', {}, params.row.addOption1 ? '+' + params.row.addOption1 : ''),
+                // h('p', {}, params.row.addOption2 ? '+' + params.row.addOption2 : ''),
+                // h('p', {}, params.row.addOption3 ? '+' + params.row.addOption3 : ''),
               ])
           }
         },
         {
           title: 'Покупатель',
           key: 'actions',
+          
           render: (h, params) => {
             return h('div',
               [
-                h('p', {}, params.row.fullname),
-                h('p', {}, params.row.phone),
-                h('p', {}, params.row.address)
+                h('p', {}, params.row.customerFullName),
+                h('p', {}, params.row.customerPhone),
+                h('p', {}, params.row.customerAddress)
               ])
           }
         },
         {
           title: 'Дата установки',
-          key: 'dateValue',
-          width: '130px',
+          key: 'masterWorkDate',
+          
           // className: 'priceformat'
           // TODO вставать свой classname для формата :after :before
         },
@@ -120,127 +114,127 @@ export default {
           render: (h,params) => {
             return h('div',
             [
-              h('p', {}, params.row.payed ? 'оплачено' : 'не оплачено' ),
+              h('p', {}, params.row.payIsPayed ? 'оплачено' : 'не оплачено' ),
               // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
               // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
-              h('p', {}, params.row.actualArtasian ? params.row.actualArtasian.fullname : 'мастер НЕ назначен' )
+              h('p', {}, params.row.masterKsId ? params.row.actualArtasian.masterFullname : 'мастер НЕ назначен' )
             ])
           }
         },
-        {
-          title: '#',
-          key: 'action',
-          width: '120px',
+        // {
+        //   title: '#',
+        //   key: 'action',
+        //   width: '120px',
           
-          render: (h,params) => {        
+        //   render: (h,params) => {        
 
-            let claimsArr = Array.apply(null,this.claims).filter(function (item) {
-                    return item.orderId === params.row._id && item.status === 'open';
-                  })
+        //     let claimsArr = Array.apply(null,this.claims).filter(function (item) {
+        //             return item.orderId === params.row._id && item.status === 'open';
+        //           })
 
-            let myComments = (function () {
-              return h('div',
-                Array.apply(null, params.row.commentsArr).map(function (item) {
-                  return h('p', item.id + ' | ' + item.text + ' | ' + item.user)
-                  })
-                )
-            })();
+        //     let myComments = (function () {
+        //       return h('div',
+        //         Array.apply(null, params.row.commentsArr).map(function (item) {
+        //           return h('p', item.id + ' | ' + item.text + ' | ' + item.user)
+        //           })
+        //         )
+        //     })();
 
-            let myClaims = (function () {
-              return h('div',
-                Array.apply(null, claimsArr).map(function (item) {
-                  return h('p', item.claimCategory + ' | ' + item.creationDate + ' | ' + item.creationUser)
-                  })
-                )
-            })();
+        //     let myClaims = (function () {
+        //       return h('div',
+        //         Array.apply(null, claimsArr).map(function (item) {
+        //           return h('p', item.claimCategory + ' | ' + item.creationDate + ' | ' + item.creationUser)
+        //           })
+        //         )
+        //     })();
 
-            return h('div',[
+        //     return h('div',[
             
             
-            h('Poptip', {
-              props: {
-                trigger: 'hover',
+        //     h('Poptip', {
+        //       props: {
+        //         trigger: 'hover',
                 
-              }
-            },
-            [
-              h('div',{
-                slot: 'content'
+        //       }
+        //     },
+        //     [
+        //       h('div',{
+        //         slot: 'content'
                   
                 
-              },[
-                myComments
-              ]),
-              h('Badge', {
-                props: {
-                  count: params.row.commentsArr.length
-                },
-                style: {
-                  display: params.row.commentsArr.length > 0 ? '' : 'none'
-                }
-              }, [
-                h('Icon', {
-                  // 'class': {
-                  //   'demo-badge': true
-                  // },
-                  // style: {
-                  //   width: '30px',
-                  //   height: '30px',
-                  //   background: '#eee',
-                  //   'border-radius': '6px',
-                  //   display: 'inline-block'
-                  // }
-                  props: {
-                    type: 'chatbox',
-                    size: '32px'
-                  }
-                })
-              ]),
-              // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
-              // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
+        //       },[
+        //         myComments
+        //       ]),
+        //       h('Badge', {
+        //         props: {
+        //           count: params.row.commentsArr.length
+        //         },
+        //         style: {
+        //           display: params.row.commentsArr.length > 0 ? '' : 'none'
+        //         }
+        //       }, [
+        //         h('Icon', {
+        //           // 'class': {
+        //           //   'demo-badge': true
+        //           // },
+        //           // style: {
+        //           //   width: '30px',
+        //           //   height: '30px',
+        //           //   background: '#eee',
+        //           //   'border-radius': '6px',
+        //           //   display: 'inline-block'
+        //           // }
+        //           props: {
+        //             type: 'chatbox',
+        //             size: '32px'
+        //           }
+        //         })
+        //       ]),
+        //       // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+        //       // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
               
-            ]),
+        //     ]),
 
-            h('Poptip', {
-              props: {
-                trigger: 'hover',
+        //     h('Poptip', {
+        //       props: {
+        //         trigger: 'hover',
                 
-              }
-            },
-            [
-              h('div',{
-                slot: 'content'
+        //       }
+        //     },
+        //     [
+        //       h('div',{
+        //         slot: 'content'
                   
                 
-              },[
-                myClaims
-              ]),
-              h('Badge', {
-                props: {
-                  count: claimsArr.length
-                },
-                style: {
-                  display: claimsArr.length > 0 ? '' : 'none'
-                }
-              }, [
-                h('Icon', {
+        //       },[
+        //         myClaims
+        //       ]),
+        //       h('Badge', {
+        //         props: {
+        //           count: claimsArr.length
+        //         },
+        //         style: {
+        //           display: claimsArr.length > 0 ? '' : 'none'
+        //         }
+        //       }, [
+        //         h('Icon', {
                   
-                  props: {
-                    type: 'android-notifications',
+        //           props: {
+        //             type: 'android-notifications',
                     
-                  },
-                  style: {
-                    marginLeft: '20px'
-                  }
-                })
-              ]),
-              // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
-              // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
+        //           },
+        //           style: {
+        //             marginLeft: '20px'
+        //           }
+        //         })
+        //       ]),
+        //       // TODO сюда можно прилепить ссылку (назначить мастера) чтоб она была прям в интерфейсе общего грида
+        //       // TODO + tooltip для мастера чтобы посомтреть кто он вобще сразу
               
-            ])
+        //     ])
 
-          ])}
-        },
+        //   ])}
+        // },
         {
           title: '',
           key: 'action',
@@ -252,7 +246,7 @@ export default {
                 props: {
                   type: 'success',
                   size: 'large',
-                  disabled: params.row.payed ? true : false,
+                  disabled: params.row.payIsPayed ? true : false,
                   icon: 'social-usd'
                 },
                 style: {
@@ -285,7 +279,7 @@ export default {
                 props: {
                   type: 'primary',
                   size: 'large',
-                  disabled: params.row.artasian ? true : false,
+                  disabled: params.row.masterKsId ? true : false,
                   icon: 'person-add'
                 },
                 style: {
@@ -295,7 +289,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.artasianThis(params.row._id)
+                    this.artasianThis(params.row._id, params.row.customerAddress)
                   }
                 }
               }),
@@ -303,7 +297,7 @@ export default {
                 props: {
                   type: 'error',
                   size: 'large',
-                  disabled: params.row.payed ? true : false,
+                  disabled: params.row.payIsPayed ? true : false,
                   icon: 'trash-a'
                 },
                 style: {
@@ -359,6 +353,10 @@ export default {
             .get('/api/getallorders')
             .then(r => { this.orders = r.data })
             
+        }).
+        then(() =>{
+          this.orderIdForArtasianModal = '';
+          this.choosenArtasian = '';
         })
         .catch(err => { console.log(err) })
     },
@@ -398,43 +396,40 @@ export default {
         )
         .catch(err => console.log(err))
     },
-    artasianThis: function (id) {
+    artasianThis: function (id,address) {
       this.openNewArtasianModal = true;
       this.orderIdForArtasianModal = id;
+        
+      this.relatedOrdersForModal = this.orders.filter((item) => {
+        
+        
+        
+        return item.address === address && item._id !== id
+      })
+
+      console.log(this.relatedOrdersForModal)
+
     },
     closeModal: function () {
       this.orderIdForArtasianModal = '';
       this.choosenArtasian = '';
       this.openNewArtasianModal = false;
+      relatedOrdersForModal = [];
     }
   },
   beforeMount: function beforeMount() {
-    const getUserUrl = '/api/getuser';
-    let _this = this;
-      axios
-        .get(getUserUrl)
-        .then( function (response) {
-            if (response.data.role === 'hq') {
-            _this.ishq = true;
-            }
-            
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
-
+    this.ishq = this.$store.state.user.role === 'hq' ? true : false ;
   },
+  
   created: function () {
     axios
       .get('/api/getallorders')
       .then(r => { this.orders = r.data })
       .then(() => {
-        axios
-          .get('/api/getallclaims')
-          .then(r => { 
+        return axios.get('/api/getallclaims')             
+      })
+      .then(r => { 
             this.claims=r.data
-          })
-          .catch(err => {console.log(err)})
       })
       .catch(err => { console.log(err) });
     
@@ -449,12 +444,13 @@ export default {
   computed: {
     computedData: function () {
       return this.orders.filter((order) => {
-        let matchFullname = order.fullname.toLowerCase().includes(this.searchInput.toLowerCase()); 
-        let matchCouponNUmber = order.couponNumber.toLowerCase().includes(this.searchInput.toLowerCase());
-        return matchFullname || matchCouponNUmber;
+        let matchFullname = order.customerFullName.toLowerCase().includes(this.$store.state.filterSearch.toLowerCase()); 
+        let matchCouponNUmber = order.couponNumber.toLowerCase().includes(this.$store.state.filterSearch.toLowerCase());
+        let matchAddress = order.customerAddress.toLowerCase().includes(this.$store.state.filterSearch.toLowerCase());
+        return matchFullname || matchCouponNUmber || matchAddress;
       })
     },
-
+   
   }
 
 }
